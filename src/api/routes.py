@@ -16,7 +16,7 @@ members = AllTheUsers()
 
 @api.route('/newUser', methods=['POST'])
 def a_new_user():
-    request_body: request.json
+    request_body= request.json
     if "first_name" not in request_body or request_body["first_name"] is None or request_body["first_name"] == "" :
         return jsonify({"message": "Data error"})
     
