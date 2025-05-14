@@ -6,33 +6,82 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
+from bcrypt import gensalt
+
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
 
-members = AllTheUsers()
 
 @api.route('/newUser', methods=['POST'])
 def a_new_user():
-    request_body= request.json
-    if "first_name" not in request_body or request_body["first_name"] is None or request_body["first_name"] == "" :
-        return jsonify({"message": "Data error"})
-    
-    elif "last_name" not in request_body or request_body["last_name"] is None or request_body["last_name"] == "" :
-        return jsonify({"message": "Data error"})
-        
-    elif "email" not in request_body or request_body["email"] is None or request_body["email"] == "" :
-        return jsonify({"message": "Data error"})
-    
-    elif "phone" not in request_body or request_body["phone"] is None or request_body["phone"] == "" :
-        return jsonify({"message": "Data error"})
-    
-    elif "password" not in request_body or request_body["password"] is None or request_body["password"] == "" :
-        return jsonify({"message": "Data error"})
-    
-    else:
-        new_member = members.append(request_body)
+    data = request.json
 
-        return jsonify(new_member), 201
+    # Verificar que nos envien todos los datos
+    required_fields = ["email", "password", "phone", "first_name", "last_name"]
+    if not all(data.get(field) for field in required_fields):
+        return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name"}), 400
+
+    # Verificar que si el email existe
+    user_exists = db.session.execute(
+        db.select(User).filter_by(email=data["email"])).scalar_one_or_none()
+    if user_exists is not None:
+        return jsonify({"message": "Can't create new user"}), 400
+
+    password = data.get("password")
+    salt = str(gensalt(), encoding='utf-8')
+    password_hash = generate_password_hash(salt + password)
+
+    user = User(
+        email=data["email"],
+        phone=data["phone"],
+        first_name=data["first_name"],
+        last_name=data["last_name"],
+        is_active=True,
+        password=password_hash,
+        salt=salt
+    )
+
+    db.session.add(user)
+
+    try:
+        db.session.commit()
+    except Exception as error:
+        print(error)
+        db.session.rollback()
+        return jsonify({"message": "Internal server error"}), 500
+    return jsonify({
+        "user": user.serialize()
+    }), 201
+
+
+@api.route('/login', methods=['POST'])
+def login():
+    data = request.json
+
+    # Verificar que nos envien todos los datos
+    required_fields = ["email", "password", "phone"]
+    if not all(data.get(field) for field in required_fields):
+        return jsonify({"message": "All fields are required: email, password, phone"}), 400
+
+    # Verificar que si el email existe
+    user = db.session.execute(
+        db.select(User).filter_by(email=data["email"])).scalar_one_or_none()
+    if user is None:
+        return jsonify({"message": "Can't login"}), 400
+
+    salt = user.salt
+    login_password = data["password"]
+
+    # hashear contraseña
+    password_is_valid = check_password_hash(
+        user.password_hash, salt + login_password)
+    # verificar que la contraseña coincida
+    if password_is_valid == False:
+        return jsonify({"message": "invalid credentials"}), 400
+    token = create_access_token(identity=str(user.id))
+    return jsonify({"token": token}), 201

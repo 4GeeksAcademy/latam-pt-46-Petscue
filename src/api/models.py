@@ -21,7 +21,7 @@ class Favorite(db.Model):
 
 class User(db.Model):
     __tablename__ = "users"
-    
+
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str] = mapped_column(String(100), nullable=False)
     last_name: Mapped[str] = mapped_column(String(120), nullable=False)
@@ -29,17 +29,26 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
+    salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
     # Favorite relationship
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
+    def __init__(self, email, password, salt, phone):
+        self.email = email
+        self.password_hash = password
+        self.salt = salt
+        self.phone = phone
+        self.is_active = True
+
     def serialize(self):
         return {
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
+            "is_active": self.is_active,
             "phone": self.phone,
             "email": self.email,
         }
