@@ -65,9 +65,9 @@ def login():
     data = request.json
 
     # Verificar que nos envien todos los datos
-    required_fields = ["email", "password", "phone"]
+    required_fields = ["email", "password"]
     if not all(data.get(field) for field in required_fields):
-        return jsonify({"message": "All fields are required: email, password, phone"}), 400
+        return jsonify({"message": "All fields are required: email, password"}), 400
 
     # Verificar que si el email existe
     user = db.session.execute(
