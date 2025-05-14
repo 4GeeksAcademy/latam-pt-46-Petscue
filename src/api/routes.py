@@ -32,6 +32,7 @@ def a_new_user():
     if user_exists is not None:
         return jsonify({"message": "Can't create new user"}), 400
 
+    # hashear la contraseña
     password = data.get("password")
     salt = str(gensalt(), encoding='utf-8')
     password_hash = generate_password_hash(salt + password)
