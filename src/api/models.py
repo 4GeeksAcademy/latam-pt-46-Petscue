@@ -4,15 +4,36 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 db = SQLAlchemy()
 
+
+class Favorite(db.Model):
+    __tablename__ = "favorites"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        db.ForeignKey("users.id"), nullable=False)
+    animal_id: Mapped[int] = mapped_column(
+        db.ForeignKey("animals.id"), nullable=False)
+
+    # user relationship
+    user = db.relationship("User", back_populates="favorites")
+    animal = db.relationship("Animal", back_populates="favorites")
+
+
 class User(db.Model):
+    __tablename__ = "users"
+    
     id: Mapped[int] = mapped_column(primary_key=True)
     first_name: Mapped[str] = mapped_column(String(100), nullable=False)
     last_name: Mapped[str] = mapped_column(String(120), nullable=False)
-    phone: Mapped[int] = mapped_column(Integer, nullable= False)
-    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    phone: Mapped[str] = mapped_column(String(20), nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
+    # Favorite relationship
+    favorites = db.relationship(
+        "Favorite", back_populates="user", cascade="all, delete-orphan")
 
     def serialize(self):
         return {
@@ -21,6 +42,31 @@ class User(db.Model):
             "last_name": self.last_name,
             "phone": self.phone,
             "email": self.email,
+        }
 
-            # do not serialize the password, its a security breach
+
+class Animal(db.Model):
+    __tablename__ = "animals"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    age: Mapped[int] = mapped_column(nullable=False)
+    animal_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    race: Mapped[str] = mapped_column(String(50), nullable=False)
+    photo: Mapped[str] = mapped_column(String(500),)
+    color: Mapped[str] = mapped_column(String(50), nullable=False)
+    vaccines: Mapped[str] = mapped_column(String(500), nullable=True)
+
+    favorites = db.relationship("Favorite", back_populates="animal")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "animal_type": self.animal_type,
+            "race": self.race,
+            "photo": self.photo,
+            "color": self.color,
+            "vaccines": self.vaccines,
         }
