@@ -3,7 +3,7 @@ import { newUser } from "../Apiparts/createUser";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useState } from "react";
 
-export const create = () =>{
+export const CreateUser = () =>{
     const {dispatch} = useGlobalReducer
     const {navigate} = useNavigate
     const [useUser, setUser] = useState({
