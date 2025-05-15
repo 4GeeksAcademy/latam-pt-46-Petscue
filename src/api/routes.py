@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, UserRole
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
@@ -22,9 +22,14 @@ def a_new_user():
     data = request.json
 
     # Verificar que nos envien todos los datos
-    required_fields = ["email", "password", "phone", "first_name", "last_name"]
+    required_fields = ["email", "password", "phone", "first_name", "last_name", "role"]
     if not all(data.get(field) for field in required_fields):
-        return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name"}), 400
+        return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name, role"}), 400
+    
+    role_str = data.get("role", "").lower()
+    if role_str not in UserRole._value2member_map_:
+        return jsonify({"message": "Invalid role. Must be 'admin', 'adopter', or 'rescuer'."}), 400
+
 
     # Verificar que si el email existe
     user_exists = db.session.execute(
@@ -44,7 +49,8 @@ def a_new_user():
         last_name=data["last_name"],
         is_active=True,
         password=password_hash,
-        salt=salt
+        salt=salt,
+        role=UserRole(role_str)
     )
 
     db.session.add(user)
@@ -84,5 +90,5 @@ def login():
     # verificar que la contraseña coincida
     if password_is_valid == False:
         return jsonify({"message": "invalid credentials"}), 400
-    token = create_access_token(identity=str(user.id))
+    token = create_access_token(identity={"id": user.id, "role": user.role.value})
     return jsonify({"token": token}), 201

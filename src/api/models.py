@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import String, Boolean, Integer
+from sqlalchemy import String, Boolean, Integer, Enum
 from sqlalchemy.orm import Mapped, mapped_column
+import enum
+
 
 db = SQLAlchemy()
 
@@ -18,6 +20,11 @@ class Favorite(db.Model):
     user = db.relationship("User", back_populates="favorites")
     animal = db.relationship("Animal", back_populates="favorites")
 
+class UserRole(enum.Enum):
+    ADMIN = "admin"
+    ADOPTER = "adopter"
+    RESCUER = "rescuer"
+
 
 class User(db.Model):
     __tablename__ = "users"
@@ -32,15 +39,19 @@ class User(db.Model):
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
+    #rol de usuario
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole, name="userrole"), nullable=False)
+
     # Favorite relationship
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
-    def __init__(self, email, password, salt, phone):
+    def __init__(self, email, password, salt, phone, role):
         self.email = email
         self.password_hash = password
         self.salt = salt
         self.phone = phone
+        self.role = role
         self.is_active = True
 
     def serialize(self):
@@ -51,6 +62,7 @@ class User(db.Model):
             "is_active": self.is_active,
             "phone": self.phone,
             "email": self.email,
+            "role": self.role.value
         }
 
 
