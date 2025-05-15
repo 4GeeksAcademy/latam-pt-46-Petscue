@@ -9,6 +9,8 @@ from api.dataStructure import AllTheUsers
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from bcrypt import gensalt
+from datetime import datetime
+
 
 
 api = Blueprint('api', __name__)
@@ -43,6 +45,7 @@ def a_new_user():
         first_name=data["first_name"],
         last_name=data["last_name"],
         is_active=True,
+        start_date= datetime.utcnow(), 
         password=password_hash,
         salt=salt
     )

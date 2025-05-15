@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Boolean, Integer
 from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -31,17 +32,19 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
+    start_date: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # Favorite relationship
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
-    def __init__(self, email, password, salt, phone):
+    def __init__(self, email, password, salt, phone, start_date):
         self.email = email
         self.password_hash = password
         self.salt = salt
         self.phone = phone
         self.is_active = True
+        self.start_date= start_date
 
     def serialize(self):
         return {
