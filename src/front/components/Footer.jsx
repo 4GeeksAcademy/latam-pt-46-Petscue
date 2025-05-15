@@ -1,11 +1,32 @@
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
-		<p>
-			Check the <a target="_blank" href="https://4geeks.com/docs/start/react-flask-template">template documentation</a> <i className="fa-solid fa-file"></i> for help.
-		</p>
-		<p>
-			Made with <i className="fa fa-heart text-danger" /> by{" "}
-			<a href="http://www.4geeksacademy.com">4Geeks Academy</a>
-		</p>
+		<div className="container">
+			<div className="row">
+				<div className="col-md-4 text-center text-md-left">
+					<h5 className="mb-3">Petscue</h5>
+					<p>Plataforma de adopción de animales</p>
+				</div>
+				<div className="col-md-4 my-3 my-md-0">
+					<ul className="nav justify-content-center">
+
+						<li className="nav-item">
+							<a href="#" className="nav-link text-white">
+								Contacto
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="#" className="nav-link text-white">
+								Terminos y condiciones
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div className="col-md-4 text-center text-md-right">
+					<p className="mb-0">
+						© {new Date().getFullYear()} Petscue. Todos los derechos reservados.
+					</p>
+				</div>
+			</div>
+		</div>
 	</footer>
 );
