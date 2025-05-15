@@ -35,17 +35,24 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1 className="">Bienvenido a Petscue! 🐾</h1>
-			<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
+			<div className="row">
+				<div className="mb-4 col-6">
+					<img src="/perrito.png" className="img-fluid rounded shadow" />
+				</div>
+				<div className="mb-4 col-6">
+				<h1 className="">Bienvenido a Petscue! 🐾</h1>
+				<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
+				</div>
+			</div>
 			<div className="row ">
 
-				<div className="col-12 col-md-6 col-lg-4">
+				<div className="col-3">
 					<AnimalCard />
 					<AnimalCard />
 					<AnimalCard />
 
-			
-</div>
+
+				</div>
 			</div>
 
 		</div>
