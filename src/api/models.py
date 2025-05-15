@@ -20,6 +20,7 @@ class Favorite(db.Model):
     user = db.relationship("User", back_populates="favorites")
     animal = db.relationship("Animal", back_populates="favorites")
 
+
 class UserRole(enum.Enum):
     ADMIN = "admin"
     ADOPTER = "adopter"
@@ -35,12 +36,13 @@ class User(db.Model):
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(nullable=False)
+    password_hash: Mapped[str] = mapped_column(nullable=False)
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
-    #rol de usuario
-    role: Mapped[UserRole] = mapped_column(Enum(UserRole, name="userrole"), nullable=False)
+    # rol de usuario
+    role: Mapped[UserRole] = mapped_column(
+        Enum(UserRole, name="userrole"), nullable=False)
 
     # Favorite relationship
     favorites = db.relationship(
