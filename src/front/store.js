@@ -1,5 +1,6 @@
 export const initialStore = () => {
   return {
+    users: [],
     token: localStorage.getItem("token") || "",
     user: null,
   };
@@ -7,6 +8,12 @@ export const initialStore = () => {
 
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
+    case "LOGUP":
+      return{
+        ...store,
+        users: [...store.users, action.payload]
+
+      }
     case "LOGIN":
       return {
         ...store,
