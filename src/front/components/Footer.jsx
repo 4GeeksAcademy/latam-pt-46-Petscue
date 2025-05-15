@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => (
-	<footer className="footer mt-auto py-3 text-center">
+	<footer className="footer mt-auto mb-0 py-3 text-center bg-dark text-white">
 		<div className="container">
 			<div className="row">
 				<div className="col-md-4 text-center text-md-left">
