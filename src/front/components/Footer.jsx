@@ -10,14 +10,14 @@ export const Footer = () => (
 					<ul className="nav justify-content-center">
 
 						<li className="nav-item">
-							<a href="#" className="nav-link text-white">
+							<Link to="/" className="nav-link text-white">
 								Contacto
-							</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="#" className="nav-link text-white">
+						<Link to="/" className="nav-link text-white">
 								Terminos y condiciones
-							</a>
+							</Link>
 						</li>
 					</ul>
 				</div>
