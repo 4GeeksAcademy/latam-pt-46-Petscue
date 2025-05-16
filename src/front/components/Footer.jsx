@@ -1,33 +1,34 @@
 import { Link } from "react-router-dom";
 
 export const Footer = () => (
-	<footer className="footer mt-auto mb-0 py-3 text-center bg-dark text-white">
+	<footer className="footer mt-auto mb-0 py-5 text-center footer text-white">
 		<div className="container">
-			<div className="row">
-				<div className="col-md-4 text-center text-md-left">
-					<h5 className="mb-3">Petscue</h5>
+			<div className="row align-items-center">
+				<div className="col-md-6 text-center text-md-left">
+					<Link to="/">
+						<img src="/petscue.png" alt="petscue-logo" width="350" />
+					</Link>
 					<p>Plataforma de adopción de animales</p>
 				</div>
-				<div className="col-md-4 my-3 my-md-0">
-					<ul className="nav justify-content-center">
 
-						<li className="nav-item">
-							<Link to="/" className="nav-link text-white">
-								Contacto
-							</Link>
-						</li>
-						<li className="nav-item">
-						<Link to="/" className="nav-link text-white">
-								Terminos y condiciones
-							</Link>
-						</li>
-					</ul>
+				<div className="col-md-6 text-md-left d-flex flex-column">
+					<Link to="/login" className="text-decoration-none text-white" >
+						Accede a tu Cuenta
+					</Link>
+					<Link to="/register" className="text-decoration-none text-white">
+						Registrate
+					</Link>
+					<Link to="/terms-and-conditions" className="text-decoration-none text-white">
+						Terminos y condiciones
+					</Link>
 				</div>
-				<div className="col-md-4 text-center text-md-right">
-					<p className="mb-0">
-						© {new Date().getFullYear()} Petscue. Todos los derechos reservados.
-					</p>
-				</div>
+			</div>
+
+
+			<div className=" text-center text-md-right">
+				<p className="mb-0">
+					© {new Date().getFullYear()} Petscue. Todos los derechos reservados.
+				</p>
 			</div>
 		</div>
 	</footer>
