@@ -126,3 +126,29 @@ def login():
     token = create_access_token(
         identity={"id": user.id, "role": user.role.value})
     return jsonify({"token": token}), 201
+
+# rescatistas para guardar animalitos en la db
+
+
+@api.route('/animals', methods=['POST'])
+@jwt_required()  
+def create_animal():
+    data = request.json
+    current_user_id = get_jwt_identity()  
+    user = User.query.get(current_user_id)
+    if not user or user.role.value != 'rescuer':
+        return jsonify({"msg": "No estas autorizado para realizar esta accion de subir animalitos a la plataforma"}), 403
+
+    animal = Animal(
+        name=data['name'],
+        age=data['age'],
+        animal_type=data['animal_type'],
+        race=data['race'],
+        photo=data.get('photo'),
+        color=data['color'],
+        vaccines=data.get('vaccines'),
+        rescuer_id=current_user_id
+    )
+    db.session.add(animal)
+    db.session.commit()
+    return jsonify(animal.serialize()), 201 

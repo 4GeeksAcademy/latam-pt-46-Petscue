@@ -51,6 +51,9 @@ class User(db.Model):
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
+    #relacio de rescatistas con animalitos    
+    animals = db.relationship("Animal", back_populates="rescuer", cascade="all, delete-orphan")
+
     def __init__(self, email, password, salt, phone, role, start_date):
         self.email = email
         self.password_hash = password
@@ -87,6 +90,12 @@ class Animal(db.Model):
 
     favorites = db.relationship("Favorite", back_populates="animal")
 
+    #para relacionar animalitos con rescatistas
+    rescuer_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    rescuer = db.relationship("User")
+    
+
+
     def serialize(self):
         return {
             "id": self.id,
@@ -97,4 +106,5 @@ class Animal(db.Model):
             "photo": self.photo,
             "color": self.color,
             "vaccines": self.vaccines,
+            "rescuer_id": self.rescuer_id, #el id del rescatista que lo trajo
         }
