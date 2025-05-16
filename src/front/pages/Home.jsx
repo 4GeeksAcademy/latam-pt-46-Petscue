@@ -38,10 +38,10 @@ export const Home = () => {
 		<div className="container mt-5">
 			{/* Hero Section */}
 			<div className="row">
-				<div className="mb-4 col-6">
-					<img src="/perrito.png" className="img-fluid rounded shadow" />
+				<div className="mb-4 col-4 ">
+					<img src="/perrito.png" className="img-fluid" width="600"/>
 				</div>
-				<div className="mb-4 col-6">
+				<div className="mb-4 col-8 d-flex flex-column justify-content-center align-items-center">
 					<h1 className="">Bienvenido a Petscue! 🐾</h1>
 					<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
 				</div>
@@ -67,8 +67,8 @@ export const Home = () => {
 				<div className="col-lg-4 col-md-6 mb-4">
 					<div className="card border-0 shadow h-100">
 						<div className="card-body">
-							<h5 className="card-title">Historias de Éxito</h5>
-							<p className="card-text">Explora historias inspiradoras de adopciones exitosas en nuestra comunidad.</p>
+							<h5 className="card-title">Navegacion Pensada en ti</h5>
+							<p className="card-text">Explora los animales disponibles para llevarte a casa en una interfaz de usuario pensada para tu comodidad que te ayudara ea encontrar a tu nuevo mejor amigo.</p>
 						</div>
 					</div>
 				</div>
