@@ -78,8 +78,8 @@ export const CreateUser = () => {
                         </div>
                         <div className="justify-content-end">
                             <label>Rol</label>
-                            <select className="form-select">
-                                <option selected>Selecciona un rol</option>
+                            <select className="form-select" defaultValue={"Selecciona un rol"}>
+                                <option>Selecciona un rol</option>
                                 <option value="admin">Administrador</option>
                                 <option value="adopter">Adoptante</option>
                                 <option value="rescue">Rescatista</option>
