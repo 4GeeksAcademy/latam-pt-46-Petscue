@@ -35,7 +35,6 @@ def role_required(*allowed_roles):
 
 
 @api.route('/newUser', methods=['POST'])
-@role_required('admin', 'rescuer', 'adopter')
 def a_new_user():
     data = request.json
 
@@ -49,17 +48,14 @@ def a_new_user():
     if role_str not in UserRole._value2member_map_:
         return jsonify({"message": "Invalid role. Must be 'admin', 'adopter', or 'rescuer'."}), 400
 
-    # Obtener rol del usuario que hizo la petición
-    claims = get_jwt()
-    current_user_role = claims.get("role")
-
     # Validar que sólo el admin pueda crear usuarios con rol admin
-    if role_str == "admin" and current_user_role != "admin":
+    role_str = data.get("role", "").lower()
+    if role_str == "admin":
         return jsonify({"message": "Only admins can create users with admin role"}), 403
 
     # Si el usuario no es admin y quiere crear un rol diferente a adopter o rescuer
-    if current_user_role != "admin" and role_str not in ("adopter", "rescuer"):
-        return jsonify({"message": "You can only create users with adopter or rescuer roles"}), 403
+    if role_str not in ("adopter", "rescuer"):
+        return jsonify({"message": "You can only register as adopter or rescuer"}), 403
 
     # Verificar que si el email existe
     user_exists = db.session.execute(
@@ -77,11 +73,11 @@ def a_new_user():
         phone=data["phone"],
         first_name=data["first_name"],
         last_name=data["last_name"],
-        is_active=True,
         password_hash=password_hash,
         salt=salt,
         role=UserRole(role_str),
-        start_date=datetime.utcnow()
+        start_date=datetime.utcnow(),
+        is_active=True
     )
 
     db.session.add(user)
@@ -131,10 +127,10 @@ def login():
 
 
 @api.route('/animals', methods=['POST'])
-@jwt_required()  
+@jwt_required()
 def create_animal():
     data = request.json
-    current_user_id = get_jwt_identity()  
+    current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     if not user or user.role.value != 'rescuer':
         return jsonify({"msg": "No estas autorizado para realizar esta accion de subir animalitos a la plataforma"}), 403
@@ -151,4 +147,4 @@ def create_animal():
     )
     db.session.add(animal)
     db.session.commit()
-    return jsonify(animal.serialize()), 201 
+    return jsonify(animal.serialize()), 201

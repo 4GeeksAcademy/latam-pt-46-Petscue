@@ -40,7 +40,8 @@ class User(db.Model):
         String(120), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
+    is_active: Mapped[bool] = mapped_column(
+        Boolean(), nullable=False, default=True)
     start_date: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # rol de usuario
@@ -51,17 +52,20 @@ class User(db.Model):
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
-    #relacio de rescatistas con animalitos    
-    animals = db.relationship("Animal", back_populates="rescuer", cascade="all, delete-orphan")
+    # relacio de rescatistas con animalitos
+    animals = db.relationship(
+        "Animal", back_populates="rescuer", cascade="all, delete-orphan")
 
-    def __init__(self, email, password, salt, phone, role, start_date):
+    def __init__(self, email, password_hash, salt, phone, role, start_date, first_name, last_name, is_active):
         self.email = email
-        self.password_hash = password
+        self.password_hash = password_hash
         self.salt = salt
         self.phone = phone
         self.role = role
-        self.is_active = True
         self.start_date = start_date
+        self.first_name = first_name
+        self.last_name = last_name
+        self.is_active = is_active
 
     def serialize(self):
         return {
@@ -72,7 +76,7 @@ class User(db.Model):
             "phone": self.phone,
             "email": self.email,
             "role": self.role.value,
-            "start_date": self.created_at.isoformat() if self.created_at else None,
+            "start_date": self.start_date.isoformat() if self.start_date else None,
         }
 
 
@@ -90,11 +94,10 @@ class Animal(db.Model):
 
     favorites = db.relationship("Favorite", back_populates="animal")
 
-    #para relacionar animalitos con rescatistas
-    rescuer_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    # para relacionar animalitos con rescatistas
+    rescuer_id: Mapped[int] = mapped_column(
+        db.ForeignKey("users.id"), nullable=False)
     rescuer = db.relationship("User")
-    
-
 
     def serialize(self):
         return {
@@ -106,5 +109,5 @@ class Animal(db.Model):
             "photo": self.photo,
             "color": self.color,
             "vaccines": self.vaccines,
-            "rescuer_id": self.rescuer_id, #el id del rescatista que lo trajo
+            "rescuer_id": self.rescuer_id,  # el id del rescatista que lo trajo
         }
