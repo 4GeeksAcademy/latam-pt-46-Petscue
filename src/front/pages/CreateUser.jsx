@@ -21,7 +21,8 @@ export const CreateUser = () => {
             setMessage("Registro exitoso, por favor inicie sesión.");
             setTimeout(() => navigate("/"), 1500);
         } catch (error) {
-            alert("Error al registrarse: " + error.message);
+            const errorMsg = error?.response?.data?.message || error.message || "Error desconocido";
+            setMessage("Error al registrarse: " + errorMsg);
         }
     }
 
@@ -96,6 +97,7 @@ export const CreateUser = () => {
                             <Link to="/" style={{ color: "rgb(175,275,0)" }}>Volver</Link>
                         </div>
                     </div>
+                    {message && <div className="alert alert-info mt-3">{message}</div>}
                 </form >
             </div>
         </div >
