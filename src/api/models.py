@@ -6,7 +6,6 @@ from sqlalchemy import DateTime
 from datetime import datetime
 
 
-
 db = SQLAlchemy()
 
 
@@ -42,7 +41,7 @@ class User(db.Model):
     password_hash: Mapped[str] = mapped_column(nullable=False)
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-    start_date: Mapped[datetime]= mapped_column(default=datetime.utcnow)
+    start_date: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # rol de usuario
     role: Mapped[UserRole] = mapped_column(
@@ -60,7 +59,6 @@ class User(db.Model):
         self.role = role
         self.is_active = True
         self.start_date = start_date
-
 
     def serialize(self):
         return {
