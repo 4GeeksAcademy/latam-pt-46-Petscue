@@ -46,6 +46,9 @@ p {
   background:#345E7A;
 }
 
+.card{
+  background: #FFF4ED;
+}
 .signup-body {
   background-color: #2e2e2e;
   min-height: 45rem;

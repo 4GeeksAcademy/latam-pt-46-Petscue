@@ -40,19 +40,14 @@ export const Home = () => {
 					<img src="/perrito.png" className="img-fluid rounded shadow" />
 				</div>
 				<div className="mb-4 col-6">
-				<h1 className="">Bienvenido a Petscue! 🐾</h1>
-				<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
+					<h1 className="">Bienvenido a Petscue! 🐾</h1>
+					<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
 				</div>
 			</div>
-			<div className="row ">
-
-				<div className="col-3">
-					<AnimalCard />
-					<AnimalCard />
-					<AnimalCard />
-
-
-				</div>
+			<div className="row gap-3 d-flex justify-content-center pb-5">
+				<AnimalCard />
+				<AnimalCard />
+				<AnimalCard />
 			</div>
 
 		</div>
