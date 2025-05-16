@@ -9,7 +9,7 @@ export const Navbar = () => {
 					<img src="/petscue.png" alt="petscue-logo" width="200" />
 				</Link>
 				<div className="ml-auto gap-3 d-flex align-items-center">
-					<Link to="/login" className="nav-bar-link" >
+					<Link to="/login" className="nav-bar-link m-auto" >
 						Accede a tu Cuenta
 					</Link>
 					<Link to="/register" className="">
