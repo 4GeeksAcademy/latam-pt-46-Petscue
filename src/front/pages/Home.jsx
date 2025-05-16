@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { AnimalCard } from "../components/AnimalCard.jsx";
+import { HomepageAnimalFilters } from "../components/HomepageAnimalFilters.jsx";
 
 export const Home = () => {
 
@@ -34,7 +35,8 @@ export const Home = () => {
 	}, [])
 
 	return (
-		<div className="text-center mt-5">
+		<div className="container mt-5">
+			{/* Hero Section */}
 			<div className="row">
 				<div className="mb-4 col-6">
 					<img src="/perrito.png" className="img-fluid rounded shadow" />
@@ -44,12 +46,47 @@ export const Home = () => {
 					<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
 				</div>
 			</div>
+			{/* seccion de caracteristicas de Petscue*/}
+			<div className="row justify-content-center text-center mb-5">
+				<div className="col-lg-4 col-md-6 mb-4">
+					<div className="card border-0 shadow h-100">
+						<div className="card-body">
+							<h5 className="card-title">Fácil de Usar</h5>
+							<p className="card-text">Publica y encuentra animales fácilmente con nuestra intuitiva interfaz.</p>
+						</div>
+					</div>
+				</div>
+				<div className="col-lg-4 col-md-6 mb-4">
+					<div className="card border-0 shadow h-100">
+						<div className="card-body">
+							<h5 className="card-title">Conexión Segura</h5>
+							<p className="card-text">Nos aseguramos de que cada conexión entre adoptantes y animales sea segura y confiable.</p>
+						</div>
+					</div>
+				</div>
+				<div className="col-lg-4 col-md-6 mb-4">
+					<div className="card border-0 shadow h-100">
+						<div className="card-body">
+							<h5 className="card-title">Historias de Éxito</h5>
+							<p className="card-text">Explora historias inspiradoras de adopciones exitosas en nuestra comunidad.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			{/* Seccion de cartas de los animalitos*/}
+			<div className=" d-flex justify-content-around">
+				<h2 className="mb-4 text-center">Nuestros Animales</h2>
+				<HomepageAnimalFilters />
+			</div>
+
 			<div className="row gap-3 d-flex justify-content-center pb-5">
 				<AnimalCard />
 				<AnimalCard />
 				<AnimalCard />
 			</div>
-
 		</div>
 	);
 }; 
