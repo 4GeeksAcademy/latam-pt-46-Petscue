@@ -11,6 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bcrypt import gensalt
 from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
+from datetime import datetime
 
 
 api = Blueprint('api', __name__)
@@ -79,7 +80,8 @@ def a_new_user():
         is_active=True,
         password_hash=password_hash,
         salt=salt,
-        role=UserRole(role_str)
+        role=UserRole(role_str),
+        start_date=datetime.utcnow()
     )
 
     db.session.add(user)

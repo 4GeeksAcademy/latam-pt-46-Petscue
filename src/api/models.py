@@ -2,6 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Boolean, Integer, Enum
 from sqlalchemy.orm import Mapped, mapped_column
 import enum
+from sqlalchemy import DateTime
+from datetime import datetime
+
 
 
 db = SQLAlchemy()
@@ -39,6 +42,7 @@ class User(db.Model):
     password_hash: Mapped[str] = mapped_column(nullable=False)
     salt: Mapped[str] = mapped_column(String(500), nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
+    start_date: Mapped[datetime]= mapped_column(default=datetime.utcnow)
 
     # rol de usuario
     role: Mapped[UserRole] = mapped_column(
@@ -48,13 +52,15 @@ class User(db.Model):
     favorites = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
-    def __init__(self, email, password, salt, phone, role):
+    def __init__(self, email, password, salt, phone, role, start_date):
         self.email = email
         self.password_hash = password
         self.salt = salt
         self.phone = phone
         self.role = role
         self.is_active = True
+        self.start_date = start_date
+
 
     def serialize(self):
         return {
@@ -64,7 +70,8 @@ class User(db.Model):
             "is_active": self.is_active,
             "phone": self.phone,
             "email": self.email,
-            "role": self.role.value
+            "role": self.role.value,
+            "start_date": self.created_at.isoformat() if self.created_at else None,
         }
 
 
