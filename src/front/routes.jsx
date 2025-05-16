@@ -11,6 +11,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import  {CreateUser}  from "./pages/CreateUser";
 import { Login} from "./pages/Login";
+import { TermsAndConditions } from "./components/TermsAndConditions";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
         <Route path="/demo" element={<Demo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<CreateUser />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
       </Route>
     )
