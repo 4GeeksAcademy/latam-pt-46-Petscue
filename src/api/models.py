@@ -26,6 +26,7 @@ class Favorite(db.Model):
 class UserRole(enum.Enum):
     ADMIN = "admin"
     ADOPTER = "adopter"
+    OWNER = "owner"
     RESCUER = "rescuer"
 
 
