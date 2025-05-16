@@ -88,6 +88,7 @@ export const CreateUser = () => {
                                 <option value="">Selecciona un rol</option>
                                 <option value="admin">Administrador</option>
                                 <option value="adopter">Adoptante</option>
+                                <option value="owner">Dueño</option>
                                 <option value="rescuer">Rescatista</option>
                             </select>
                         </div>
