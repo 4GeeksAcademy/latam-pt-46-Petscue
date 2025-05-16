@@ -11,7 +11,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import  {CreateUser}  from "./pages/CreateUser";
 import { Login} from "./pages/Login";
-import { TermsAndConditions } from "./components/TermsAndConditions";
+import { TermsAndConditions } from "./pages/TermsAndConditions";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
