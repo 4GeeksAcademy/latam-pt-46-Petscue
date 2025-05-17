@@ -42,8 +42,8 @@ export const Formulario = () => {
         <div className="signup-left">
           <h1 className="signup-title-orange">Happiness</h1>
           <h2 className="signup-title-bold">starts here</h2>
-          <div className="signup-image-placeholder">
-            <img src="/perrito.png" className="img-fluid" />
+          <div className=" ">
+            <img src="/doggy.png" className="img-fluid" width="450"/>
           </div>
         </div>
 

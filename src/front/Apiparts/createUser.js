@@ -1,4 +1,4 @@
-const API_URL = "https://silver-rotary-phone-x5p5pq7gxgjr3xx6-3001.app.github.dev/api";
+const API_URL = "https://solid-rotary-phone-66qwwp9g7w25rwx-3001.app.github.dev/api";
 
 export const newUser = async (user) => {
   try {
