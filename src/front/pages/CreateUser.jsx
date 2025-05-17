@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { newUser } from "../Apiparts/createUser";
+import { newUser } from "../services/createUser";
 import { useState } from "react";
 
 export const CreateUser = () => {
