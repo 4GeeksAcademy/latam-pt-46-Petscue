@@ -39,7 +39,8 @@ def role_required(*allowed_roles):
 def a_new_user():
     data = request.json
 
-    # Verificar que nos envien todos los datos
+    # Verify that they send us all the data
+
     required_fields = ["email", "password",
                        "phone", "first_name", "last_name", "role"]
     if not all(data.get(field) for field in required_fields):
@@ -49,21 +50,21 @@ def a_new_user():
     if role_str not in UserRole.__members__:
         return jsonify({"message": "Invalid role. Must be ADMIN, ADOPTER, RESCUER, or OWNER"}), 400
 
-    # Validar que sólo el admin pueda crear usuarios con rol admin
+    # Validate that only the admin can create users with admin role
     if role_str == "ADMIN":
         return jsonify({"message": "Only admins can create users with admin role"}), 403
 
-    # Si el usuario no es admin y quiere crear un rol diferente a adopter o rescuer
+    # If the user is not admin and wants to create a different role to adopt or resign
     if role_str not in ("ADOPTER", "RESCUER", "OWNER"):
         return jsonify({"message": "You can only register as adopter, rescuer or owner"}), 403
 
-    # Verificar que si el email existe
+    # Verify that if the email exists
     user_exists = db.session.execute(
         db.select(User).filter_by(email=data["email"])).scalar_one_or_none()
     if user_exists is not None:
         return jsonify({"message": "Can't create new user"}), 400
 
-    # hashear la contraseña
+    # havehear the password
     password = data.get("password")
     salt = str(gensalt(), encoding='utf-8')
     password_hash = generate_password_hash(salt + password)
@@ -85,8 +86,8 @@ def a_new_user():
     try:
         db.session.commit()
     except Exception as error:
-        print("ERROR AL CREAR USUARIO:")
-        traceback.print_exc()  # Esto imprime toda la traza del error
+        print("ERROR TO CREATE USER:")
+        traceback.print_exc()  # This prints the entire error trace
         db.session.rollback()
         return jsonify({"message": "Internal server error"}), 500
     return jsonify({
@@ -98,12 +99,12 @@ def a_new_user():
 def login():
     data = request.json
 
-    # Verificar que nos envien todos los datos
+    # Verify that they send us all the data
     required_fields = ["email", "password"]
     if not all(data.get(field) for field in required_fields):
         return jsonify({"message": "All fields are required: email, password"}), 400
 
-    # Verificar que si el email existe
+    # Verify that if the email exists
     user = db.session.execute(
         db.select(User).filter_by(email=data["email"])).scalar_one_or_none()
     if user is None:
@@ -112,11 +113,11 @@ def login():
     salt = user.salt
     login_password = data["password"]
 
-    # hashear contraseña
+    # hashear password
     password_is_valid = check_password_hash(
         user.password_hash, salt + login_password)
 
-    # verificar que la contraseña coincida
+    # verify that the password matches
     if not password_is_valid:
         return jsonify({"message": "invalid credentials"}), 400
 
@@ -124,7 +125,7 @@ def login():
         identity={"id": user.id, "role": user.role.value})
     return jsonify({"token": token}), 201
 
-# rescatistas para guardar animalitos en la db
+# rescuers to store animals in the db
 
 
 @api.route('/animals', methods=['POST'])
@@ -156,4 +157,4 @@ def create_animal():
 @role_required('admin', 'adopter', 'rescuer', 'owner')
 def private_route():
     current_user_id = get_jwt_identity()
-    return jsonify(message=f"Acceso concedido al usuario con ID: {current_user_id}"), 200
+    return jsonify(message=f"User access with ID: {current_user_id}"), 200

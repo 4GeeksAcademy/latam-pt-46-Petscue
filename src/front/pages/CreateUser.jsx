@@ -18,11 +18,11 @@ export const CreateUser = () => {
         e.preventDefault()
         try {
             await newUser(useUser)
-            setMessage("Registro exitoso, por favor inicie sesión.");
+            setMessage("Successful registration, please log in.");
             setTimeout(() => navigate("/"), 1500);
         } catch (error) {
             const errorMsg = error?.response?.data?.message || error.message || "Error desconocido";
-            setMessage("Error al registrarse: " + errorMsg);
+            setMessage("Registration error: " + errorMsg);
         }
     }
 
@@ -85,17 +85,17 @@ export const CreateUser = () => {
                                 onChange={(e) => setUser({ ...useUser, role: e.target.value })}
                                 required
                             >
-                                <option value="">Selecciona un rol</option>
-                                <option value="ADMIN">Administrador</option>
-                                <option value="ADOPTER">Adoptante</option>
-                                <option value="OWNER">Dueño</option>
-                                <option value="RESCUER">Rescatista</option>
+                                <option value="">Select a role</option>
+                                <option value="ADMIN">Administrator</option>
+                                <option value="ADOPTER">Adoptant</option>
+                                <option value="OWNER">Owner</option>
+                                <option value="RESCUER">Rescuer</option>
                             </select>
                         </div>
                         <br />
                         <div className="d-flex justify-content-between">
-                            <button type="submit" className="btn btn-warning">Guardar</button>
-                            <Link to="/" style={{ color: "rgb(175,275,0)" }}>Volver</Link>
+                            <button type="submit" className="btn btn-warning">Save</button>
+                            <Link to="/" style={{ color: "rgb(175,275,0)" }}>Back</Link>
                         </div>
                     </div>
                     {message && <div className="alert alert-info mt-3">{message}</div>}

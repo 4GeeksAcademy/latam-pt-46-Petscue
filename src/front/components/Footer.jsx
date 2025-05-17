@@ -8,18 +8,18 @@ export const Footer = () => (
 					<Link to="/">
 						<img src="/petscue.png" alt="petscue-logo" width="350" />
 					</Link>
-					<p>Plataforma de adopción de animales</p>
+					<p>Animal adoption platform</p>
 				</div>
 
 				<div className="col-md-6 text-md-left d-flex flex-column">
 					<Link to="/login" className="text-decoration-none text-white" >
-						Accede a tu Cuenta
+						Access your Account
 					</Link>
 					<Link to="/register" className="text-decoration-none text-white">
-						Registrate
+						Register
 					</Link>
 					<Link to="/terms-and-conditions" className="text-decoration-none text-white">
-						Terminos y condiciones
+						Terms and conditions
 					</Link>
 				</div>
 			</div>
@@ -27,7 +27,7 @@ export const Footer = () => (
 
 			<div className=" text-center text-md-right">
 				<p className="mb-0">
-					© {new Date().getFullYear()} Petscue. Todos los derechos reservados.
+					© {new Date().getFullYear()} Petscue. All rights reserved.
 				</p>
 			</div>
 		</div>
