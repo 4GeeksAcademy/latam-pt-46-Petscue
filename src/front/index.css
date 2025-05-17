@@ -89,9 +89,9 @@ p {
 }
 
 .signup-image-placeholder {
-  width: 350px;
-  height: 250px;
-  margin-top: 30px;
+  width: 450px;
+  height: 350px;
+  margin-top: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,6 +140,7 @@ p {
   text-align: center;
   margin-top: 15px;
   font-size: 14px;
+  color: white;
 }
 
 .signup-login a {

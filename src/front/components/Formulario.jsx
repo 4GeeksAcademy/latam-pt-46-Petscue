@@ -43,12 +43,12 @@ export const Formulario = () => {
           <h1 className="signup-title-orange">Happiness</h1>
           <h2 className="signup-title-bold">starts here</h2>
           <div className="signup-image-placeholder">
-            <img src="/perrito.png" className="img-fluid" />
+            <img src="/perritodibujo.png" className="img-fluid" />
           </div>
         </div>
 
         <div className="signup-right">
-          <h2 className="signup-heading">Create Account</h2>
+          <h2 className="signup-heading">Start Session</h2>
 
           <form className="signup-form" onSubmit={handleLogin}>
 
