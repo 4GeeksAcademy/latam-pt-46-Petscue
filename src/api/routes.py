@@ -39,8 +39,7 @@ def a_new_user():
     data = request.json
 
     # Verificar que nos envien todos los datos
-    required_fields = ["email", "password",
-                       "phone", "first_name", "last_name", "role"]
+    required_fields = ["email", "password", "phone", "first_name", "last_name", "role"]
     if not all(data.get(field) for field in required_fields):
         return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name, role"}), 400
 
@@ -148,3 +147,11 @@ def create_animal():
     db.session.add(animal)
     db.session.commit()
     return jsonify(animal.serialize()), 201
+
+
+@api.route('/private', methods=["GET"])
+@jwt_required
+@role_required('admin', 'adopter', 'rescuer', 'owner')
+def private_route():
+    current_user_id = get_jwt_identity()
+    return jsonify(message=f"Acceso concedido al usuario con ID: {current_user_id}"), 200
