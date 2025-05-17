@@ -4,6 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 import enum
 from sqlalchemy import DateTime
 from datetime import datetime
+from sqlalchemy import Enum as PgEnum
+
 
 
 db = SQLAlchemy()
@@ -23,10 +25,13 @@ class Favorite(db.Model):
     animal = db.relationship("Animal", back_populates="favorites")
 
 
+import enum
+
 class UserRole(enum.Enum):
-    ADMIN = "admin"
-    ADOPTER = "adopter"
-    RESCUER = "rescuer"
+    ADMIN = "ADMIN"
+    ADOPTER = "ADOPTER"
+    RESCUER = "RESCUER"
+    OWNER = "OWNER"
 
 
 class User(db.Model):
@@ -45,8 +50,9 @@ class User(db.Model):
     start_date: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # rol de usuario
-    role: Mapped[UserRole] = mapped_column(
-        Enum(UserRole, name="userrole"), nullable=False)
+    role: Mapped[UserRole] = mapped_column(PgEnum(UserRole, name="userrole", create_constraint=False), nullable=False)
+
+
 
     # Favorite relationship
     favorites = db.relationship(
