@@ -52,8 +52,8 @@ def a_new_user():
     if role_str == "admin":
         return jsonify({"message": "Only admins can create users with admin role"}), 403
 
-    # Si el usuario no es admin y quiere crear un rol diferente a adopter o rescuer
-    if role_str not in ("adopter", "rescuer"):
+    # Si el usuario no es admin y quiere crear un rol diferente a adopter, rescuer o owner
+    if role_str not in ("adopter", "rescuer", "owner"):
         return jsonify({"message": "You can only register as adopter or rescuer"}), 403
 
     # Verificar que si el email existe
