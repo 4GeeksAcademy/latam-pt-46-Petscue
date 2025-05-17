@@ -10,10 +10,10 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto gap-3 d-flex align-items-center">
 					<Link to="/login" className="nav-bar-link m-auto" >
-						Access your Account
+						<button className="btn btn-warning" >Access your Account</button>
 					</Link>
 					<Link to="/register" className="">
-						<button className="btn btn-naranja">Register</button>
+						<button className="btn btn-warning" >Register</button>
 					</Link>
 				</div>
 			</div>
