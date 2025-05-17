@@ -1,7 +1,8 @@
-const API_URL = "https://silver-rotary-phone-x5p5pq7gxgjr3xx6-3001.app.github.dev/api";
+const API_URL = "https://fluffy-pancake-q7474gj56gjwc99gv-3001.app.github.dev/api";
 
 export const newUser = async (user) => {
   try {
+    console.log("Enviando datos a /newUser:", user);
     const response = await fetch(`${API_URL}/newUser`, {
       method: "POST",
       body: JSON.stringify(user),
