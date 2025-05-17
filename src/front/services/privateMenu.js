@@ -1,4 +1,4 @@
-const API_URL = "https://silver-rotary-phone-x5p5pq7gxgjr3xx6-3001.app.github.dev/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const privateMenu = async() =>{
     const token = localStorage.getItem("token")

@@ -1,4 +1,4 @@
-const API_URL = "https://fluffy-pancake-q7474gj56gjwc99gv-3001.app.github.dev/api";
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const newUser = async (user) => {
   try {
