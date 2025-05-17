@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserRole
+from api.models import db, User, UserRole, Animal
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
@@ -12,6 +12,7 @@ from bcrypt import gensalt
 from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from datetime import datetime
+import traceback
 
 
 api = Blueprint('api', __name__)
@@ -39,22 +40,22 @@ def a_new_user():
     data = request.json
 
     # Verificar que nos envien todos los datos
-    required_fields = ["email", "password", "phone", "first_name", "last_name", "role"]
+    required_fields = ["email", "password",
+                       "phone", "first_name", "last_name", "role"]
     if not all(data.get(field) for field in required_fields):
         return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name, role"}), 400
 
-    role_str = data.get("role", "").lower()
-    if role_str not in UserRole._value2member_map_:
-        return jsonify({"message": "Invalid role. Must be 'admin', 'adopter', or 'rescuer'."}), 400
+    role_str = data.get("role", "").upper()
+    if role_str not in UserRole.__members__:
+        return jsonify({"message": "Invalid role. Must be ADMIN, ADOPTER, RESCUER, or OWNER"}), 400
 
     # Validar que sólo el admin pueda crear usuarios con rol admin
-    role_str = data.get("role", "").lower()
-    if role_str == "admin":
+    if role_str == "ADMIN":
         return jsonify({"message": "Only admins can create users with admin role"}), 403
 
-    # Si el usuario no es admin y quiere crear un rol diferente a adopter, rescuer o owner
-    if role_str not in ("adopter", "rescuer", "owner"):
-        return jsonify({"message": "You can only register as adopter or rescuer"}), 403
+    # Si el usuario no es admin y quiere crear un rol diferente a adopter o rescuer
+    if role_str not in ("ADOPTER", "RESCUER", "OWNER"):
+        return jsonify({"message": "You can only register as adopter, rescuer or owner"}), 403
 
     # Verificar que si el email existe
     user_exists = db.session.execute(
@@ -74,7 +75,7 @@ def a_new_user():
         last_name=data["last_name"],
         password_hash=password_hash,
         salt=salt,
-        role=UserRole(role_str),
+        role=UserRole[role_str],
         start_date=datetime.utcnow(),
         is_active=True
     )
@@ -84,7 +85,8 @@ def a_new_user():
     try:
         db.session.commit()
     except Exception as error:
-        print(error)
+        print("ERROR AL CREAR USUARIO:")
+        traceback.print_exc()  # Esto imprime toda la traza del error
         db.session.rollback()
         return jsonify({"message": "Internal server error"}), 500
     return jsonify({

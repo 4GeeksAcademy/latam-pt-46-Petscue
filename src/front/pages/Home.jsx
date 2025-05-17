@@ -38,21 +38,29 @@ export const Home = () => {
 		<div className="container mt-5">
 			{/* Hero Section */}
 			<div className="row">
-				<div className="mb-4 col-4 ">
-					<img src="/perrito.png" className="img-fluid" width="600"/>
+				<div className="mb-4 col-5 ">
+					<img src="/graficoDeAnimalitos.png" className="img-fluid border rounded-4" width="600" />
 				</div>
-				<div className="mb-4 col-8 d-flex flex-column justify-content-center align-items-center">
+				<div className="mb-4 col-7 d-flex flex-column justify-content-center align-items-center">
 					<h1 className="">Bienvenido a Petscue! 🐾</h1>
 					<p className="">Encuentra a tu nuevo mejor amigo hoy</p>
+					<button className="btn btn-limon">Registrate</button>
 				</div>
 			</div>
 			{/* seccion de caracteristicas de Petscue*/}
+			<div className="justify-content-center text-center mb-5">
+			<div className="contenedor-de-la-pata">
+				<h2 className="overlapping text-center justify-content-center">Adopta sin complicaciones, tu nuevo mejor amigo te espera.</h2>
+				<img src="/pata.png" alt="petscue-logo" width="300" />
+			</div>
 			<div className="row justify-content-center text-center mb-5">
+
 				<div className="col-lg-4 col-md-6 mb-4">
 					<div className="card border-0 shadow h-100">
 						<div className="card-body">
 							<h5 className="card-title">Fácil de Usar</h5>
 							<p className="card-text">Publica y encuentra animales fácilmente con nuestra intuitiva interfaz.</p>
+
 						</div>
 					</div>
 				</div>
@@ -73,7 +81,7 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-
+</ div>
 
 
 			{/* Seccion de cartas de los animalitos*/}

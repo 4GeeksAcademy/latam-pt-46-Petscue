@@ -33,6 +33,16 @@ p {
   cursor: pointer;
 }
 
+.btn-limon {
+  background: #aff500;
+  padding: 10px 20px;
+  color: black;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .nav-bar-link{
   color:#345E7A;
   text-decoration:none;
@@ -46,8 +56,24 @@ p {
   background:#345E7A;
 }
 
+.contenedor-de-la-pata{
+  position:relative;  
+  
+}
+
+.overlapping{
+  
+  position: absolute;
+  top: 50%;
+    top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  
+}
+
 .card{
-  background: #FFF4ED;
+  background: #FFC9B9;
 }
 .signup-body {
   background-color: #2e2e2e;
@@ -82,6 +108,8 @@ p {
   color: #ff9f0f;
 }
 
+
+
 .signup-title-bold {
   font-size: 32px;
   font-weight: bold;
@@ -89,9 +117,9 @@ p {
 }
 
 .signup-image-placeholder {
-  width: 350px;
-  height: 250px;
-  margin-top: 30px;
+  width: 450px;
+  height: 350px;
+  margin-top: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,6 +168,7 @@ p {
   text-align: center;
   margin-top: 15px;
   font-size: 14px;
+  color: white;
 }
 
 .signup-login a {
