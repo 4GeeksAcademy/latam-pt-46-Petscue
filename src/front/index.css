@@ -1,13 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Ribeye&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
+:root {
+  --acqua:#25CED1;
+  --orange: #ff9f0f;
+  --lemon: #aff500;
+  --dark-blue: #345E7A;
+  --melon:#FFC9B9;
+  --green: #2B6C47;
+  --light-pink:#FFF4ED;
+  --light-green:#84FFA1;
+}
+
 body {
   margin: 0;
   font-weight: 400;
   font-family: "Open Sans", sans-serif;
   font-style: normal;
   height: 100%;
-  background-color: #25ced1;
+  background-color: var(--acqua);
 }
 
 h1,
@@ -24,7 +35,7 @@ p {
 }
 
 .btn-naranja {
-  background: #ff9f0f;
+  background: var(--orange);
   padding: 10px 20px;
   color: black;
   border: none;
@@ -34,7 +45,7 @@ p {
 }
 
 .btn-limon {
-  background: #aff500;
+  background: var(--lemon);
   padding: 10px 20px;
   color: black;
   border: none;
@@ -44,7 +55,7 @@ p {
 }
 
 .nav-bar-link{
-  color:#345E7A;
+  color:var(--dark-blue);
   text-decoration:none;
 }
 
@@ -53,7 +64,7 @@ p {
  
 }
 .footer{
-  background:#345E7A;
+  background:var(--dark-blue);
 }
 
 .contenedor-de-la-pata{
@@ -73,7 +84,7 @@ p {
 }
 
 .card{
-  background: #FFC9B9;
+  background: var(--melon);
 }
 .signup-body {
   background-color: #2e2e2e;
@@ -95,7 +106,7 @@ p {
 /* Left Side */
 .signup-left {
   flex: 1;
-  background-color: #25ced1;
+  background-color: var(--acqua);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -105,7 +116,7 @@ p {
 
 .signup-title-orange {
   font-size: 40px;
-  color: #ff9f0f;
+  color: var(--orange);
 }
 
 
@@ -128,7 +139,7 @@ p {
 /* Right Side */
 .signup-right {
   flex: 1;
-  background-color: #345e7a;
+  background-color: var(--dark-blue);
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -156,7 +167,7 @@ p {
 
 .signup-form button {
   padding: 10px;
-  background-color: #aff500;
+  background-color: var(--lemon);
   color: black;
   border: none;
   border-radius: 30px;
@@ -172,6 +183,6 @@ p {
 }
 
 .signup-login a {
-  color: #ff9f0f;
+  color: var(--orange);
   text-decoration: none;
 }
