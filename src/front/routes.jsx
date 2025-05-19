@@ -13,12 +13,9 @@ import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/CreateUser";
 import { Profile } from "./pages/Profile";
-<<<<<<< HEAD
-import { FavAnimals,  } from "./components/FavAnimals";
-=======
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
->>>>>>> refs/remotes/origin/main
+import { FavAnimals } from "./components/FavAnimals";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,16 +35,11 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-<<<<<<< HEAD
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/fav_animal" element={<FavAnimals />} />
-
-=======
+      <Route path="/favs-animals" element={<FavAnimals />} />
       <Route path="/profile" element={<ProfileLayout />} >
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/newanimal" element={<NewAnimalForm />} />
       </Route>
->>>>>>> refs/remotes/origin/main
 
     </Route>
   )

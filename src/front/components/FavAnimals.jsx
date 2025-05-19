@@ -3,6 +3,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 
+const initialPets = [
+  { id: 1, name: 'Gary', breed: 'Yorkshire Terrier', age: '3 years', type: 'dog', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 2, name: 'Peach', breed: 'Half-breed', type: 'cat', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 3, name: 'Moon', breed: 'Siberian cat', type: 'cat', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 4, name: 'Whitney', breed: 'British Longhair', age: '2 months', type: 'cat', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 5, name: 'Buggy', breed: 'Jack Russell Terrier', type: 'dog', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 6, name: 'Spike', breed: 'Maine Coon', type: 'cat', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 7, name: 'Cake', breed: 'Welsh Corgi', type: 'dog', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 8, name: 'Kiwi', breed: 'Yorkshire Terrier', type: 'dog', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 9, name: 'Cookie', breed: 'Samoyed', type: 'dog', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+  { id: 10, name: 'Stitch', breed: 'European cat', type: 'cat', img: 'https://i.imgur.com/cfoiFb7.jpeg' },
+];
 
 export const FavAnimals = () => {
     const [filter, setFilter] = useState("all");
