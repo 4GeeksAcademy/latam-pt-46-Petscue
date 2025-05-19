@@ -94,7 +94,7 @@ export const CreateUser = () => {
                         </div>
                         <br />
                         <div className="d-flex justify-content-between">
-                            <button type="submit" className="btn btn-warning">Save</button>
+                            <button type="submit" className="btn btn-orange">Save</button>
                             <Link to="/" style={{ color: "black" }}>Back</Link>
                         </div>
                     </div>

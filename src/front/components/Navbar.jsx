@@ -20,10 +20,10 @@ export const Navbar = () => {
 						</> :
 						
 						<>	<Link to="/login" className="nav-bar-link m-auto" >
-						<button className="btn btn-warning">Access your Account</button>
+						<button className="btn btn-lemon">Access your Account</button>
 					</Link>
 					<Link to="/register" className="">
-						<button className="btn btn-warning">Register</button>
+						<button className="btn btn-orange">Register</button>
 					</Link>
 					</>}
 
