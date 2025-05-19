@@ -13,6 +13,7 @@ import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/CreateUser";
 import { Profile } from "./pages/Profile";
+import { FavAnimals,  } from "./components/FavAnimals";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,8 @@ export const router = createBrowserRouter(
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/fav_animal" element={<FavAnimals />} />
+
 
     </Route>
   )
