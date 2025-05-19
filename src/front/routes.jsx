@@ -14,7 +14,7 @@ import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/CreateUser";
 import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
-import { NewAnimalForm } from "./components/NewAnimalForm";
+import { NewAnimalForm } from "./pages/NewAnimalForm";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
