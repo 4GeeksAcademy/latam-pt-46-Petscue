@@ -63,7 +63,7 @@ p {
   color:black
  
 }
-.footer{
+.footer, .blue{
   background:var(--dark-blue);
 }
 
