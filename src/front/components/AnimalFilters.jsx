@@ -1,4 +1,4 @@
-export const HomepageAnimalFilters = () => {
+export const AnimalFilters = () => {
   return (
     <div className="d-flex justify-content-center align-items-center mb-4 gap-2">
     
