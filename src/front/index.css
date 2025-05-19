@@ -34,7 +34,7 @@ p {
   font-family: "Open Sans", sans-serif;
 }
 
-.btn-naranja {
+.btn-orange {
   background: var(--orange);
   padding: 10px 20px;
   color: black;
@@ -44,7 +44,7 @@ p {
   cursor: pointer;
 }
 
-.btn-limon {
+.btn-lemon {
   background: var(--lemon);
   padding: 10px 20px;
   color: black;
