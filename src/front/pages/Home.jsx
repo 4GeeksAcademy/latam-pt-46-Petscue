@@ -1,6 +1,6 @@
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { AnimalCard } from "../components/AnimalCard.jsx";
-import { HomepageAnimalFilters } from "../components/HomepageAnimalFilters.jsx";
+import { AnimalFilters } from "../components/AnimalFilters.jsx";
 
 export const Home = () => {
 
@@ -59,7 +59,7 @@ export const Home = () => {
 			{/* Seccion de cartas de los animalitos*/}
 			<div className=" d-flex justify-content-around">
 				<h2 className="mb-4 text-center">Our Animals</h2>
-				<HomepageAnimalFilters />
+				<AnimalFilters />
 			</div>
 
 			<div className="row gap-3 d-flex justify-content-center pb-5">
