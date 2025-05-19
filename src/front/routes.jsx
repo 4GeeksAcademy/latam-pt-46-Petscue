@@ -12,6 +12,7 @@ import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/CreateUser";
+import { Profile } from "./pages/Profile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+      <Route path="/profile" element={<Profile />} />
 
     </Route>
   )
