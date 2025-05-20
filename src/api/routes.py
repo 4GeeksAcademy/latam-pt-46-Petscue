@@ -42,9 +42,9 @@ def a_new_user():
     # Verify that they send us all the data
 
     required_fields = ["email", "password",
-                       "phone", "first_name", "last_name", "role"]
+                       "phone", "first_name", "last_name", "role", "story"]
     if not all(data.get(field) for field in required_fields):
-        return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name, role"}), 400
+        return jsonify({"message": "All fields are required: email, password, phone, first_name, last_name, role, story"}), 400
 
     role_str = data.get("role", "").upper()
     if role_str not in UserRole.__members__:
@@ -74,6 +74,7 @@ def a_new_user():
         phone=data["phone"],
         first_name=data["first_name"],
         last_name=data["last_name"],
+        story=data["story"],
         password_hash=password_hash,
         salt=salt,
         role=UserRole[role_str],
@@ -129,7 +130,7 @@ def login():
 
 
 @api.route('/animals', methods=['POST'])
-@jwt_required()
+# @jwt_required()
 def create_animal():
     data = request.json
     current_user_id = get_jwt_identity()
