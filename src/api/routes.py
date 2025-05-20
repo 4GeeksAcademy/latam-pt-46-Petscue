@@ -157,4 +157,11 @@ def create_animal():
 @role_required('admin', 'adopter', 'rescuer', 'owner')
 def private_route():
     current_user_id = get_jwt_identity()
-    return jsonify(message=f"User access with ID: {current_user_id}"), 200
+    user = User.query.get(current_user_id)
+    if user:
+        return jsonify({
+            "message":f"User access with ID: {current_user_id}",
+            "user_data": user.serialize()
+            }), 200
+    else:
+        return jsonify({"message": "User not found"}), 404 
