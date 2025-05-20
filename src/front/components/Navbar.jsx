@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { CloseSession } from "./CloseSession";
 
 export const Navbar = () => {
 	const { store } = useGlobalReducer()
@@ -17,6 +18,7 @@ export const Navbar = () => {
 							<Link to="/profile" className="nav-bar-link m-auto btn-lemon" >
 								Profile
 							</Link>
+							<CloseSession/>
 						</> :
 
 						<>	<Link to="/login" className="nav-bar-link m-auto btn-lemon text-black" >
