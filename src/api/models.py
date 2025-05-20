@@ -41,6 +41,7 @@ class User(db.Model):
     first_name: Mapped[str] = mapped_column(String(100), nullable=False)
     last_name: Mapped[str] = mapped_column(String(120), nullable=False)
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
+    story: Mapped[str] = mapped_column(String(1000), nullable=False)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)
@@ -62,11 +63,12 @@ class User(db.Model):
     animals = db.relationship(
         "Animal", back_populates="rescuer", cascade="all, delete-orphan")
 
-    def __init__(self, email, password_hash, salt, phone, role, start_date, first_name, last_name, is_active):
+    def __init__(self, email, password_hash, salt, phone, story, role, start_date, first_name, last_name, is_active):
         self.email = email
         self.password_hash = password_hash
         self.salt = salt
         self.phone = phone
+        self.story= story
         self.role = role
         self.start_date = start_date
         self.first_name = first_name
@@ -80,6 +82,7 @@ class User(db.Model):
             "last_name": self.last_name,
             "is_active": self.is_active,
             "phone": self.phone,
+            "story": self.story,
             "email": self.email,
             "role": self.role.value,
             "start_date": self.start_date.isoformat() if self.start_date else None,
