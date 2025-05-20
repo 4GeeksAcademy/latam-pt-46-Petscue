@@ -16,6 +16,7 @@ import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
 import { FavAnimals } from "./pages/FavAnimals";
+import { PrivateRoute } from "./components/PrivateRoute";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,21 +27,22 @@ export const router = createBrowserRouter(
     // Note: The child paths of the Layout element replace the Outlet component with the elements contained in the "element" attribute of these child paths.
 
     // Root Route: All navigation will start from here.
-    <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} >
-
+    <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
       {/* Nested Routes: Defines sub-routes within the BaseHome component. */}
       <Route path="/" element={<Home />} />
-      <Route path="/single/:theId" element={<Single />} />  {/* Dynamic route for single items */}
+      <Route path="/single/:theId" element={<Single />} />{" "}
+      {/* Dynamic route for single items */}
       <Route path="/demo" element={<Demo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/favs_animals" element={<FavAnimals />} />
-      <Route path="/profile" element={<ProfileLayout />} >
+      <PrivateRoute />
+      <Route path="/profile" element={<ProfileLayout />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/newanimal" element={<NewAnimalForm />} />
       </Route>
-
+      <PrivateRoute />
     </Route>
   )
 );
