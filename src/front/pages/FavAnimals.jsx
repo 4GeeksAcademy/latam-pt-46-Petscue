@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PetModal } from "../components/ModalAnimal";
 
 
 const initialPets = [
@@ -49,8 +50,8 @@ export const FavAnimals = () => {
                 {filteredPets.map((pet) => (
                     <div className="col-md-4 mb-4 " key={pet.id}>
                         <div className="card h-100 border-0">
-                            <img src={pet.img} className="card-img-top" alt={pet.name} style={{ height: '250px', objectFit: 'cover'}} />
-                            <div className="card-body d-flex flex-column" style={{background: "white", border: "none"}}>
+                            <img src={pet.img} className="card-img-top" alt={pet.name} style={{ height: '250px', objectFit: 'cover' }} />
+                            <div className="card-body d-flex flex-column" style={{ background: "white", border: "none" }}>
                                 <h5 className="card-title">{pet.name} {pet.age && <small className="text-muted">({pet.age})</small>}</h5>
                                 <p className="card-text">{pet.breed}</p>
                                 <div className="mt-auto d-flex justify-content-between">
@@ -75,45 +76,8 @@ export const FavAnimals = () => {
                 ))}
             </div>
 
-            {/* Modal */}
-            {selectedPet && (
-                <div
-                    className="modal fade"
-                    id="petModal"
-                    tabIndex="-1"
-                    aria-labelledby="petModalLabel"
-                    aria-hidden="true"
-                >
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="petModalLabel">{selectedPet.name}</h5>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div className="modal-body text-center">
-                                <img src={selectedPet.img} alt={selectedPet.name} className="img-fluid mb-3" />
-                                <p><strong>Breed:</strong> {selectedPet.breed}</p>
-                                {selectedPet.age && <p><strong>Age:</strong> {selectedPet.age}</p>}
-                                <p><strong>Type:</strong> {selectedPet.type}</p>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {selectedPet && <PetModal pet={selectedPet} onClose={() => setSelectedPet(null)} />}
+
         </div>
     );
 }

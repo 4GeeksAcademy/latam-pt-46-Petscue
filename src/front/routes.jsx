@@ -15,7 +15,7 @@ import { CreateUser } from "./pages/CreateUser";
 import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
-import { FavAnimals } from "./components/FavAnimals";
+import { FavAnimals } from "./pages/FavAnimals";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
