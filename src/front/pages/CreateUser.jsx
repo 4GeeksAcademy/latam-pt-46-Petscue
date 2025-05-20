@@ -11,7 +11,8 @@ export const CreateUser = () => {
         email: "",
         phone: "",
         password: "",
-        role: ""
+        role: "",
+        story:""
     })
 
     const handleUser = async (e) => {
@@ -92,6 +93,16 @@ export const CreateUser = () => {
                                 <option value="RESCUER">Rescuer</option>
                             </select>
                         </div>
+                        <div className="form-floating justify-content-end">
+                            <textarea 
+                                className="form-control" placeholder="tell us why you are here" id="floatingTextarea" 
+                                onChange={(e) => setUser({ ...useUser, story: e.target.value })}
+                                value={useUser.story} 
+                            >
+                            </textarea>
+                            <label htmlFor="floatingTextarea">Tell us a your story.</label>
+                        </div>
+
                         <br />
                         <div className="d-flex justify-content-between">
                             <button type="submit" className="btn btn-orange">Save</button>
