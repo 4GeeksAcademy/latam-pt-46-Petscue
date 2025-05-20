@@ -6,7 +6,7 @@ export const privateMenu = async() =>{
         throw new Error("token invalido")
     }
     try{
-        const response = await fetch(`${API_URL}/private`,{
+        const response = await fetch(`${API_URL}/api/private`,{
             method: "GET",
             headers:{
                 'authorization': `Bearer ${token}`,
