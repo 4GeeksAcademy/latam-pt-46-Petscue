@@ -48,10 +48,20 @@ export const FavAnimals = () => {
 
             <div className="row">
                 {filteredPets.map((pet) => (
-                    <div className="col-md-4 mb-4 " key={pet.id}>
-                        <div className="card h-100 border-0">
-                            <img src={pet.img} className="card-img-top" alt={pet.name} style={{ height: '250px', objectFit: 'cover' }} />
-                            <div className="card-body d-flex flex-column" style={{ background: "white", border: "none" }}>
+                    <div className="col-md-3 mb-4" key={pet.id}>
+                        <div 
+                        className="card h-75 border-0 rounded-5"
+                        style={{background: "#FFC9B9", width: "300px"}}
+                        >
+                            <img src={pet.img}
+                                className="card-img-top w-100 border rounded-5 "
+                                alt={pet.name}
+                                style={{ height: '250px', objectFit: 'cover' }}
+                            />
+                            <div
+                                className="card-body d-flex flex-column rounded-5"
+                                style={{ background: "#FFC9B9", border: "none" }}
+                            >
                                 <h5 className="card-title">{pet.name} {pet.age && <small className="text-muted">({pet.age})</small>}</h5>
                                 <p className="card-text">{pet.breed}</p>
                                 <div className="mt-auto d-flex justify-content-between">
