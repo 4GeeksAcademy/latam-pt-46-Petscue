@@ -48,7 +48,7 @@ export const FavAnimals = () => {
 
             <div className="row">
                 {filteredPets.map((pet) => (
-                    <div className="col-md-3 mb-4" key={pet.id}>
+                    <div className="col-md-3 " key={pet.id}>
                         <div 
                         className="card h-75 border-0 rounded-5"
                         style={{background: "#FFC9B9", width: "300px"}}
