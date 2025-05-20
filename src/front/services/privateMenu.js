@@ -10,12 +10,19 @@ export const privateMenu = async() =>{
             method: "GET",
             headers:{
                 'authorization': `Bearer ${token}`,
-                'content-type': 'aplication/json'
+                'content-type': 'application/json'
             }
         })
-        if (responseData){
-                await response.json()
+        if ( !response.ok){
+                throw new Error(`Error fetching data: ${response.status}`)
+        } else{
+            const data = await response.json();
+            return data
         }
 
-    }catch(error){}
+
+    }catch(error){
+        console.error(`Error fetching private data: `, error)
+        throw error
+    }
 }
