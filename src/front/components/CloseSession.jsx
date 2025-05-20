@@ -10,9 +10,9 @@ export const CloseSession = () => {
 
         dispatch({ type: "LOGOUT" });
 
-        navigate("/ogin");
+        navigate("/login");
     };
-
+    
     return (
         <>
             <button className="btn btn-danger" onClick={handleLogout}>Cerrar sesión</button>
