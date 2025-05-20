@@ -3,7 +3,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 export const newUser = async (user) => {
   try {
     console.log("Enviando datos a /newUser:", user);
-    const response = await fetch(`${API_URL}/newUser`, {
+    const response = await fetch(`${API_URL}/api/newUser`, {
       method: "POST",
       body: JSON.stringify(user),
       headers: {
