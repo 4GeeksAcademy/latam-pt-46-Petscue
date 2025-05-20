@@ -1,10 +1,10 @@
 import React from "react";
-import { Formulario } from "../components/Formulario";
+import { FormLogin } from "../components/FormLogin";
 
 export const Login = () => {
   return (
     <React.Fragment>
-      <Formulario/>
+      <FormLogin/>
     </React.Fragment>
  
   );

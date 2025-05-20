@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { tokenLogin } from "../services/fetchApi";
 import { Link } from "react-router-dom";
 
-export const Formulario = () => {
+export const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -27,7 +27,7 @@ export const Formulario = () => {
       setMessageType("success");
 
       setTimeout(() => {
-        navigate("/")
+        navigate("/profile")
       }, 1000);
     } catch (error) {
       setMessage(error.message || "Login failed");
