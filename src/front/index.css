@@ -38,6 +38,7 @@ p {
   background: var(--orange);
   padding: 10px 20px;
   color: black;
+  text-decoration:none;
   border: none;
   border-radius: 30px;
   font-size: 16px;
@@ -46,6 +47,7 @@ p {
 
 .btn-lemon {
   background: var(--lemon);
+  text-decoration:none;
   padding: 10px 20px;
   color: black;
   border: none;
@@ -54,10 +56,6 @@ p {
   cursor: pointer;
 }
 
-.nav-bar-link{
-  color:var(--dark-blue);
-  text-decoration:none;
-}
 
 .nav-bar-link:hover{
   color:black

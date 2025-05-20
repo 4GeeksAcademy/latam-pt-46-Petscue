@@ -13,15 +13,15 @@ export const Navbar = () => {
 					<img src="/petscue.png" alt="petscue-logo" width="200" />
 				</Link>
 				<div className="ml-auto gap-3 d-flex align-items-center">
-					{store.token ?
+					{store.token && store.token !== ""  ?
 						<>
-							<Link to="/profile" className="nav-bar-link m-auto btn-lemon" >
+							<Link to="/profile" className="m-auto btn-lemon" >
 								Profile
 							</Link>
 							<CloseSession/>
 						</> :
 
-						<>	<Link to="/login" className="nav-bar-link m-auto btn-lemon text-black" >
+						<>	<Link to="/login" className=" m-auto btn-lemon text-black" >
 							Access your Account
 						</Link>
 							<Link to="/register" className="btn-orange">
