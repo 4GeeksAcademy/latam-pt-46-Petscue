@@ -27,7 +27,7 @@ export const FormLogin = () => {
       setMessageType("success");
 
       setTimeout(() => {
-        navigate("/")
+        navigate("/profile")
       }, 1000);
     } catch (error) {
       setMessage(error.message || "Login failed");

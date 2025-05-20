@@ -7,15 +7,13 @@ export const CloseSession = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-
         dispatch({ type: "LOGOUT" });
-
-        navigate("/login");
+        navigate("/");
     };
-    
+
     return (
-        <>
-            <button className="btn btn-danger" onClick={handleLogout}>Cerrar sesión</button>
-        </>
+        <button className="btn btn-danger" onClick={handleLogout}>
+            Close session
+        </button>
     );
 };
