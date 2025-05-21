@@ -123,19 +123,20 @@ def login():
         return jsonify({"message": "invalid credentials"}), 400
 
     token = create_access_token(
-        identity={"id": user.id, "role": user.role.value})
+        identity=str(user.id))
     return jsonify({"token": token}), 201
 
 # rescuers to store animals in the db
 
 
 @api.route('/animals', methods=['POST'])
-# @jwt_required()
+@jwt_required()
 def create_animal():
     data = request.json
     current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    if not user or user.role.value != 'rescuer':
+    user = User.query.get(int(current_user_id))
+    print(user.serialize)
+    if not user or user.role.value != 'RESCUER':
         return jsonify({"msg": "No estas autorizado para realizar esta accion de subir animalitos a la plataforma"}), 403
 
     animal = Animal(
