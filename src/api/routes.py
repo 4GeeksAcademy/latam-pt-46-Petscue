@@ -133,25 +133,50 @@ def login():
 @jwt_required()
 def create_animal():
     data = request.json
-    current_user_id = get_jwt_identity()
-    user = User.query.get(int(current_user_id))
-    print(user.serialize)
-    if not user or user.role.value != 'RESCUER':
-        return jsonify({"msg": "No estas autorizado para realizar esta accion de subir animalitos a la plataforma"}), 403
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    if not user or user.role.value not in ['RESCUER', 'OWNER']:
+        return jsonify({"msg": "You are not authorized to upload animals to the platform"}), 403
 
-    animal = Animal(
-        name=data['name'],
-        age=data['age'],
-        animal_type=data['animal_type'],
-        race=data['race'],
-        photo=data.get('photo'),
-        color=data['color'],
-        vaccines=data.get('vaccines'),
-        rescuer_id=current_user_id
-    )
+    # Create the dictionary to then prepare it to put ti together with the user role
+    animal_data = {
+        "name": data["name"],
+        "age": data["age"],
+        "animal_type": data["animal_type"],
+        "race": data["race"],
+        "photo": data.get("photo"),
+        "color": data["color"],
+        "vaccines": data.get("vaccines")
+    }
+    # checking role and adding the id to the animal data
+    if user.role.value == "RESCUER":
+        animal_data["rescuer_id"] = current_user_id
+    elif user.role.value == "OWNER":
+        animal_data["owner_id"] = current_user_id
+
+    # putting everything together
+    animal = Animal(**animal_data)
     db.session.add(animal)
     db.session.commit()
     return jsonify(animal.serialize()), 201
+
+@api.route('/animals/my-animals', methods=['GET'])
+@jwt_required()
+def get_my_animals():
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    if not user or user.role.value not in ['RESCUER', 'OWNER']:
+        return jsonify({"msg": "Only Rescuers and owners can access this route"}), 403
+
+    animals = []
+    if user.role.value == 'RESCUER':
+        animals = Animal.query.filter_by(rescuer_id=current_user_id).all()
+    elif user.role.value == 'OWNER':
+        animals = Animal.query.filter_by(owner_id=current_user_id).all()
+
+    animals_list = [animal.serialize() for animal in animals]
+    return jsonify({"animals": animals_list}), 200
+
 
 
 @api.route('/private', methods=["GET"])

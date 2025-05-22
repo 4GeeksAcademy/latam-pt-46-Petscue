@@ -1,7 +1,25 @@
 import { AnimalFilters } from "../components/AnimalFilters"
 import { AnimalCard } from "../components/AnimalCard"
+import { getMyAnimals } from "../services/getMyAnimals"
+import { useEffect, useState } from "react"
+
 
 export const Profile = () => {
+
+  const [myAnimals, setMyAnimals] = useState([])
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const animals = await getMyAnimals();
+        setMyAnimals(animals);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAnimals();
+  }, []);
+
   return (
     <div className="">
       <div className=" d-flex justify-content-around my-5">
@@ -10,9 +28,9 @@ export const Profile = () => {
       </div>
 
       <div className="row gap-3 d-flex justify-content-center pb-5">
-        <AnimalCard />
-        <AnimalCard />
-        <AnimalCard />
+        {myAnimals.map((animal) => (
+          <AnimalCard key={animal.id} />
+        ))}
       </div>
     </div>
 
