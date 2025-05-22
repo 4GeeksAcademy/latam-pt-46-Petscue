@@ -159,7 +159,9 @@ def create_animal():
     db.session.add(animal)
     db.session.commit()
     return jsonify(animal.serialize()), 201
-
+#todos los animales -->  /users/animals
+#por usuario 
+#/users/el-Id#/animals
 @api.route('/animals/my-animals', methods=['GET'])
 @jwt_required()
 def get_my_animals():

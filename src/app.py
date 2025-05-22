@@ -12,6 +12,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from datetime import timedelta
 
 # from models import Person
 
@@ -21,6 +22,7 @@ static_file_dir = os.path.join(os.path.dirname(
 app = Flask(__name__)
 CORS(app)
 app.url_map.strict_slashes = False
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -35,7 +37,9 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 app.config["JWT_SECRET_KEY"] = os.getenv("JTW_SECRET_KEY")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=150) #tiempo de expiracion del token
 jwt = JWTManager(app)
+
 
 
 # add the admin
