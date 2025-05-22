@@ -12,6 +12,8 @@
   --light-green:#84FFA1;
 }
 
+
+
 body {
   margin: 0;
   font-weight: 400;
@@ -184,3 +186,42 @@ p {
   color: var(--orange);
   text-decoration: none;
 }
+
+
+
+/* PetCardFav Styles */
+
+.pet-card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pet-card:hover {
+  transform: scale(1.03);
+}
+
+.pet-image {
+  height: 180px;
+  object-fit: cover;
+}
+
+/* finish PetCardFav Styles */
+
+
+/* incio Styles */
+.page-wrapper {
+  background: #ffe6e6;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-weight: 700;
+  color: #333;
+  font-size: 2.2rem;
+}
+
+/* finish inicio Styles */
+

@@ -3,17 +3,19 @@ export const initialStore = () => {
     users: [],
     token: localStorage.getItem("token") || "",
     user: null,
+    favorites: [],
+    filters: { age: "", breed: "" },
+    showFavorites: false,
   };
 };
 
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
     case "LOGUP":
-      return{
+      return {
         ...store,
-        users: [...store.users, action.payload]
-
-      }
+        users: [...store.users, action.payload],
+      };
     case "LOGIN":
       return {
         ...store,
@@ -22,6 +24,27 @@ export default function storeReducer(store, action = {}) {
       };
     case "LOGOUT":
       return { ...store, token: "", user: null };
+
+    case "TOGGLE_FAVORITE":
+      const id = action.payload;
+      const isFavorite = store.favorites.includes(id);
+      return {
+        ...store,
+        favorites: isFavorite
+          ? store.favorites.filter((fav) => fav !== id)
+          : [...store.favorites, id],
+      };
+
+    case "SET_FILTERS":
+      return {
+        ...store,
+        filters: action.payload,
+      };
+    case "SET_SHOW_FAVORITES":
+      return {
+        ...store,
+        showFavorites: action.payload,
+      };
 
     default:
       throw Error("Unknown action.");
