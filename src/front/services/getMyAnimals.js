@@ -1,6 +1,7 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getMyAnimals = async () =>{
+    const token = localStorage.getItem("token")
     try{
         const response = await fetch(`${API_URL}/api/animals/my-animals`, {
       headers: {
