@@ -144,16 +144,15 @@ def create_animal():
         "age": data["age"],
         "animal_type": data["animal_type"],
         "race": data["race"],
-        "photo": data.get("photo"),
+        "photo": data.get("photo",""),
         "color": data["color"],
         "vaccines": data.get("vaccines"),
         "description": data["description"]
     }
-    # checking role and adding the id to the animal data
-    if user.role.value == "RESCUER":
-        animal_data["rescuer_id"] = current_user_id
-    elif user.role.value == "OWNER":
-        animal_data["owner_id"] = current_user_id
+    # Adding the id to the animal data
+    
+    animal_data["added_by_id"] = current_user_id   
+
 
     # putting everything together
     animal = Animal(**animal_data)
