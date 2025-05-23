@@ -4,7 +4,7 @@ export const getMyAnimals = async () =>{
     const token = localStorage.getItem("token")
     console.log("el tokeeen",token)
     try{
-        const response = await fetch(`https://crispy-space-goldfish-r544gg6q6p73pxp5-3001.app.github.dev/api/animals/my-animals`, {
+        const response = await fetch(`${API_URL}/api/animals/my-animals`, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
