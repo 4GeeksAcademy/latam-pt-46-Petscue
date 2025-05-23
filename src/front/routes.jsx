@@ -37,21 +37,20 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-
-      <Route path="/favorites" element={<Favorites />} />
-      <Route path="/inicio" element={<Inicio />} />
-
-
-
       <Route element={<PrivateRoute />}>
+
         <Route path="/profile" element={<ProfileLayout />}>
           <Route index element={<Profile />} />
           <Route path="newanimal" element={<NewAnimalForm />} />
         </Route>
       </Route>
 
-      
-      
+      <Route element={<PrivateRoute />}>
+        <Route path="/profile" element={<ProfileLayout />}>
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/inicio" element={<Inicio />} />
+        </Route>
+      </Route>
     </Route>
   )
 );
