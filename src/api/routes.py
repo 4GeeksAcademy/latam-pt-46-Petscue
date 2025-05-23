@@ -146,7 +146,8 @@ def create_animal():
         "race": data["race"],
         "photo": data.get("photo"),
         "color": data["color"],
-        "vaccines": data.get("vaccines")
+        "vaccines": data.get("vaccines"),
+        "description": data["description"]
     }
     # checking role and adding the id to the animal data
     if user.role.value == "RESCUER":

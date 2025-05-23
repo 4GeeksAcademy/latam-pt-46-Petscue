@@ -98,6 +98,7 @@ class Animal(db.Model):
     animal_type: Mapped[str] = mapped_column(String(50), nullable=False)
     race: Mapped[str] = mapped_column(String(50), nullable=False)
     photo: Mapped[str] = mapped_column(String(500),)
+    description: Mapped[str]= mapped_column(String(1000), nullable=False)
     color: Mapped[str] = mapped_column(String(50), nullable=False)
     vaccines: Mapped[str] = mapped_column(String(500), nullable=True)
 
