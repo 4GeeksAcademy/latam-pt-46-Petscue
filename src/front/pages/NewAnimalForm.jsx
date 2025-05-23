@@ -21,7 +21,7 @@ export const NewAnimalForm = () => {
   const handleNewAnimal = async (e) => {
     e.preventDefault()
     console.log(newAnimal)
-    try { 
+    try {
       await createNewAnimal(newAnimal)
       setTimeout(() => navigate("/profile"), 1500);
     }
