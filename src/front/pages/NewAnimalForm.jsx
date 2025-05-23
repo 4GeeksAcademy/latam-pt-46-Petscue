@@ -15,7 +15,7 @@ export const NewAnimalForm = () => {
     color: "",
     vaccines: "",
     description: "",
-    photos: [] 
+    photos: ""
   });
 
   const handlePhotoUpload = async (e) => {
