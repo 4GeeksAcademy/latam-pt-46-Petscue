@@ -1,12 +1,11 @@
-import { useState } from "react"
-import { createNewAnimal } from "../services/createNewAnimal"
-import { useNavigate } from "react-router-dom"
-import {Cloudinary} from "@cloudinary/url-gen";
+import React, { useState } from "react";
+import { createNewAnimal } from "../services/createNewAnimal";
+import { useNavigate } from "react-router-dom";
 
 export const NewAnimalForm = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const [newAnimal, setNewAnimal] = useState({
     name: "",
@@ -15,47 +14,52 @@ export const NewAnimalForm = () => {
     race: "",
     color: "",
     vaccines: "",
-    
     description: "",
-  })
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'demo'
-    }
+    photos: [] 
   });
 
   const handlePhotoUpload = async (e) => {
-   const file =  e.target.files
-   if(!file) return
+    const files = e.target.files;
+    if (!files.length) return;
 
-   const data = new FormData()
-   data.append("file", file)
-   data.append("upload_preset", "petscue_preset")
-   data.append("cloud_name", "dtljfvq5m")
+    setUploading(true);
+    const uploadedUrls = [];
 
-   const response = await fetch("https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload", {
-    method:"POST",
-    body:data
-   })
+    for (let i = 0; i < files.length; i++) {
+      const data = new FormData();
+      data.append("file", files[i]);
+      data.append("upload_preset", "petscue_preset");
+      data.append("cloud_name", "dtljfvq5m");
 
-   const uploadedImageURL = await response.json()
-   console.log(uploadedImageURL)
-   console.log(file)
-  }
+      const res = await fetch("https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload", {
+        method: "POST",
+        body: data
+      });
+
+      const uploaded = await res.json();
+      if (uploaded.secure_url) {
+        uploadedUrls.push(uploaded.secure_url);
+      }
+    }
+
+    setNewAnimal((prev) => ({
+      ...prev,
+      photos: [...prev.photos, ...uploadedUrls]
+    }));
+
+    setUploading(false);
+  };
 
   const handleNewAnimal = async (e) => {
-    e.preventDefault()
-    console.log(newAnimal)
+    e.preventDefault();
     try {
-      await createNewAnimal(newAnimal)
+      await createNewAnimal(newAnimal);
       setTimeout(() => navigate("/profile"), 1500);
-    }
-    catch (error) {
+    } catch (error) {
       const errorMsg = error?.response?.data?.message || error.message || "Error desconocido";
       setMessage("Registration error: " + errorMsg);
     }
-  }
+  };
   return (
     <div className="container mb-5 d-flex justify-content-center ">
       <div className="card shadow-lg rounded-4 bg-light w-75" >
@@ -111,14 +115,39 @@ export const NewAnimalForm = () => {
               } value={newAnimal.vaccines} className="form-control" id="vaccines" name="vaccines" placeholder="Vaccinations received " rows={3}></textarea>
             </div>
 
-        
+        {/*  */}
+
 
             <div className="mb-3">
               <label htmlFor="photo" className="form-label">Upload photos</label>
-              <input onChange={handlePhotoUpload}      
-               className="form-control" type="file" id="photo" multiple />
+              <input
+                disabled={uploading}
+                onChange={handlePhotoUpload}
+                className="form-control"
+                type="file"
+                id="photo"
+                multiple
+                accept="image/*"
+              />
+              {uploading && <p className="mt-1 text-info">Uploading...</p>}
+              {/* Mostrar thumbnails */}
+              <div className="flex gap-2 mt-2">
+                {newAnimal.photos.map((url, i) => (
+                  <img
+                    alt="Animal photo"
+                    src={url}
+                    key={i}
+                    className="rounded"
+                    style={{ width: "60px", height: "60px", objectFit: "cover" }}
+                  />
+                ))}
+              </div>
             </div>
 
+
+
+
+{/*  */}
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Description</label>
               <textarea onChange={(e) =>

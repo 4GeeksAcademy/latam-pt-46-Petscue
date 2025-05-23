@@ -47,8 +47,9 @@ export const router = createBrowserRouter(
 
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileLayout />}>
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/profile" element={<Favorites />} />
+          <Route path="/profile/favorites" element={<Favorites />} />
+          <Route path="/profile/inicio" element={<Inicio />} />
         </Route>
       </Route>
     </Route>
