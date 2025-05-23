@@ -15,6 +15,7 @@ export const NewAnimalForm = () => {
     color: "",
     vaccines: "",
     photo: "",
+    description:"",
   })
 
   const handleNewAnimal = async (e) => {
@@ -89,6 +90,13 @@ export const NewAnimalForm = () => {
               <input onChange={(e) =>
                 setNewAnimal({ ...newAnimal, photo: e.target.value })
               } value={newAnimal.photo} type="url" className="form-control" id="photo" name="photo" placeholder="Upload the pics!" />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Description</label>
+              <textarea onChange={(e) =>
+                setNewAnimal({ ...newAnimal, description: e.target.value })
+              } value={newAnimal.description} className="form-control" id="description" name="description" placeholder="describe the animal you're uploding" rows={2}></textarea>
             </div>
             <button
               type="submit"
