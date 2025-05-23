@@ -54,6 +54,8 @@
 		]
 	},
 	"dependencies": {
+		"@cloudinary/react": "^1.14.3",
+		"@cloudinary/url-gen": "^1.21.0",
 		"@types/express-jwt": "^6.0.4",
 		"@types/jsonwebtoken": "^9.0.9",
 		"bootstrap": "^5.3.6",

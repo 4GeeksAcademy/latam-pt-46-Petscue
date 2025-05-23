@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { createNewAnimal } from "../services/createNewAnimal"
 import { useNavigate } from "react-router-dom"
+import {Cloudinary} from "@cloudinary/url-gen";
 
 export const NewAnimalForm = () => {
 
@@ -14,14 +15,39 @@ export const NewAnimalForm = () => {
     race: "",
     color: "",
     vaccines: "",
-    photo: "",
-    description:"",
+    
+    description: "",
   })
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'demo'
+    }
+  });
+
+  const handlePhotoUpload = async (e) => {
+   const file =  e.target.files
+   if(!file) return
+
+   const data = new FormData()
+   data.append("file", file)
+   data.append("upload_preset", "petscue_preset")
+   data.append("cloud_name", "dtljfvq5m")
+
+   const response = await fetch("https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload", {
+    method:"POST",
+    body:data
+   })
+
+   const uploadedImageURL = await response.json()
+   console.log(uploadedImageURL)
+   console.log(file)
+  }
 
   const handleNewAnimal = async (e) => {
     e.preventDefault()
     console.log(newAnimal)
-    try { 
+    try {
       await createNewAnimal(newAnimal)
       setTimeout(() => navigate("/profile"), 1500);
     }
@@ -82,14 +108,15 @@ export const NewAnimalForm = () => {
               <label htmlFor="vaccines" className="form-label">Vaccines</label>
               <textarea onChange={(e) =>
                 setNewAnimal({ ...newAnimal, vaccines: e.target.value })
-              } value={newAnimal.vaccines} className="form-control" id="vaccines" name="vaccines" placeholder="Vaccinations received (optional)" rows={2}></textarea>
+              } value={newAnimal.vaccines} className="form-control" id="vaccines" name="vaccines" placeholder="Vaccinations received " rows={3}></textarea>
             </div>
 
+        
+
             <div className="mb-3">
-              <label htmlFor="photo" className="form-label">Photos</label>
-              <input onChange={(e) =>
-                setNewAnimal({ ...newAnimal, photo: e.target.value })
-              } value={newAnimal.photo} type="url" className="form-control" id="photo" name="photo" placeholder="Upload the pics!" />
+              <label htmlFor="photo" className="form-label">Upload photos</label>
+              <input onChange={handlePhotoUpload}      
+               className="form-control" type="file" id="photo" multiple />
             </div>
 
             <div className="mb-3">
