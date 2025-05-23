@@ -119,5 +119,6 @@ class Animal(db.Model):
             "photo": self.photo,
             "color": self.color,
             "vaccines": self.vaccines,
+            "description": self.description,
             "rescuer_id": self.rescuer_id,  # el id del rescatista que lo trajo
         }
