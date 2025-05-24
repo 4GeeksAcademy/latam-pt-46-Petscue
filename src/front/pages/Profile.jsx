@@ -21,7 +21,7 @@ export const Profile = () => {
   return (
     <div className="">
       <div className=" d-flex justify-content-around my-5">
-        <h2 className="mb-4 text-center">Your Rescued Bros</h2>
+        <h2 className="mb-4 text-center">Uploaded Animals</h2>
         <AnimalFilters />
       </div>
 
