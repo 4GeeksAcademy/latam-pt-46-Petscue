@@ -15,7 +15,7 @@ export const NewAnimalForm = () => {
     color: "",
     vaccines: "",
     description: "",
-    photos: [],
+    photo: ""
   });
 
   const handlePhotoUpload = async (e) => {
@@ -23,35 +23,30 @@ export const NewAnimalForm = () => {
     if (!files.length) return;
 
     setUploading(true);
-    const uploadedUrls = [];
 
-    for (let i = 0; i < files.length; i++) {
-      const data = new FormData();
-      data.append("file", files[i]);
-      data.append("upload_preset", "petscue_preset");
-      data.append("cloud_name", "dtljfvq5m");
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "petscue_preset");
+    data.append("cloud_name", "dtljfvq5m");
 
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload",
-        {
-          method: "POST",
-          body: data,
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error("Failed to upload photo");
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload",
+      {
+        method: "POST",
+        body: data,
       }
-      const uploaded = await res.json();
-      if (uploaded.secure_url) {
-        uploadedUrls.push(uploaded.secure_url);
-      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to upload photo");
     }
-
-    setNewAnimal((prev) => ({
-      ...prev,
-      photos: [...prev.photos, ...uploadedUrls],
-    }));
+    const uploaded = await res.json();
+    if (uploaded.secure_url) {
+      setNewAnimal((prev) => ({
+        ...prev,
+        photo: uploaded.secure_url
+      }));
+    }
 
     setUploading(false);
   };
@@ -178,12 +173,8 @@ export const NewAnimalForm = () => {
               ></textarea>
             </div>
 
-            {/*  */}
-
             <div className="mb-3">
-              <label htmlFor="photo" className="form-label">
-                Upload photos
-              </label>
+              <label htmlFor="photo" className="form-label">Upload photo</label>
               <input
                 disabled={uploading}
                 onChange={handlePhotoUpload}
@@ -193,42 +184,46 @@ export const NewAnimalForm = () => {
                 multiple
                 accept="image/*"
               />
-            </div>
 
-            {/*  */}
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
-              <textarea
-                onChange={(e) =>
-                  setNewAnimal({ ...newAnimal, description: e.target.value })
-                }
-                value={newAnimal.description}
-                className="form-control"
-                id="description"
-                name="description"
-                placeholder="describe the animal you're uploding"
-                rows={2}
-              ></textarea>
-            </div>
+              {NewAnimalForm.photo && (
+                <img src={newAnimal.photo} alt="preview of the animal pic to upload" className="img-thumbnail mt-2" style={{ maxWidth: 120 }} />
+              )
 
-            <button
-              type="submit"
-              className="btn btn-lemon w-100 fw-semibold"
-              disabled={uploading}
-            >
-              {uploading ? "Uploading..." : "Upload to the platform!"}{" "}
-            </button>
+              }
 
-            {message && (
-              <div
-                className="alert alert-warning text-center mt-3"
-                role="alert"
-              >
-                {message}
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label">
+                  Description
+                </label>
+                <textarea
+                  onChange={(e) =>
+                    setNewAnimal({ ...newAnimal, description: e.target.value })
+                  }
+                  value={newAnimal.description}
+                  className="form-control"
+                  id="description"
+                  name="description"
+                  placeholder="describe the animal you're uploding"
+                  rows={2}
+                ></textarea>
               </div>
-            )}
+
+              <button
+                type="submit"
+                className="btn btn-lemon w-100 fw-semibold"
+                disabled={uploading}
+              >
+                {uploading ? "Uploading..." : "Upload to the platform!"}{" "}
+              </button>
+
+              {message && (
+                <div
+                  className="alert alert-warning text-center mt-3"
+                  role="alert"
+                >
+                  {message}
+                </div>
+              )}
           </form>
         </div>
       </div>
