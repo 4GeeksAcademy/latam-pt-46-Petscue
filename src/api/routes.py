@@ -174,10 +174,8 @@ def get_my_animals():
         return jsonify({"msg": "Only Rescuers and owners can access this route"}), 403
 
     animals = []
-    if user.role.value == 'RESCUER':
-        animals = Animal.query.filter_by(rescuer_id=current_user_id).all()
-    elif user.role.value == 'OWNER':
-        animals = Animal.query.filter_by(owner_id=current_user_id).all()
+ 
+    animals = Animal.query.filter_by(added_by_id=current_user_id).all()
 
     animals_list = [animal.serialize() for animal in animals]
     return jsonify({"animals": animals_list}), 200
