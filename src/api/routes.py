@@ -124,7 +124,10 @@ def login():
 
     token = create_access_token(
         identity=str(user.id))
-    return jsonify({"token": token}), 201
+    return jsonify({
+        "token": token,
+        "role": user.role.name
+        }), 201
 
 # rescuers to store animals in the db
 
