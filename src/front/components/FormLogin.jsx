@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { tokenLogin } from "../services/fetchApi";
+import { tokenLogin } from "../services/tokenLogin";
 import { Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const FormLogin = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ export const FormLogin = () => {
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState("success");
   const navigate = useNavigate();
+  const {dispatch} = useGlobalReducer();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,11 +25,20 @@ export const FormLogin = () => {
       const data = await tokenLogin(email, password);
       localStorage.setItem("token", data.token);
 
+      dispatch({type: "SET_ROLE", payload: data.role})
+
       setMessage("Login successful");
       setMessageType("success");
 
+      const rolesRoutes= {
+        "RESCUER": "/profile",
+        "ADOPTER": "/inicio",
+        "OWNER":"/profile"
+      }
+
       setTimeout(() => {
-        navigate("/profile")
+        const redirectPath = rolesRoutes[data.role ] || "/";
+        navigate(redirectPath)
       }, 1000);
     } catch (error) {
       setMessage(error.message || "Login failed");
