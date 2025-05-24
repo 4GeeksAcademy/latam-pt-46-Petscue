@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import { PetCardFav } from "../components/PetCardFav";
 import { pets } from "../services/pets";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { Link } from "react-router-dom";
 
 export const Favorites = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -16,6 +17,9 @@ export const Favorites = () => {
 
   return (
     <Container className="py-4">
+      <Link className="btn btn-orange" to="/inicio" style={{ color: "black" }}>
+        Back
+      </Link>
       <h2 className="title mb-4 text-center">Tus Favoritos</h2>
       <Row className="g-4">
         {favoritePets.map((pet) => (
