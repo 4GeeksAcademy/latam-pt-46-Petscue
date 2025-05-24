@@ -4,7 +4,7 @@ import { privateMenu } from "../services/privateMenu";
 
  export const OwnerDashboard = () =>{
     const[ownerData, setOwnerData] = useState();
-    const{navigate} = useNavigate
+    const{navigate} = useNavigate()
 
     const routePrivateOwner = async() => {
         try{
@@ -28,18 +28,23 @@ import { privateMenu } from "../services/privateMenu";
 
     return(
         <div>
+            {ownerData ? (
             <div className="card">
                 <div className="card-body">
-                    <div className="card-text"><strong>Name :</strong> {ownerData.first_name} {ownerData.last_name}</div>
-                    <div className="card-text"><strong>Phonen :</strong> {ownerData.phone}</div>
-                    <div className="card-text"><strong>Email :</strong> {ownerData.email}</div>
+                    <div className="card-text">
+                        <strong>Name :</strong> {ownerData.first_name} {ownerData.last_name}
+                    </div>
+                    <div className="card-text">
+                        <strong>Phonen :</strong> {ownerData.phone}
+                    </div>
+                    <div className="card-text">
+                        <strong>Email :</strong> {ownerData.email}
+                    </div>
                 </div>
             </div>
-
-            <Link to="">Publica a tu Mascota</Link>
-
-            <div></div>
-
+            ) : (
+                <p>Cargando información del propietario...</p>
+            )}
         </div>
     )
 }
