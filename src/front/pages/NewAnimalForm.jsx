@@ -129,19 +129,7 @@ export const NewAnimalForm = () => {
                 multiple
                 accept="image/*"
               />
-              {uploading && <p className="mt-1 text-info">Uploading...</p>}
-              {/* Mostrar thumbnails */}
-              <div className="flex gap-2 mt-2">
-                {newAnimal.photos.map((url, i) => (
-                  <img
-                    alt="Animal photo"
-                    src={url}
-                    key={i}
-                    className="rounded"
-                    style={{ width: "60px", height: "60px", objectFit: "cover" }}
-                  />
-                ))}
-              </div>
+
             </div>
 
 
