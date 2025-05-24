@@ -115,7 +115,7 @@ export const NewAnimalForm = () => {
               } value={newAnimal.vaccines} className="form-control" id="vaccines" name="vaccines" placeholder="Vaccinations received " rows={3}></textarea>
             </div>
 
-        {/*  */}
+            {/*  */}
 
 
             <div className="mb-3">
@@ -135,7 +135,7 @@ export const NewAnimalForm = () => {
 
 
 
-{/*  */}
+            {/*  */}
             <div className="mb-3">
               <label htmlFor="description" className="form-label">Description</label>
               <textarea onChange={(e) =>
