@@ -33,7 +33,9 @@ export const Profile = () => {
             key={animal.id}           
             age={animal.age}
             name={animal.name}
-            race={animal.race} />
+            race={animal.race}
+
+             />
         ))}
       </div>
     </div>

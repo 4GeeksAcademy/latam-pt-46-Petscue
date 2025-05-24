@@ -4,7 +4,7 @@ export const createNewAnimal = async (newAnimal) => {
   const token = localStorage.getItem("token")
   try {
     console.log("Enviando datos a /animals:", newAnimal);
-    const response = await fetch(`https://laughing-enigma-jpjj557vwq43599j-3001.app.github.dev/api/animals`, {
+    const response = await fetch(`${API_URL}/api/animals`, {
       method: "POST",
       body: JSON.stringify(newAnimal),
       headers: {
