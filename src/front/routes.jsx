@@ -12,12 +12,12 @@ import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/RegisterUser";
+import { OwnerDashboard } from "./pages/privatePageOwner";
 import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
 import { Favorites } from "./pages/Favorites";
 import { PrivateRoute } from "./components/PrivateRoute";
-import { Inicio } from "./pages/Inicio";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,19 +37,16 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-      <Route element={<PrivateRoute />}>
+      <Route path="/favs_animals" element={<Favorites />} />
 
+      <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileLayout />}>
-          <Route index element={<Profile />} />
+          <Route index element={<OwnerDashboard />} />
+          <Route path="profileanimal" element={<Profile />} />
           <Route path="newanimal" element={<NewAnimalForm />} />
         </Route>
       </Route>
-
-      <Route element={<PrivateRoute />}>
-        <Route path="/inicio" element={<Inicio />} />
-        <Route path="/favorites" element={<Favorites />} />
-      </Route>
-
+      
     </Route>
   )
 );
