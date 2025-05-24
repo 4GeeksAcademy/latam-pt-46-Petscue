@@ -1,12 +1,10 @@
-import { AnimalFilters } from "../components/AnimalFilters"
-import { AnimalCard } from "../components/AnimalCard"
-import { getMyAnimals } from "../services/getMyAnimals"
-import { useEffect, useState } from "react"
-
+import { AnimalFilters } from "../components/AnimalFilters";
+import { AnimalCard } from "../components/AnimalCard";
+import { getMyAnimals } from "../services/getMyAnimals";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
-
-  const [myAnimals, setMyAnimals] = useState([])
+  const [myAnimals, setMyAnimals] = useState([]);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -29,15 +27,15 @@ export const Profile = () => {
 
       <div className="row gap-3 d-flex justify-content-center pb-5">
         {myAnimals.map((animal) => (
-          <AnimalCard 
-            key={animal.id}           
+          <AnimalCard
+            key={animal.id}
             age={animal.age}
             name={animal.name}
             race={animal.race}
-
-             />
+            description={animal.description}
+          />
         ))}
       </div>
     </div>
-  )
-}
+  );
+};

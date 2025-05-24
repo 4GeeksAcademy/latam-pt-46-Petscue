@@ -15,7 +15,7 @@ export const NewAnimalForm = () => {
     color: "",
     vaccines: "",
     description: "",
-    photos: ""
+    photos: [],
   });
 
   const handlePhotoUpload = async (e) => {
@@ -31,11 +31,17 @@ export const NewAnimalForm = () => {
       data.append("upload_preset", "petscue_preset");
       data.append("cloud_name", "dtljfvq5m");
 
-      const res = await fetch("https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload", {
-        method: "POST",
-        body: data
-      });
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
 
+      if (!res.ok) {
+        throw new Error("Failed to upload photo");
+      }
       const uploaded = await res.json();
       if (uploaded.secure_url) {
         uploadedUrls.push(uploaded.secure_url);
@@ -44,7 +50,7 @@ export const NewAnimalForm = () => {
 
     setNewAnimal((prev) => ({
       ...prev,
-      photos: [...prev.photos, ...uploadedUrls]
+      photos: [...prev.photos, ...uploadedUrls],
     }));
 
     setUploading(false);
@@ -56,70 +62,128 @@ export const NewAnimalForm = () => {
       await createNewAnimal(newAnimal);
       setTimeout(() => navigate("/profile"), 1500);
     } catch (error) {
-      const errorMsg = error?.response?.data?.message || error.message || "Error desconocido";
+      const errorMsg =
+        error?.response?.data?.message || error.message || "Error desconocido";
       setMessage("Registration error: " + errorMsg);
     }
   };
   return (
     <div className="container mb-5 d-flex justify-content-center ">
-      <div className="card shadow-lg rounded-4 bg-light w-75" >
+      <div className="card shadow-lg rounded-4 bg-light w-75">
         <div className="card-body p-4">
-          <h2 className="mb-4 text-center fw-bold " >
-            Register New Animal
-          </h2>
-          <form
-            onSubmit={handleNewAnimal}
-          >
+          <h2 className="mb-4 text-center fw-bold ">Register New Animal</h2>
+          <form onSubmit={handleNewAnimal}>
             <div className="mb-3">
-              <label htmlFor="name" className="form-label">Name</label>
-              <input onChange={(e) =>
-                setNewAnimal({ ...newAnimal, name: e.target.value })
-              } value={newAnimal.name} type="text" className="form-control" id="name" name="name" required autoFocus />
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
+              <input
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, name: e.target.value })
+                }
+                value={newAnimal.name}
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                required
+                autoFocus
+              />
             </div>
             <div className="mb-3">
-              <label htmlFor="age" className="form-label">Age</label>
-              <input onChange={(e) =>
-                setNewAnimal({ ...newAnimal, age: e.target.value })
-              } value={newAnimal.age} type="number" className="form-control" id="age" name="age" min="0" required />
+              <label htmlFor="age" className="form-label">
+                Age
+              </label>
+              <input
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, age: e.target.value })
+                }
+                value={newAnimal.age}
+                type="number"
+                className="form-control"
+                id="age"
+                name="age"
+                min="0"
+                required
+              />
             </div>
             <div className="mb-3">
-              <label htmlFor="animal_type" className="form-label">Type of animal</label>
-              <select onChange={(e) => setNewAnimal({ ...newAnimal, animal_type: e.target.value })}
-                value={newAnimal.animal_type} className="form-select" id="animal_type" name="animal_type" required>
-
+              <label htmlFor="animal_type" className="form-label">
+                Type of animal
+              </label>
+              <select
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, animal_type: e.target.value })
+                }
+                value={newAnimal.animal_type}
+                className="form-select"
+                id="animal_type"
+                name="animal_type"
+                required
+              >
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
                 <option value="rabbit">Rabbit</option>
-
               </select>
             </div>
 
             <div className="mb-3">
-              <label htmlFor="race" className="form-label">Breed</label>
-              <input onChange={(e) =>
-                setNewAnimal({ ...newAnimal, race: e.target.value })
-              } value={newAnimal.race} type="text" className="form-control" id="race" name="race" required />
+              <label htmlFor="race" className="form-label">
+                Breed
+              </label>
+              <input
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, race: e.target.value })
+                }
+                value={newAnimal.race}
+                type="text"
+                className="form-control"
+                id="race"
+                name="race"
+                required
+              />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="color" className="form-label">Color</label>
-              <input onChange={(e) =>
-                setNewAnimal({ ...newAnimal, color: e.target.value })
-              } value={newAnimal.color} type="text" className="form-control" id="color" name="color" required />
+              <label htmlFor="color" className="form-label">
+                Color
+              </label>
+              <input
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, color: e.target.value })
+                }
+                value={newAnimal.color}
+                type="text"
+                className="form-control"
+                id="color"
+                name="color"
+                required
+              />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="vaccines" className="form-label">Vaccines</label>
-              <textarea onChange={(e) =>
-                setNewAnimal({ ...newAnimal, vaccines: e.target.value })
-              } value={newAnimal.vaccines} className="form-control" id="vaccines" name="vaccines" placeholder="Vaccinations received " rows={3}></textarea>
+              <label htmlFor="vaccines" className="form-label">
+                Vaccines
+              </label>
+              <textarea
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, vaccines: e.target.value })
+                }
+                value={newAnimal.vaccines}
+                className="form-control"
+                id="vaccines"
+                name="vaccines"
+                placeholder="Vaccinations received "
+                rows={3}
+              ></textarea>
             </div>
 
             {/*  */}
 
-
             <div className="mb-3">
-              <label htmlFor="photo" className="form-label">Upload photos</label>
+              <label htmlFor="photo" className="form-label">
+                Upload photos
+              </label>
               <input
                 disabled={uploading}
                 onChange={handlePhotoUpload}
@@ -129,29 +193,45 @@ export const NewAnimalForm = () => {
                 multiple
                 accept="image/*"
               />
-
             </div>
-
-
-
 
             {/*  */}
             <div className="mb-3">
-              <label htmlFor="description" className="form-label">Description</label>
-              <textarea onChange={(e) =>
-                setNewAnimal({ ...newAnimal, description: e.target.value })
-              } value={newAnimal.description} className="form-control" id="description" name="description" placeholder="describe the animal you're uploding" rows={2}></textarea>
+              <label htmlFor="description" className="form-label">
+                Description
+              </label>
+              <textarea
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, description: e.target.value })
+                }
+                value={newAnimal.description}
+                className="form-control"
+                id="description"
+                name="description"
+                placeholder="describe the animal you're uploding"
+                rows={2}
+              ></textarea>
             </div>
+
             <button
               type="submit"
               className="btn btn-lemon w-100 fw-semibold"
-
+              disabled={uploading}
             >
-              Upload to the platform!
+              {uploading ? "Uploading..." : "Upload to the platform!"}{" "}
             </button>
+
+            {message && (
+              <div
+                className="alert alert-warning text-center mt-3"
+                role="alert"
+              >
+                {message}
+              </div>
+            )}
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
