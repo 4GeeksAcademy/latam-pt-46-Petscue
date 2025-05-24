@@ -11,7 +11,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
-import { CreateUser } from "./pages/CreateUser";
+import { CreateUser } from "./pages/RegisterUser";
 import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
@@ -46,7 +46,7 @@ export const router = createBrowserRouter(
       </Route>
 
       <Route element={<PrivateRoute />}>
-        <Route path="/newanimal" element={<Inicio />} />
+        <Route path="/inicio" element={<Inicio />} />
         <Route path="/favorites" element={<Favorites />} />
       </Route>
 
