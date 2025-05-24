@@ -4,9 +4,9 @@ export const AnimalCard = ({ name, race, age, description, photo }) => {
       <img
         src={photo}
         className="card-img-top w-100 border rounded-5 -m object-fit-cover"
-        s
         alt="Animal"
       />
+      
       <div className="card-body d-flex flex-column">
         <h5 className="card-title d-flex justify-content-center fs-2">
           Name: {name}
