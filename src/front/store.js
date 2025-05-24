@@ -6,6 +6,7 @@ export const initialStore = () => {
     favorites: [],
     filters: { age: "", breed: "" },
     showFavorites: false,
+    role: null,
   };
 };
 
@@ -40,10 +41,17 @@ export default function storeReducer(store, action = {}) {
         ...store,
         filters: action.payload,
       };
+
     case "SET_SHOW_FAVORITES":
       return {
         ...store,
         showFavorites: action.payload,
+      };
+
+    case "SET_ROLE":
+      return {
+        ...store,
+        role: action.payload,
       };
 
     default:
