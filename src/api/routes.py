@@ -183,8 +183,8 @@ def get_my_animals():
 
 
 @api.route('/private', methods=["GET"])
-@jwt_required
-@role_required('admin', 'adopter', 'rescuer', 'owner')
+@jwt_required()
+@role_required('ADMIN', 'ADOPTER', 'RESCUER', 'OWNER')
 def private_route():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
