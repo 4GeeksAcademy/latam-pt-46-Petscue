@@ -187,43 +187,41 @@ export const NewAnimalForm = () => {
 
               {NewAnimalForm.photo && (
                 <img src={newAnimal.photo} alt="preview of the animal pic to upload" className="img-thumbnail mt-2" style={{ maxWidth: 120 }} />
-              )
-
-              }
-
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label">
-                  Description
-                </label>
-                <textarea
-                  onChange={(e) =>
-                    setNewAnimal({ ...newAnimal, description: e.target.value })
-                  }
-                  value={newAnimal.description}
-                  className="form-control"
-                  id="description"
-                  name="description"
-                  placeholder="describe the animal you're uploding"
-                  rows={2}
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="btn btn-lemon w-100 fw-semibold"
-                disabled={uploading}
-              >
-                {uploading ? "Uploading..." : "Upload to the platform!"}{" "}
-              </button>
-
-              {message && (
-                <div
-                  className="alert alert-warning text-center mt-3"
-                  role="alert"
-                >
-                  {message}
-                </div>
               )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">
+                Description
+              </label>
+              <textarea
+                onChange={(e) =>
+                  setNewAnimal({ ...newAnimal, description: e.target.value })
+                }
+                value={newAnimal.description}
+                className="form-control"
+                id="description"
+                name="description"
+                placeholder="describe the animal you're uploding"
+                rows={2}
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-lemon w-100 fw-semibold"
+              disabled={uploading}
+            >
+              {uploading ? "Uploading..." : "Upload to the platform!"}{" "}
+            </button>
+
+            {message && (
+              <div
+                className="alert alert-warning text-center mt-3"
+                role="alert"
+              >
+                {message}
+              </div>
+            )}
           </form>
         </div>
       </div>

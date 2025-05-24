@@ -33,6 +33,7 @@ export const Profile = () => {
             name={animal.name}
             race={animal.race}
             description={animal.description}
+            photo={animal.photo}
           />
         ))}
       </div>

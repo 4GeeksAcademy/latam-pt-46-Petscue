@@ -1,8 +1,8 @@
-export const AnimalCard = ({ name, race, age, description }) => {
+export const AnimalCard = ({ name, race, age, description, photo }) => {
   return (
     <div className="card shadow-sm col-3 card p-0 border rounded-5">
       <img
-        src="https://picsum.photos/id/237/200/200"
+        src={photo}
         className="card-img-top w-100 border rounded-5 -m object-fit-cover"
         s
         alt="Animal"
