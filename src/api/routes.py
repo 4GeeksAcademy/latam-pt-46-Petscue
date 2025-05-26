@@ -182,6 +182,19 @@ def get_my_animals():
     return jsonify({"animals": animals_list}), 200
 
 
+@api.route('/animals_rescued', methods=['GET'])
+@jwt_required()
+def get_animals():
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    animals = []
+ 
+    animals = Animal.query.filter_by(status='available').all()
+
+    animals_list = [animal.serialize() for animal in animals]
+    return jsonify({"animals": animals_list}), 200
+
+
 
 @api.route('/private', methods=["GET"])
 @jwt_required()

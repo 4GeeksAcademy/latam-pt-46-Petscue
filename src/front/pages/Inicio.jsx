@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PetCardFav } from "../components/PetCardFav";
 import { Filters } from "../components/Filters";
-import { pets } from "../services/pets";
-import { Favorites } from "./Favorites";
 import { Container, Row, Button } from "react-bootstrap";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useNavigate } from "react-router-dom";
+import { getMyAnimalsForAdopter } from "../services/getAnimalsForAdopter";
+
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
   const { favorites, filters, showFavorites } = store;
+  const [animals, setAnimals] = useState([]);
   const navigate = useNavigate();
 
   const handleGoToFavorites = () => {
@@ -20,16 +21,20 @@ export const Inicio = () => {
     dispatch({ type: "TOGGLE_FAVORITE", payload: id });
   };
 
-  const handleFilterChange = (newFilters) => {
-    dispatch({ type: "SET_FILTERS", payload: newFilters });
-  };
 
-  const filteredPets = pets.filter(
-    (p) =>
-      (!filters.age || p.age === filters.age) &&
-      (!filters.breed || p.breed === filters.breed)
-  );
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const animals = await getMyAnimalsForAdopter();
+        console.log("Animales recibidos:", animals); // 👈
 
+        setAnimals(animals);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAnimals();
+  }, []);
   return (
     <div className="page-wrapper">
       <Container className="py-4">
@@ -49,15 +54,20 @@ export const Inicio = () => {
           </Button>
         </div>
 
-        <Filters filters={filters} setFilters={handleFilterChange} />
         <Row className="g-4">
-          {filteredPets.map((pet) => (
+          {animals.map((pet) => (
             <PetCardFav
               key={pet.id}
-              pet={pet}
+              id={pet.id}
+              photo={pet.photo}
+              name={pet.name}
+              race={pet.race}
+              age={pet.age}
+              description={pet.description}
               toggleFavorite={toggleFavorite}
               isFavorite={favorites.includes(pet.id)}
             />
+
           ))}
         </Row>
       </Container>
