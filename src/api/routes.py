@@ -123,7 +123,8 @@ def login():
         return jsonify({"message": "invalid credentials"}), 400
 
     token = create_access_token(
-        identity=str(user.id))
+        identity=str(user.id),
+        additional_claims={"role": user.role.name})
     return jsonify({
         "token": token,
         "role": user.role.name
