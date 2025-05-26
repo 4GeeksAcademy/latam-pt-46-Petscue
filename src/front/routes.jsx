@@ -12,7 +12,7 @@ import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { CreateUser } from "./pages/RegisterUser";
-import { OwnerDashboard } from "./pages/privatePageOwner";
+import { AllDashboard } from "./pages/privatePageForAll";
 import { Profile } from "./pages/Profile";
 import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
@@ -41,7 +41,7 @@ export const router = createBrowserRouter(
 
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileLayout />}>
-          <Route index element={<OwnerDashboard />} />
+          <Route index element={<AllDashboard />} />
           <Route path="profileanimal" element={<Profile />} />
           <Route path="newanimal" element={<NewAnimalForm />} />
         </Route>
