@@ -11,7 +11,7 @@ export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
   const { favorites, filters, showFavorites } = store;
   const [animals, setAnimals] = useState([]);
-  const [localFilters, setLocalFilters] = useState({ age: "", race: "" }); // 👈 Estado local para filtros
+  const [localFilters, setLocalFilters] = useState({ age: "", race: "" }); 
 
   const navigate = useNavigate();
 
