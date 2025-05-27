@@ -251,3 +251,8 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.img-animal-card-inicio{
+  height:200px;
+  object-fit:cover;
+}
