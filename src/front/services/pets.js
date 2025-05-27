@@ -1,23 +1,17 @@
-export const pets = [
-  {
-    id: 1,
-    name: "Dollie",
-    age: "Young",
-    breed: "Mixed Breed",
-    image: "https://via.placeholder.com/200",
-  },
-  {
-    id: 2,
-    name: "Chrysalis PF",
-    age: "Puppy",
-    breed: "Chihuahua Mix",
-    image: "https://via.placeholder.com/200",
-  },
-  {
-    id: 3,
-    name: "Maggie",
-    age: "Adult",
-    breed: "Boxer Mix",
-    image: "https://via.placeholder.com/200",
-  },
-];
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
+export const pets = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/animals_rescued`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Unknown error");
+    return data.animals || [];
+  } catch (error) {
+    console.log("Error fetching animals:", error.message);
+    return [];
+  }
+};

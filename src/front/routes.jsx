@@ -18,6 +18,7 @@ import { ProfileLayout } from "./pages/ProfileLayout";
 import { NewAnimalForm } from "./pages/NewAnimalForm";
 import { Favorites } from "./pages/Favorites";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { Inicio } from "./pages/Inicio";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,8 +38,6 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<CreateUser />} />
       <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-      <Route path="/favs_animals" element={<Favorites />} />
-
       <Route element={<PrivateRoute />}>
         <Route path="/profile" element={<ProfileLayout />}>
           <Route index element={<AllDashboard />} />
@@ -46,7 +45,10 @@ export const router = createBrowserRouter(
           <Route path="newanimal" element={<NewAnimalForm />} />
         </Route>
       </Route>
-      
+      <Route element={<PrivateRoute />}>
+      <Route path="/inicio" element={<Inicio />} />
+        <Route path="/favorites" element={<Favorites />} />
+      </Route>
     </Route>
   )
 );

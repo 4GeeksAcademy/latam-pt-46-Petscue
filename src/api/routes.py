@@ -35,7 +35,7 @@ def role_required(*allowed_roles):
     return wrapper
 
 
-@api.route('/users', methods=['POST'])
+@api.route('/newUser', methods=['POST'])
 def a_new_user():
     data = request.json
 
@@ -123,12 +123,11 @@ def login():
         return jsonify({"message": "invalid credentials"}), 400
 
     token = create_access_token(
-        identity=str(user.id),
-        additional_claims={"role": user.role.name})
+        identity=str(user.id))
     return jsonify({
         "token": token,
         "role": user.role.name
-        }), 201
+    }), 201
 
 # rescuers to store animals in the db
 
@@ -148,24 +147,25 @@ def create_animal():
         "age": data["age"],
         "animal_type": data["animal_type"],
         "race": data["race"],
-        "photo": data.get("photo",""),
+        "photo": data.get("photo", ""),
         "color": data["color"],
         "vaccines": data.get("vaccines"),
         "description": data["description"]
     }
     # Adding the id to the animal data
-    
-    animal_data["added_by_id"] = current_user_id   
 
+    animal_data["added_by_id"] = current_user_id
 
     # putting everything together
     animal = Animal(**animal_data)
     db.session.add(animal)
     db.session.commit()
     return jsonify(animal.serialize()), 201
-#todos los animales -->  /users/animals
-#por usuario 
-#/users/el-Id#/animals
+# todos los animales -->  /users/animals
+# por usuario
+# /users/el-Id#/animals
+
+
 @api.route('/animals/my-animals', methods=['GET'])
 @jwt_required()
 def get_my_animals():
@@ -175,7 +175,7 @@ def get_my_animals():
         return jsonify({"msg": "Only Rescuers and owners can access this route"}), 403
 
     animals = []
- 
+
     animals = Animal.query.filter_by(added_by_id=current_user_id).all()
 
     animals_list = [animal.serialize() for animal in animals]
@@ -183,29 +183,25 @@ def get_my_animals():
 
 
 @api.route('/animals_rescued', methods=['GET'])
-@jwt_required()
 def get_animals():
-    current_user_id = int(get_jwt_identity())
-    user = User.query.get(current_user_id)
-    animals = []
- 
-    animals = Animal.query.filter_by(status='available').all()
+    # Filtrar animales agregados por usuarios con rol 'OWNER' o 'RESCUER'
+    animals = Animal.query.join(User).filter(
+        User.role.in_(['OWNER', 'RESCUER'])).all()
 
     animals_list = [animal.serialize() for animal in animals]
     return jsonify({"animals": animals_list}), 200
 
 
-
 @api.route('/private', methods=["GET"])
-@jwt_required()
-@role_required('ADMIN', 'ADOPTER', 'RESCUER', 'OWNER')
+@jwt_required
+@role_required('admin', 'adopter', 'rescuer', 'owner')
 def private_route():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     if user:
         return jsonify({
-            "message":f"User access with ID: {current_user_id}",
+            "message": f"User access with ID: {current_user_id}",
             "user_data": user.serialize()
-            }), 200
+        }), 200
     else:
-        return jsonify({"message": "User not found"}), 404 
+        return jsonify({"message": "User not found"}), 404

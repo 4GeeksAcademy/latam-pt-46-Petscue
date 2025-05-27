@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import { PetCardFav } from "../components/PetCardFav";
 import { pets } from "../services/pets";
@@ -8,8 +8,19 @@ import { Link } from "react-router-dom";
 export const Favorites = () => {
   const { store, dispatch } = useGlobalReducer();
   const { favorites } = store;
+  const [allPets, setAllPets] = useState([]);
 
-  const favoritePets = pets.filter((pet) => favorites.includes(pet.id));
+
+  useEffect(() => {
+
+    const fetcPets = async () => {
+      const data = await pets();
+      setAllPets(data)
+    }
+    fetcPets()
+  }, [])
+
+  const favoritePets = allPets.filter((pet) => favorites.includes(pet.id));
 
   const toggleFavorite = (id) => {
     dispatch({ type: "TOGGLE_FAVORITE", payload: id });
@@ -22,14 +33,23 @@ export const Favorites = () => {
       </Link>
       <h2 className="title mb-4 text-center">Tus Favoritos</h2>
       <Row className="g-4">
-        {favoritePets.map((pet) => (
-          <PetCardFav
-            key={pet.id}
-            pet={pet}
-            toggleFavorite={toggleFavorite}
-            isFavorite={true}
-          />
-        ))}
+        {favoritePets.length > 0 ? (
+          favoritePets.map((pet) => (
+            <PetCardFav
+              key={pet.id}
+              id={pet.id}
+              photo={pet.photo}
+              name={pet.name}
+              race={pet.race}
+              age={pet.age}
+              description={pet.description}
+              toggleFavorite={toggleFavorite}
+              isFavorite={true}
+            />
+          ))
+        ) : (
+          <p className="text-center">Aún no has agregado mascotas a favoritos.</p>
+        )}
       </Row>
     </Container>
   );

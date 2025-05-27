@@ -9,7 +9,7 @@ export const Filters = ({ filters, setFilters }) => {
     <Form className="mb-3">
       <Row>
         <Col>
-          <Form.Select name="age" onChange={handleChange}>
+          <Form.Select name="age" onChange={handleChange} value={filters.age}>
             <option value="">All Ages</option>
             <option value="Puppy">Puppy</option>
             <option value="Young">Young</option>
@@ -17,7 +17,7 @@ export const Filters = ({ filters, setFilters }) => {
           </Form.Select>
         </Col>
         <Col>
-          <Form.Select name="breed" onChange={handleChange}>
+          <Form.Select name="breed" onChange={handleChange} value={filters.race}>
             <option value="">All Breeds</option>
             <option value="Mixed Breed">Mixed Breed</option>
             <option value="Chihuahua Mix">Chihuahua Mix</option>

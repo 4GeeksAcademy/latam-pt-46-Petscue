@@ -4,13 +4,15 @@ import { Filters } from "../components/Filters";
 import { Container, Row, Button } from "react-bootstrap";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useNavigate } from "react-router-dom";
-import { getMyAnimalsForAdopter } from "../services/getAnimalsForAdopter";
+import { pets } from "../services/pets";
 
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
   const { favorites, filters, showFavorites } = store;
   const [animals, setAnimals] = useState([]);
+  const [localFilters, setLocalFilters] = useState({ age: "", race: "" }); // 👈 Estado local para filtros
+
   const navigate = useNavigate();
 
   const handleGoToFavorites = () => {
@@ -25,8 +27,7 @@ export const Inicio = () => {
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
-        const animals = await getMyAnimalsForAdopter();
-        console.log("Animales recibidos:", animals); // 👈
+        const animals = await pets();
 
         setAnimals(animals);
       } catch (error) {
@@ -35,6 +36,12 @@ export const Inicio = () => {
     };
     fetchAnimals();
   }, []);
+
+  const filteredAnimals = animals.filter((pet) => {
+    const matchesAge = localFilters.age ? pet.age === localFilters.age : true;
+    const matchesRace = localFilters.race ? pet.race === localFilters.race : true;
+    return matchesAge && matchesRace;
+  });
   return (
     <div className="page-wrapper">
       <Container className="py-4">
@@ -54,8 +61,12 @@ export const Inicio = () => {
           </Button>
         </div>
 
+        <div>
+        <Filters filters={localFilters} setFilters={setLocalFilters} />
+        </div>
+
         <Row className="g-4">
-          {animals.map((pet) => (
+          {filteredAnimals.map((pet) => (
             <PetCardFav
               key={pet.id}
               id={pet.id}
@@ -70,7 +81,7 @@ export const Inicio = () => {
 
           ))}
         </Row>
-      </Container>
-    </div>
+      </Container >
+    </div >
   );
 };
