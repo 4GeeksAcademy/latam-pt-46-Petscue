@@ -35,7 +35,7 @@ def role_required(*allowed_roles):
     return wrapper
 
 
-@api.route('/newUser', methods=['POST'])
+@api.route('/user', methods=['POST'])
 def a_new_user():
     data = request.json
 
