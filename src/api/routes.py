@@ -123,7 +123,8 @@ def login():
         return jsonify({"message": "invalid credentials"}), 400
 
     token = create_access_token(
-        identity=str(user.id))
+        identity=str(user.id),
+        additional_claims={"role": user.role.name})
     return jsonify({
         "token": token,
         "role": user.role.name
@@ -193,8 +194,8 @@ def get_animals():
 
 
 @api.route('/private', methods=["GET"])
-@jwt_required
-@role_required('admin', 'adopter', 'rescuer', 'owner')
+@jwt_required()
+@role_required('ADMIN', 'ADOPTER', 'RESCUER', 'OWNER')
 def private_route():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
