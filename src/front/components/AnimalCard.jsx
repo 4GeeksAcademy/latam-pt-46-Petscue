@@ -1,9 +1,9 @@
 export const AnimalCard = ({ name, race, age, description, photo }) => {
   return (
-    <div className="card shadow-sm col-3 card p-0 border rounded-5">
+    <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5">
       <img
         src={photo}
-        className="card-img-top w-100 border rounded-5 -m object-fit-cover"
+        className=" border rounded-5 img-animal-card "
         alt="Animal"
       />
     
@@ -17,7 +17,7 @@ export const AnimalCard = ({ name, race, age, description, photo }) => {
         <p className="card-text d-flex justify-content-center fs-5">
           Age: {age}
         </p>
-        <p className="card-text d-flex justify-content-center fs-5 text-center">
+        <p className="description card-text  d-flex justify-content-center  fs-5 text-center">
           {description}
         </p>
       </div>

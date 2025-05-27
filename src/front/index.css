@@ -225,3 +225,16 @@ p {
 
 /* finish inicio Styles */
 
+
+
+/*Animal card on profiles*/
+.img-animal-card{
+  height:350px;
+  object-fit:cover;
+}
+
+.description{
+  height:60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
