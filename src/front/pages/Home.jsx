@@ -1,10 +1,27 @@
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { AnimalCard } from "../components/AnimalCard.jsx";
 import { AnimalFilters } from "../components/AnimalFilters.jsx";
+import { useState, useEffect } from "react";
+import { pets } from "../services/pets";
+import { Link } from "react-router-dom";
+
+
 
 export const Home = () => {
 
-	const { store, dispatch } = useGlobalReducer()
+	const [myAnimals, setMyAnimals] = useState([]);
+
+	useEffect(() => {
+		const fetchAnimals = async () => {
+			try {
+				const animals = await pets();
+				setMyAnimals(animals);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchAnimals();
+	}, []);
 
 	return (
 		<div className="container mt-5">
@@ -16,7 +33,9 @@ export const Home = () => {
 				<div className="mb-4 col-7 d-flex flex-column justify-content-center align-items-center">
 					<h1 className="">Welcome to Petscue! 🐾</h1>
 					<p className="">Find your new best friend today</p>
-					<button className="btn btn-lemon">Register</button>
+					<Link to="/inicio" className="btn-orange text-center">
+					See more pets!
+				</Link>
 				</div>
 			</div>
 			{/* seccion de caracteristicas de Petscue*/}
@@ -62,11 +81,20 @@ export const Home = () => {
 				<AnimalFilters />
 			</div>
 
-			<div className="row gap-3 d-flex justify-content-center pb-5">
-				<AnimalCard />
-				<AnimalCard />
-				<AnimalCard />
+			<div className="row gap-3 d-flex justify-content-center pb-5 ">
+				{myAnimals.slice(0, 3).map((animal) => (
+					<AnimalCard
+						key={animal.id}
+						age={animal.age}
+						name={animal.name}
+						photo={animal.photo}
+					/>
+				))}
+				<Link to="/inicio" className="btn-lemon w-25 p-3 text-center">
+					See more pets!
+				</Link>
 			</div>
+
 		</div>
 	);
 }; 

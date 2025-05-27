@@ -73,6 +73,8 @@ p {
   background:var(--dark-blue);
 }
 
+/*homepage*/
+
 .contenedor-de-la-pata{
   position:relative;  
   
@@ -89,6 +91,11 @@ p {
   
 }
 
+.homepage-pet-cards-container{
+  overflow-x: scroll;
+  height:500px;
+}
+ /**/
 .card{
   background: var(--melon);
 }
