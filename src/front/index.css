@@ -58,6 +58,12 @@ p {
   cursor: pointer;
 }
 
+.nav-bar-link{
+  color:white;
+  text-decoration:none;  
+  font-weight:bold;
+ 
+}
 
 .nav-bar-link:hover{
   color:black
