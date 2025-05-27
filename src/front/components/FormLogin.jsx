@@ -10,7 +10,7 @@ export const FormLogin = () => {
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState("success");
   const navigate = useNavigate();
-  const {dispatch} = useGlobalReducer();
+  const { dispatch } = useGlobalReducer();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,20 +24,21 @@ export const FormLogin = () => {
     try {
       const data = await tokenLogin(email, password);
       localStorage.setItem("token", data.token);
-
-      dispatch({type: "SET_ROLE", payload: data.role})
+      
+      dispatch({ type: "LOGIN", payload: { token: data.token, user: data.user } });
+      dispatch({ type: "SET_ROLE", payload: data.role })
 
       setMessage("Login successful");
       setMessageType("success");
 
-      const rolesRoutes= {
+      const rolesRoutes = {
         "RESCUER": "/profile",
         "ADOPTER": "/inicio",
-        "OWNER":"/profile"
+        "OWNER": "/profile"
       }
 
       setTimeout(() => {
-        const redirectPath = rolesRoutes[data.role ] || "/";
+        const redirectPath = rolesRoutes[data.role] || "/";
         navigate(redirectPath)
       }, 1000);
     } catch (error) {
