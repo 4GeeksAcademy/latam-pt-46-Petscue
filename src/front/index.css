@@ -60,6 +60,12 @@ p,
   cursor: pointer;
 }
 
+.nav-bar-link{
+  color:white;
+  text-decoration:none;  
+  font-weight:bold;
+ 
+}
 
 .nav-bar-link:hover{
   color:black
@@ -68,6 +74,8 @@ p,
 .footer, .blue{
   background:var(--dark-blue);
 }
+
+/*homepage*/
 
 .contenedor-de-la-pata{
   position:relative;  
@@ -85,6 +93,11 @@ p,
   
 }
 
+.homepage-pet-cards-container{
+  overflow-x: scroll;
+  height:500px;
+}
+ /**/
 .card{
   background: var(--melon);
 }
@@ -227,3 +240,21 @@ p,
 
 /* finish inicio Styles */
 
+
+
+/*Animal card on profiles*/
+.img-animal-card{
+  height:350px;
+  object-fit:cover;
+}
+
+.description{
+  height:60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.img-animal-card-inicio{
+  height:200px;
+  object-fit:cover;
+}

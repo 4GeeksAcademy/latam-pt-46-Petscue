@@ -9,26 +9,32 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar ">
 			<div className="container">
-				<Link to="/">
-					<img src="/petscue.png" alt="petscue-logo" width="200" />
-				</Link>
-				<div className="ml-auto gap-3 d-flex align-items-center">
-					{store.token ? 
-					(
-						<>
-							<Link to="/profile" className="m-auto btn-lemon" >
-								Profile
-							</Link>
-							<CloseSession />
-						</>) : (
+				<div className="gap-5 d-flex align-items-end ">
+					<Link to="/">
+						<img src="/petscue.png" alt="petscue-logo" width="200" />
+					</Link>
+					<Link to="/inicio" className=" mb-3 nav-bar-link">
+						All the Pets
+					</Link>
+				</div>
 
-						<>	<Link to="/login" className=" m-auto btn-lemon text-black" >
-							Access your Account
-						</Link>
-							<Link to="/register" className="btn-orange">
-								Register
+				<div className="ml-auto gap-3 d-flex align-items-center">
+					{store.token ?
+						(
+							<>
+								<Link to="/profile" className="m-auto btn-lemon" >
+									Profile
+								</Link>
+								<CloseSession />
+							</>) : (
+
+							<>	<Link to="/login" className=" m-auto btn-lemon text-black" >
+								Access your Account
 							</Link>
-						</>)}
+								<Link to="/register" className="btn-orange">
+									Register
+								</Link>
+							</>)}
 
 				</div>
 			</div>
