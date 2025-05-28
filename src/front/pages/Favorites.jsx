@@ -1,40 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import { PetCardFav } from "../components/PetCardFav";
 import { pets } from "../services/pets";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Link } from "react-router-dom";
+import { getFavorites, toggleFavoriteAPI } from "../services/addFavorites";
+import { useEffect, useState } from "react";
 
 export const Favorites = () => {
   const { store, dispatch } = useGlobalReducer();
-  const { favorites } = store;
+  const { favorites, token } = store;
   const [allPets, setAllPets] = useState([]);
-
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true); // ✅ Añadido
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const petData = await pets();
+        const favoriteIds = await getFavorites();
+        setAllPets(petData);
+        dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+        setError("No se pudieron cargar tus favoritos. Intenta más tarde.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const fetcPets = async () => {
-      const data = await pets();
-      setAllPets(data)
-    }
-    fetcPets()
-  }, [])
+
+    if (token) fetchData();
+  }, [token, dispatch]);
 
   const favoritePets = allPets.filter((pet) => favorites.includes(pet.id));
 
-  const toggleFavorite = (id) => {
-    dispatch({ type: "TOGGLE_FAVORITE", payload: id });
+  const toggleFavorite = async (id) => {
+    try {
+      await toggleFavoriteAPI(id);
+      dispatch({ type: "TOGGLE_FAVORITE", payload: id });
+    } catch (error) {
+      console.error("Error al actualizar favorito:", error);
+    }
   };
 
   return (
     <Container className="py-4">
-      <Link className="btn btn-orange" to="/inicio" style={{ color: "black" }}>
+      <Link className="btn btn-orange mb-3" to="/inicio" style={{ color: "black" }}>
         Back
       </Link>
-      <h2 className="title mb-4 text-center">Tus Favoritos</h2>
-      <Row className="g-4">
-        {favoritePets.length > 0 ? (
-          favoritePets.map((pet) => (
+      <h2 className="title mb-4 text-center" style={{ color: "black" }}>
+        Tus Favoritos
+      </h2>
+
+      {loading ? (
+        <div className="text-center">
+          <Spinner animation="border" variant="warning" />
+          <p className="mt-2">Cargando favoritos...</p>
+        </div>
+      ) : error ? (
+        <p className="text-danger text-center">{error}</p>
+      ) : favoritePets.length > 0 ? (
+        <Row className="g-4">
+          {favoritePets.map((pet) => (
             <PetCardFav
               key={pet.id}
               id={pet.id}
@@ -46,11 +73,11 @@ export const Favorites = () => {
               toggleFavorite={toggleFavorite}
               isFavorite={true}
             />
-          ))
-        ) : (
-          <p className="text-center">Aún no has agregado mascotas a favoritos.</p>
-        )}
-      </Row>
+          ))}
+        </Row>
+      ) : (
+        <p className="text-center">Aún no has agregado mascotas a favoritos.</p>
+      )}
     </Container>
   );
 };
