@@ -28,7 +28,7 @@ export const PetCardFav = ({
             variant={isFavorite ? "danger" : "outline-primary"}
             onClick={() => toggleFavorite(id)}
           >
-            {isFavorite ? "❤️ Favorito" : "🤍 Agregar"}
+            {isFavorite ? "❤️ Favorite" : "🤍 Add"}
           </Button>
         </Card.Body>
       </Card>
