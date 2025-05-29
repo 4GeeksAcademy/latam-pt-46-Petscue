@@ -250,15 +250,6 @@ def get_animal_description(animal_id):
     
     if not animal:
         return jsonify({"msg": "Animal not found"}), 404
+    
+    return jsonify(animal.serialize()), 200
 
-    return jsonify({
-        "id": animal.id,
-        "name": animal.name,
-        "description": animal.description,
-        "color": animal.color,
-        "race": animal.race,
-        "photo": animal.photo,
-        "color": animal.color,
-        "vaccines": animal.vaccines,
-        "added_by_id": animal.added_by_id
-    }), 200

@@ -1,15 +1,14 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getPet = async (animal_id) => {
+export const singlePet = async (animal_id) => {
   try {
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
-    const response = await fetch(`${API_URL}/api/favorites/${animal_id}`, {
+    const response = await fetch(`${API_URL}/api/animal/${animal_id}`, {
       method: "GET",
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+    console.log("API_URL:", API_URL);
 
     const data = await response.json();
 
@@ -19,7 +18,7 @@ export const getPet = async (animal_id) => {
 
     return data;
   } catch (error) {
-    console.error("Error getting favorites:", error);
+    console.error("Error getting animal:", error);
     throw new Error(error.message || "An unexpected error occurred");
   }
 };

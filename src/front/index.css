@@ -251,4 +251,8 @@ p,
   scrollbar-color: white #25ced1;
   scrollbar-width: 3rem;
 }
-
+.custom-scroll-2 {
+  background-color: #ffc9b9;
+  scrollbar-color: white #ffc9b9;
+  scrollbar-width: 2rem;
+}

@@ -17,7 +17,7 @@ import { NewAnimalForm } from "./pages/NewAnimalForm";
 import { Favorites } from "./pages/Favorites";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Inicio } from "./pages/Inicio";
-import { PetProfile } from "./pages/SinglePet";
+import { PetProfile } from "./pages/PetProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,7 +42,7 @@ export const router = createBrowserRouter(
         </Route>
       </Route>
       <Route path="/inicio" element={<Inicio />} />
-      <Route path="/single" element={<PetProfile />} />
+      <Route path="/pet/:id" element={<PetProfile />} />
       <Route element={<PrivateRoute />}>
         <Route path="/favorites" element={<Favorites />} />
       </Route>

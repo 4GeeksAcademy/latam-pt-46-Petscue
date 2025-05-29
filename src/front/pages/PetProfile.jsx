@@ -1,8 +1,36 @@
-import { Card, Button} from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+import { singlePet } from "../services/singlePet";
+import { useParams } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { useEffect, useState } from "react";
 
 export const PetProfile = () => {
+  const { id } = useParams();
+  const { store, dispatch } = useGlobalReducer();
+  const { currentPet } = store;
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const petData = await singlePet(id);
+        dispatch({ type: "SET_CURRENT_PET", payload: petData });
+      } catch (err) {
+        console.error("Error loading data:", err);
+        setError("There was a problem loading the data.");
+      }
+    };
+
+    fetchPet();
+  }, [id, dispatch]);
+
+  if (!currentPet) return <p>Loading...</p>;
+
   return (
-    <Card className="p-4 shadow-lg mx-auto mt-5" style={{ maxWidth: "1000px", height: "450px", marginBottom: "85px" }}>
+    <Card
+      className="p-4 shadow-lg mx-auto mt-5"
+      style={{ maxWidth: "1000px", height: "550px", marginBottom: "85px" }}
+    >
       <div className="d-flex flex-row">
         {/* Imagen o avatar del animal */}
         <div className="me-4">
@@ -10,7 +38,6 @@ export const PetProfile = () => {
             style={{
               width: "200px",
               height: "200px",
-              background: "#f2f2ff",
               borderRadius: "20px",
               display: "flex",
               alignItems: "center",
@@ -19,9 +46,9 @@ export const PetProfile = () => {
           >
             {/* Imagen como placeholder */}
             <img
-              src= "/perrito.png"
+              src={currentPet.photo}
               alt="Pet"
-              style={{ width: "150px", height: "190px", objectFit: "cover" }}
+              style={{ width: "200px", height: "200px", objectFit: "cover" }}
             />
           </div>
         </div>
@@ -30,25 +57,31 @@ export const PetProfile = () => {
         <div className="flex-grow-1">
           <div className="d-flex justify-content-between align-items-start">
             <div>
-              <h3 className="fw-bold mb-1">Max</h3>
+              <h3 className="fw-bold mb-1">{currentPet.name}</h3>
             </div>
           </div>
 
           <div className="d-flex justify-content-between bg-light rounded p-3 my-3">
             <div>
+              <small className="text-muted fs-5">Breed</small>
+              <div className="fw-semibold fs-5">{currentPet.race}</div>
+            </div>
+              <div>
               <small className="text-muted fs-5">Age</small>
-              <div className="fw-semibold fs-5">1 Year 5 Months</div>
+              <div className="fw-semibold fs-5">{currentPet.age}</div>
             </div>
             <div>
               <small className="text-muted ">Color</small>
-              <div className="fw-semibold fs-5">naranja</div>
+              <div className="fw-semibold fs-5">{currentPet.color}</div>
             </div>
           </div>
 
           <p className="text-muted fs-5" style={{ lineHeight: "1.6" }}>
-            Max is a friendly and lovable Golden Retriever with a heart as golden as his coat.
-            Born on a sunny spring day, Max quickly became everyone's favorite. He loves
-            playing with yarn, making new friends, and going on adventures. 🐾
+            {currentPet.description}. 🐾
+            <br />
+            <br />
+            vaccines: <br />
+            {currentPet.vaccines}
           </p>
 
           <hr />
@@ -62,17 +95,15 @@ export const PetProfile = () => {
                 style={{ width: "40px", height: "40px" }}
               />
               <div>
-                <strong className="fs-5">David Pash</strong>
+                <strong className="fs-5">carlos</strong>
                 <div className="text-muted fs-5" style={{ fontSize: "0.9rem" }}>
-                  Joined in 2024
                 </div>
               </div>
             </div>
             <div>
               <Button variant="outline-warning" className="me-2">
-                📞
+                📞 
               </Button>
-              <Button variant="outline-primary">💬</Button>
             </div>
           </div>
         </div>

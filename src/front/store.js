@@ -6,6 +6,7 @@ export const initialStore = () => {
     favorites: [],
     filters: { age: "", breed: "" },
     role: null,
+    currentPet: null,
   };
 };
 
@@ -52,6 +53,12 @@ export default function storeReducer(store, action = {}) {
         ...store,
         role: action.payload,
       };
+    
+    case "SET_CURRENT_PET":
+      return{
+        ...store,
+        currentPet: action.payload
+      }
 
     default:
       throw Error("Unknown action.");
