@@ -9,7 +9,7 @@ import { getFavorites, toggleFavoriteAPI } from "../services/addFavorites";
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
-  const { favorites, filters } = store;
+  const { favorites, filters, token } = store;
   const [error, setError] = useState("");
   const [animals, setAnimals] = useState([]);
   const [localFilters, setLocalFilters] = useState({ age: "", race: "" });
@@ -22,6 +22,10 @@ export const Inicio = () => {
 
 
   const toggleFavorite = async (id) => {
+    if (!token) {
+      alert("Debes iniciar sesión para guardar favoritos");
+      return;
+    }
     try {
       await toggleFavoriteAPI(id);
       dispatch({ type: "TOGGLE_FAVORITE", payload: id });
@@ -34,10 +38,14 @@ export const Inicio = () => {
     const fetchData = async () => {
       try {
         const animalList = await pets();
-        const favoriteIds = await getFavorites();
-
         setAnimals(animalList);
-        dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
+
+        if (token) {
+          const favoriteIds = await getFavorites();
+          dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
+        } else {
+          dispatch({ type: "SET_FAVORITES", payload: [] });
+        }
       } catch (err) {
         console.error("Error al cargar datos:", err);
         setError("Hubo un problema al cargar los datos.");
@@ -45,7 +53,7 @@ export const Inicio = () => {
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, token]);
 
 
   const filteredAnimals = animals.filter((pet) => {
