@@ -244,7 +244,7 @@ p,
 
 /*Animal card on profiles*/
 .img-animal-card{
-  height:350px;
+  height:280px;
   object-fit:cover;
 }
 
@@ -257,4 +257,11 @@ p,
 .img-animal-card-inicio{
   height:200px;
   object-fit:cover;
+}
+
+/* styles for scroll */
+.custom-scroll {
+  background-color: #25CED1; 
+  scrollbar-color: white #25CED1; 
+  scrollbar-width: 3rem; 
 }
