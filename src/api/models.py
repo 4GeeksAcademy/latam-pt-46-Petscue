@@ -56,7 +56,7 @@ class User(db.Model):
 
 
     # Favorite relationship
-    favorites = db.relationship(
+    favorites:Mapped[list["Favorite"]]= db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
     # relacion de animalitos publicados con el publicador
