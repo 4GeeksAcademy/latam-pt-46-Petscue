@@ -28,11 +28,13 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6, 
+.card-Title {
   font-family: "Ribeye", serif;
 }
 
-p {
+p, 
+.Card-Text{
   font-family: "Open Sans", sans-serif;
 }
 
@@ -242,7 +244,7 @@ p {
 
 /*Animal card on profiles*/
 .img-animal-card{
-  height:350px;
+  height:280px;
   object-fit:cover;
 }
 
@@ -255,4 +257,11 @@ p {
 .img-animal-card-inicio{
   height:200px;
   object-fit:cover;
+}
+
+/* styles for scroll */
+.custom-scroll {
+  background-color: #25CED1; 
+  scrollbar-color: white #25CED1; 
+  scrollbar-width: 3rem; 
 }

@@ -5,7 +5,6 @@ export const initialStore = () => {
     user: null,
     favorites: [],
     filters: { age: "", breed: "" },
-    showFavorites: false,
     role: null,
   };
 };
@@ -26,13 +25,19 @@ export default function storeReducer(store, action = {}) {
     case "LOGOUT":
       return { ...store, token: "", user: null };
 
+    case "SET_FAVORITES":
+      return {
+        ...store,
+        favorites: action.payload,
+      };
+
     case "TOGGLE_FAVORITE":
       const id = action.payload;
       const isFavorite = store.favorites.includes(id);
       return {
         ...store,
         favorites: isFavorite
-          ? store.favorites.filter((fav) => fav !== id)
+          ? store.favorites.filter((favId) => favId !== id)
           : [...store.favorites, id],
       };
 
@@ -40,12 +45,6 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         filters: action.payload,
-      };
-
-    case "SET_SHOW_FAVORITES":
-      return {
-        ...store,
-        showFavorites: action.payload,
       };
 
     case "SET_ROLE":

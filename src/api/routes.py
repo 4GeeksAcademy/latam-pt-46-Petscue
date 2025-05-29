@@ -2,11 +2,12 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserRole, Animal
+from api.models import db, User, UserRole, Animal, Favorite
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token,  jwt_required, get_jwt_identity
+from flask_jwt_extended.exceptions import NoAuthorizationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from bcrypt import gensalt
 from functools import wraps
@@ -206,3 +207,38 @@ def private_route():
         }), 200
     else:
         return jsonify({"message": "User not found"}), 404
+
+
+@api.route("/favorites", methods=["GET"])
+def get_user_favorites():
+    try:
+        verify_jwt_in_request()
+        user_id = get_jwt_identity()
+    except NoAuthorizationError:
+        user_id = None
+
+    if user_id:
+        favorites = Favorite.query.filter_by(user_id=user_id).all()
+        favorite_animal_ids = [fav.animal_id for fav in favorites]
+    else:
+        favorite_animal_ids = []
+
+    return jsonify(favorite_animal_ids), 200
+
+
+@api.route("/favorites/<int:animal_id>", methods=["POST"])
+@jwt_required()
+def toggle_favorite(animal_id):
+    user_id = get_jwt_identity()
+    favorite = Favorite.query.filter_by(
+        user_id=user_id, animal_id=animal_id).first()
+
+    if favorite:
+        db.session.delete(favorite)
+        db.session.commit()
+        return jsonify({"msg": "Removed from favorites"}), 200
+    else:
+        new_favorite = Favorite(user_id=user_id, animal_id=animal_id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        return jsonify({"msg": "Added to favorites"}), 201
