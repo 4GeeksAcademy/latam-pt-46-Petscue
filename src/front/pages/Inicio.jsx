@@ -23,7 +23,7 @@ export const Inicio = () => {
 
   const toggleFavorite = async (id) => {
     if (!token) {
-      alert("Debes iniciar sesión para guardar favoritos");
+      alert("You must log in to save favorites");
       return;
     }
     try {
@@ -47,8 +47,8 @@ export const Inicio = () => {
           dispatch({ type: "SET_FAVORITES", payload: [] });
         }
       } catch (err) {
-        console.error("Error al cargar datos:", err);
-        setError("Hubo un problema al cargar los datos.");
+        console.error("Error loading data:", err);
+        setError("There was a problem loading the data.");
       }
     };
 
@@ -93,6 +93,7 @@ export const Inicio = () => {
             />
           ))}
         </Row>
+        {error && <div className="alert alert-info mt-3">{error}</div>}
       </Container>
     </div>
   );
