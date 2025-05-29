@@ -11,31 +11,31 @@ export const Favorites = () => {
   const { favorites, token } = store;
   const [allPets, setAllPets] = useState([]);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const petData = await pets(); 
-      setAllPets(petData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const petData = await pets();
+        setAllPets(petData);
 
-      if (token) {
-        const favoriteIds = await getFavorites(); 
-        dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
-      } else {
+        if (token) {
+          const favoriteIds = await getFavorites();
+          dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
+        } else {
 
-        dispatch({ type: "SET_FAVORITES", payload: [] });
+          dispatch({ type: "SET_FAVORITES", payload: [] });
+        }
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError("Your favorites could not be loaded. Try later.");
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error al cargar datos:", error);
-      setError("No se pudieron cargar tus favoritos. Intenta más tarde.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchData();
-}, [token, dispatch]);
+    fetchData();
+  }, [token, dispatch]);
 
 
   const favoritePets = allPets.filter((pet) => favorites.includes(pet.id));
@@ -45,7 +45,7 @@ useEffect(() => {
       await toggleFavoriteAPI(id);
       dispatch({ type: "TOGGLE_FAVORITE", payload: id });
     } catch (error) {
-      console.error("Error al actualizar favorito:", error);
+      console.error("Favorite update error:", error);
     }
   };
 
@@ -55,13 +55,13 @@ useEffect(() => {
         Back
       </Link>
       <h2 className="title mb-4 text-center" style={{ color: "black" }}>
-        Tus Favoritos
+        Your favorites
       </h2>
 
       {loading ? (
         <div className="text-center">
           <Spinner animation="border" variant="warning" />
-          <p className="mt-2">Cargando favoritos...</p>
+          <p className="mt-2">Loading favorites ...</p>
         </div>
       ) : error ? (
         <p className="text-danger text-center">{error}</p>
@@ -82,7 +82,7 @@ useEffect(() => {
           ))}
         </Row>
       ) : (
-        <p className="text-center">Aún no has agregado mascotas a favoritos.</p>
+        <p className="text-center">You haven't added pets to favorites yet.</p>
       )}
     </Container>
   );
