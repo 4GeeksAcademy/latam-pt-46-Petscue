@@ -34,8 +34,8 @@ export const Home = () => {
 					<h1 className="">Welcome to Petscue! 🐾</h1>
 					<p className="">Find your new best friend today</p>
 					<Link to="/inicio" className="btn-orange text-center">
-					See more pets!
-				</Link>
+						See more pets!
+					</Link>
 				</div>
 			</div>
 			{/* seccion de caracteristicas de Petscue*/}
@@ -81,15 +81,18 @@ export const Home = () => {
 				<AnimalFilters />
 			</div>
 
-			<div className="row gap-3 d-flex justify-content-center pb-5 ">
-				{myAnimals.slice(0, 3).map((animal) => (
-					<AnimalCard
-						key={animal.id}
-						age={animal.age}
-						name={animal.name}
-						photo={animal.photo}
-					/>
-				))}
+			<div className=" row gap-3 d-flex justify-content-center overflow-hidden pb-5">
+				<div className=" custom-scroll d-flex align-items-stretch gap-3 overflow-x-auto ">
+					{myAnimals.slice(0, 5).map((animal) => (
+						<AnimalCard
+							key={animal.id}
+							age={animal.age}
+							name={animal.name}
+							photo={animal.photo}
+							description={animal.description}
+						/>
+					))}
+				</div>
 				<Link to="/inicio" className="btn-lemon w-25 p-3 text-center">
 					See more pets!
 				</Link>
