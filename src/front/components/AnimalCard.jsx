@@ -1,5 +1,5 @@
 export const AnimalCard = ({ name, race, age, description, photo }) => {
-  return (
+  return (    
     <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5">
       <img
         src={photo}
@@ -7,7 +7,7 @@ export const AnimalCard = ({ name, race, age, description, photo }) => {
         alt="Animal"
       />
     
-      <div className="card-body d-flex flex-column">
+      <div className="card-body d-flex flex-column ">
         <h5 className="card-title d-flex justify-content-center fs-2">
           Name: {name}
         </h5>

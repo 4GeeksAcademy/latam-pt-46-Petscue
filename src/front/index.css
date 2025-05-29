@@ -2,17 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
-  --acqua:#25CED1;
+  --acqua: #25ced1;
   --orange: #ff9f0f;
   --lemon: #aff500;
-  --dark-blue: #345E7A;
-  --melon:#FFC9B9;
-  --green: #2B6C47;
-  --light-pink:#FFF4ED;
-  --light-green:#84FFA1;
+  --dark-blue: #345e7a;
+  --melon: #ffc9b9;
+  --green: #2b6c47;
+  --light-pink: #fff4ed;
+  --light-green: #84ffa1;
 }
-
-
 
 body {
   margin: 0;
@@ -28,13 +26,13 @@ h2,
 h3,
 h4,
 h5,
-h6, 
+h6,
 .card-Title {
   font-family: "Ribeye", serif;
 }
 
-p, 
-.Card-Text{
+p,
+.Card-Text {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -42,7 +40,7 @@ p,
   background: var(--orange);
   padding: 10px 20px;
   color: black;
-  text-decoration:none;
+  text-decoration: none;
   border: none;
   border-radius: 30px;
   font-size: 16px;
@@ -51,7 +49,7 @@ p,
 
 .btn-lemon {
   background: var(--lemon);
-  text-decoration:none;
+  text-decoration: none;
   padding: 10px 20px;
   color: black;
   border: none;
@@ -60,45 +58,40 @@ p,
   cursor: pointer;
 }
 
-.nav-bar-link{
-  color:white;
-  text-decoration:none;  
-  font-weight:bold;
- 
+.nav-bar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.nav-bar-link:hover{
-  color:black
- 
+.nav-bar-link:hover {
+  color: black;
 }
-.footer, .blue{
-  background:var(--dark-blue);
+.footer,
+.blue {
+  background: var(--dark-blue);
 }
 
 /*homepage*/
 
-.contenedor-de-la-pata{
-  position:relative;  
-  
+.contenedor-de-la-pata {
+  position: relative;
 }
 
-.overlapping{
-  
+.overlapping {
   position: absolute;
   top: 50%;
-    top: 50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
- 
-  
 }
 
-.homepage-pet-cards-container{
+.homepage-pet-cards-container {
   overflow-x: scroll;
-  height:500px;
+  height: 500px;
 }
- /**/
-.card{
+/**/
+.card {
   background: var(--melon);
 }
 .signup-body {
@@ -133,8 +126,6 @@ p,
   font-size: 40px;
   color: var(--orange);
 }
-
-
 
 .signup-title-bold {
   font-size: 32px;
@@ -202,8 +193,6 @@ p,
   text-decoration: none;
 }
 
-
-
 /* PetCardFav Styles */
 
 .pet-card {
@@ -224,7 +213,6 @@ p,
 
 /* finish PetCardFav Styles */
 
-
 /* incio Styles */
 .page-wrapper {
   background: #ffe6e6;
@@ -240,28 +228,27 @@ p,
 
 /* finish inicio Styles */
 
-
-
 /*Animal card on profiles*/
-.img-animal-card{
-  height:280px;
-  object-fit:cover;
+.img-animal-card {
+  height: 350px;
+  object-fit: cover;
 }
 
-.description{
-  height:60px;
+.description {
+  height: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.img-animal-card-inicio{
-  height:200px;
-  object-fit:cover;
+.img-animal-card-inicio {
+  height: 200px;
+  object-fit: cover;
 }
 
 /* styles for scroll */
 .custom-scroll {
-  background-color: #25CED1; 
-  scrollbar-color: white #25CED1; 
-  scrollbar-width: 3rem; 
+  background-color: #25ced1;
+  scrollbar-color: white #25ced1;
+  scrollbar-width: 3rem;
 }
+

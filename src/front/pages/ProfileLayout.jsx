@@ -3,8 +3,8 @@ import { SideBar } from "../components/SideBar"
 
 export const ProfileLayout = () => {
     return (
-        <div className="row">
-            <div className="col-2">
+        <div className="row m-0">
+            <div className="col-2 p-0">
                 <SideBar />
             </div>
             <div className="col-10">

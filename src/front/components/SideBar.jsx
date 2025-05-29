@@ -27,9 +27,9 @@ export const SideBar = () => {
         data()
     }, [])
     return (
-        <div>
+        <>
             {roleData && (roleData.role === "OWNER" || roleData.role === "RESCUER") ?
-                <div className="  d-flex flex-column py-4 px-3 min-vh-100 blue text-white">
+                <div className=" d-flex flex-column py-4 px-3 min-vh-100 h-100 blue text-white">
                     <div className="mb-4 text-center">
                         <h4 className="fw-bold mb-0">
                             Petscue
@@ -58,7 +58,7 @@ export const SideBar = () => {
                     </ul>
                 </div>
                 : roleData && (roleData.role === "ADOPTER") ?
-                    <div className="  d-flex flex-column py-4 px-3 min-vh-100 blue text-white">
+                    <div className="d-flex flex-column py-4 min-vh-100 blue text-white">
                         <div className="mb-4 text-center">
                             <h4 className="fw-bold mb-0">
                                 Petscue
@@ -76,6 +76,6 @@ export const SideBar = () => {
                     </div>
                     : null
             }
-        </div>
+        </>
     )
 }

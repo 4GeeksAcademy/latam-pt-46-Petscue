@@ -242,3 +242,23 @@ def toggle_favorite(animal_id):
         db.session.add(new_favorite)
         db.session.commit()
         return jsonify({"msg": "Added to favorites"}), 201
+
+
+@api.route("/animal/<int:animal_id>", methods=["GET"])
+def get_animal_description(animal_id):
+    animal = Animal.query.get(animal_id)
+    
+    if not animal:
+        return jsonify({"msg": "Animal not found"}), 404
+
+    return jsonify({
+        "id": animal.id,
+        "name": animal.name,
+        "description": animal.description,
+        "color": animal.color,
+        "race": animal.race,
+        "photo": animal.photo,
+        "color": animal.color,
+        "vaccines": animal.vaccines,
+        "added_by_id": animal.added_by_id
+    }), 200
