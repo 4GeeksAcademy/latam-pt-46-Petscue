@@ -11,26 +11,32 @@ export const Favorites = () => {
   const { favorites, token } = store;
   const [allPets, setAllPets] = useState([]);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true); // ✅ Añadido
+  const [loading, setLoading] = useState(true); 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const petData = await pets();
-        const favoriteIds = await getFavorites();
-        setAllPets(petData);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const petData = await pets(); 
+      setAllPets(petData);
+
+      if (token) {
+        const favoriteIds = await getFavorites(); 
         dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
-      } catch (error) {
-        console.error("Error al cargar datos:", error);
-        setError("No se pudieron cargar tus favoritos. Intenta más tarde.");
-      } finally {
-        setLoading(false);
+      } else {
+
+        dispatch({ type: "SET_FAVORITES", payload: [] });
       }
-    };
+    } catch (error) {
+      console.error("Error al cargar datos:", error);
+      setError("No se pudieron cargar tus favoritos. Intenta más tarde.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  fetchData();
+}, [token, dispatch]);
 
-    if (token) fetchData();
-  }, [token, dispatch]);
 
   const favoritePets = allPets.filter((pet) => favorites.includes(pet.id));
 
