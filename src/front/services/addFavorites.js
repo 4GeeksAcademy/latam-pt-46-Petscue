@@ -3,12 +3,16 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 export const getFavorites = async () => {
   const token = localStorage.getItem("token");
   try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
     const response = await fetch(`${API_URL}/api/favorites`, {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      headers,
     });
 
     const data = await response.json();
@@ -23,6 +27,7 @@ export const getFavorites = async () => {
     throw new Error(error.message || "An unexpected error occurred");
   }
 };
+
 
 export const toggleFavoriteAPI = async (animalId) => {
   const token = localStorage.getItem("token");
