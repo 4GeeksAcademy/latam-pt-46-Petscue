@@ -6,7 +6,8 @@ from api.models import db, User, UserRole, Animal, Favorite
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token,  jwt_required, get_jwt_identity
+from flask_jwt_extended.exceptions import NoAuthorizationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from bcrypt import gensalt
 from functools import wraps
@@ -209,19 +210,29 @@ def private_route():
 
 
 @api.route("/favorites", methods=["GET"])
-@jwt_required()
 def get_user_favorites():
-    user_id = get_jwt_identity()
-    favorites = Favorite.query.filter_by(user_id=user_id).all()
-    return jsonify([fav.animal_id for fav in favorites]), 200
+    try:
+        verify_jwt_in_request()
+        user_id = get_jwt_identity()
+    except NoAuthorizationError:
+        user_id = None
+
+    if user_id:
+        favorites = Favorite.query.filter_by(user_id=user_id).all()
+        favorite_animal_ids = [fav.animal_id for fav in favorites]
+    else:
+        favorite_animal_ids = []
+
+    return jsonify(favorite_animal_ids), 200
 
 
 @api.route("/favorites/<int:animal_id>", methods=["POST"])
 @jwt_required()
 def toggle_favorite(animal_id):
     user_id = get_jwt_identity()
-    favorite = Favorite.query.filter_by(user_id=user_id, animal_id=animal_id).first()
-    
+    favorite = Favorite.query.filter_by(
+        user_id=user_id, animal_id=animal_id).first()
+
     if favorite:
         db.session.delete(favorite)
         db.session.commit()
