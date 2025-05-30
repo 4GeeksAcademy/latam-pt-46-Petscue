@@ -1,4 +1,31 @@
-export const AdoptionForm = ({ name }) => {
+import { useState } from "react";
+import { sendMessageToPetCarer } from "../services/sendMessageToPetCarer";
+import useGlobalReducer from "../hooks/useGlobalReducer"
+
+export const AdoptionForm = ({ name, carerId }) => {
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState(null);
+  const { store } = useGlobalReducer();
+  // Si el store no tiene token actualizado, puedes fallback al localStorage:
+  const token = store.token || localStorage.getItem("token") || "";
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus(null);
+
+    try {
+      await sendMessageToPetCarer({
+        userId: carerId,  // este es added_by_id
+        message,
+        token,
+      });
+      setStatus("Message sent! 🚀");
+      setMessage("");
+    } catch (error) {
+      setStatus("Oops, something went wrong 😔");
+    }
+  }
+
   return (
     <>
       <div
@@ -24,13 +51,15 @@ export const AdoptionForm = ({ name }) => {
 
             {/* modal body */}
             <div className="modal-body">
-              <form>
+              <form  onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
                     Message
                   </label>
                   <textarea
                     className="form-control"
+                    value={message}
+                    onChange={e => setMessage(e.target.value)}
                     id="description"
                     name="description"
                     placeholder={`Hey, I am interested in ${name}, and would like to know more and potentially meet`}
@@ -46,6 +75,11 @@ export const AdoptionForm = ({ name }) => {
                   >
                     Send Message
                   </button>
+                          {status && (
+                  <div className="alert alert-info my-2" role="alert">
+                    {status}
+                  </div>
+                )}
                 </div>
               </form>
             </div>

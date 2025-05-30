@@ -105,7 +105,7 @@ export const PetProfile = () => {
             </div>
 
             {/* modallll */}
-            <AdoptionForm name={currentPet.name}/>
+            <AdoptionForm name={currentPet.name} carerId={currentPet.added_by_id}/>
             
             {/* boton que abre el modal */}
             <button
