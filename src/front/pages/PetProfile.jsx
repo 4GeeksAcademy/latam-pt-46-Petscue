@@ -3,6 +3,8 @@ import { singlePet } from "../services/singlePet";
 import { useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useEffect, useState } from "react";
+import { AdoptionForm } from "../components/AdoptionForm"
+import { Link } from "react-router-dom";
 
 export const PetProfile = () => {
   const { id } = useParams();
@@ -66,7 +68,7 @@ export const PetProfile = () => {
               <small className="text-muted fs-5">Breed</small>
               <div className="fw-semibold fs-5">{currentPet.race}</div>
             </div>
-              <div>
+            <div>
               <small className="text-muted fs-5">Age</small>
               <div className="fw-semibold fs-5">{currentPet.age}</div>
             </div>
@@ -88,23 +90,31 @@ export const PetProfile = () => {
 
           <div className="d-flex justify-content-between align-items-center mt-3">
             <div className="d-flex align-items-center">
-              <img
-                src="https://img.icons8.com/emoji/48/person.png"
-                alt="Owner"
-                className="me-2"
-                style={{ width: "40px", height: "40px" }}
-              />
+        
               <div>
-                <strong className="fs-5">carlos</strong>
-                <div className="text-muted fs-5" style={{ fontSize: "0.9rem" }}>
-                </div>
+              
+                <Link to="/inicio" className="text-decoration-none text-black font-bold"><strong>Go back to main</strong></Link>
+                <div
+                  className="text-muted fs-5"
+                  style={{ fontSize: "0.9rem" }}
+                ></div>
               </div>
             </div>
             <div>
-              <Button variant="outline-warning" className="me-2">
-                📞 
-              </Button>
+         
             </div>
+
+            {/* modallll */}
+            <AdoptionForm name={currentPet.name}/>
+            
+            {/* boton que abre el modal */}
+            <button
+              className="btn btn-lemon"
+              data-bs-target="#exampleModalToggle"
+              data-bs-toggle="modal"
+            >
+              Start Inquiry
+            </button>
           </div>
         </div>
       </div>
