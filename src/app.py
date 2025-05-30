@@ -13,7 +13,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from datetime import timedelta
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from flask import render_template
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
@@ -96,36 +96,6 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0  # avoid cache memory
     return response
-
-# Endpoint to send an contact email ##############################################################
-@app.route("/send-email/contact/<int:user_id>", methods=["POST"]) #id del usuario a quien se le enviara el email
-@jwt_required()
-def send_email(user_id): 
-    current_user_id = get_jwt_identity() #el adoptante
-    current_user = User.query.get(current_user_id)
-    if not current_user:
-        return jsonify({"message": "Unauthorized"}), 401
-    user = User.query.get(user_id) #el que tiene el animalito
-    if not user:
-        return jsonify({"message": "User not found"}), 404
-    data = request.get_json()
-    message = data.get("message", "") #por los mometos tiene un solo field ojo agregar lo otro
-    html_body = render_template( 
-        "contact_email.html", #hace rreferencia a la plantilla en templates carpeta --> si cambias tem qu ehcambiar aca tmb
-        user_email=user.email, #destinatario
-        sender_email=current_user.email, # el qie lo manda
-        message=message #mendaje que 
-    )
-    print(html_body) #para corroborar
-    
-    msg = Message(
-        subject="Nuevo mensaje de contacto",
-        recipients=[user.email],
-        html=html_body,
-        sender=current_user.email
-    )
-    mail.send(msg)
-    return jsonify({"message": "Email sent"}), 200
 
 
 

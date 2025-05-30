@@ -2,7 +2,7 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const sendMessageToPetCarer = async ({ userId, message, token }) => {
   try {
-    const resp = await fetch(`${API_URL}/send-email/contact/${userId}`,
+    const resp = await fetch(`${API_URL}/api/send-email/contact/${userId}`,
       {
         method: "POST",
         headers: {

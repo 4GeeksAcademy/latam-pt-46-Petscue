@@ -121,3 +121,30 @@ class Animal(db.Model):
             "description": self.description,
             "added_by_id": self.added_by_id,  # id of the user who uploaded the animal
         }
+
+class Message(db.Model):
+    __tablename__ = "messages"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sender_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    receiver_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    animal_id: Mapped[int] = mapped_column(db.ForeignKey("animals.id"), nullable=True)
+    content: Mapped[str] = mapped_column(String(2000), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
+    read: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=False)
+
+    # Relationships (optional, for easier querying)
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    receiver = db.relationship("User", foreign_keys=[receiver_id])
+    animal = db.relationship("Animal", foreign_keys=[animal_id])
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "animal_id": self.animal_id,
+            "content": self.content,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "read": self.read,
+        }

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, UserRole, Animal, Favorite
+from api.models import db, User, UserRole, Animal, Favorite, Message
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from api.dataStructure import AllTheUsers
@@ -14,6 +14,9 @@ from functools import wraps
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from datetime import datetime
 import traceback
+from flask_mail import Mail
+from flask_mail import Message as MailMessage
+from flask import render_template, current_app
 
 
 api = Blueprint('api', __name__)
@@ -253,3 +256,67 @@ def get_animal_description(animal_id):
         return jsonify({"msg": "Animal not found"}), 404
 
     return jsonify(animal.serialize()), 200
+
+# Endpoint to send an contact email ##############################################################
+@api.route("/send-email/contact/<int:user_id>", methods=["POST"]) #id del usuario a quien se le enviara el email
+@jwt_required()
+def send_email(user_id): 
+    current_user_id = get_jwt_identity() #el adoptante
+    current_user = User.query.get(current_user_id)
+    if not current_user:
+        return jsonify({"message": "Unauthorized"}), 401
+    user = User.query.get(user_id) #el que tiene el animalito
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+    data = request.get_json()
+    message = data.get("message", "") #por los mometos tiene un solo field ojo agregar lo otro
+    animal_id = data.get("animal_id")  # frontend debe mandar el animal_id (opcional, pero útil)
+    message_obj = Message(
+        sender_id=current_user.id,
+        receiver_id=user.id,
+        content=message,
+        animal_id=animal_id,
+        read=False
+    )
+    db.session.add(message_obj)
+    db.session.commit()
+
+    html_body = render_template( 
+        "contact_email.html", #hace rreferencia a la plantilla en templates carpeta --> si cambias tem qu ehcambiar aca tmb
+        user_email=user.email, #destinatario
+        sender_email=current_user.email, # el qie lo manda
+        message=message #mendaje que 
+    )
+    print(html_body) #para corroborar
+    
+    msg = MailMessage(
+        "New message from Petscue, a potencial adoptant is reaching out!",
+        recipients=[user.email],
+        html=html_body,
+        sender=current_user.email
+    )
+    mail = current_app.extensions["mail"] 
+    mail.send(msg)
+    return jsonify({"message": "Email sent"}), 200
+
+
+
+#ruta para obtener los mensajes
+@api.route("/my-messages", methods=["GET"])
+@jwt_required()
+def get_my_messages():
+    user_id = get_jwt_identity()
+    messages = Message.query.filter_by(receiver_id=user_id).order_by(Message.created_at.desc()).all()
+    return jsonify([m.serialize() for m in messages]), 200
+
+#ruta para marcar los mensajes como leidos
+@api.route("/messages/read/<int:message_id>", methods=["PUT"])
+@jwt_required()
+def mark_message_as_read(message_id):
+    user_id = get_jwt_identity()
+    message = Message.query.filter_by(id=message_id, receiver_id=user_id).first()
+    if not message:
+        return jsonify({"message": "Message not found"}), 404
+    message.read = True
+    db.session.commit()
+    return jsonify({"success": True}), 200
