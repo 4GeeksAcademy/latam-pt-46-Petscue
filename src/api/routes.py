@@ -76,6 +76,7 @@ def a_new_user():
         first_name=data["first_name"],
         last_name=data["last_name"],
         story=data["story"],
+        profile_picture=data.get("profile_picture"),
         password_hash=password_hash,
         salt=salt,
         role=UserRole[role_str],
