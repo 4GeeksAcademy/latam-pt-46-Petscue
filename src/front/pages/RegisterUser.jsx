@@ -5,6 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 
 export const CreateUser = () => {
   const navigate = useNavigate();
+  const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState("");
   const [useUser, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -13,7 +15,41 @@ export const CreateUser = () => {
     password: "",
     role: "",
     story: "",
+    profile_picture: "",
   });
+
+  const handlePhotoUpload = async (e) => {
+    const files = e.target.files;
+    if (!files.length) return;
+
+    setUploading(true);
+
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "petscue_preset");
+    data.append("cloud_name", "dtljfvq5m");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dtljfvq5m/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to upload photo");
+    }
+    const uploaded = await res.json();
+    if (uploaded.secure_url) {
+      setUser((prev) => ({
+        ...prev,
+        photo: uploaded.secure_url,
+      }));
+    }
+
+    setUploading(false);
+  };
 
   const handleUser = async (e) => {
     e.preventDefault();
@@ -22,8 +58,7 @@ export const CreateUser = () => {
       toast.success("Successful registration, please log in.");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
-      const errorMsg =
-        error?.response?.data || error|| "Error desconocido";
+      const errorMsg = error?.response?.data || error || "Error desconocido";
       toast.error("Registration error: " + errorMsg);
     }
   };
@@ -74,6 +109,31 @@ export const CreateUser = () => {
                 value={useUser.email}
               />
             </div>
+
+            <div className="mb-3">
+              <label htmlFor="photo" className="form-label">
+                Upload photo
+              </label>
+              <input
+                disabled={uploading}
+                onChange={handlePhotoUpload}
+                className="form-control"
+                type="file"
+                id="photo"
+                multiple
+                accept="image/*"
+              />
+
+              {useUser.photo && (
+                <img
+                  src={useUser.photo}
+                  alt="preview of the profile pic to upload"
+                  className="img-thumbnail mt-2"
+                  style={{ maxWidth: 120 }}
+                />
+              )}
+            </div>
+
             <div className="justify-content-end">
               <label>Phone</label>
               <input
@@ -103,7 +163,6 @@ export const CreateUser = () => {
                 required
               >
                 <option value="">Select a role</option>
-                <option value="ADMIN">Administrator</option>
                 <option value="ADOPTER">Adoptant</option>
                 <option value="OWNER">Owner</option>
                 <option value="RESCUER">Rescuer</option>
