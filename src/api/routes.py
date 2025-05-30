@@ -247,9 +247,8 @@ def toggle_favorite(animal_id):
 @api.route("/animal/<int:animal_id>", methods=["GET"])
 def get_animal_description(animal_id):
     animal = Animal.query.get(animal_id)
-    
+
     if not animal:
         return jsonify({"msg": "Animal not found"}), 404
-    
-    return jsonify(animal.serialize()), 200
 
+    return jsonify(animal.serialize()), 200
