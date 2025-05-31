@@ -6,13 +6,18 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useNavigate } from "react-router-dom";
 import { pets } from "../services/pets";
 import { getFavorites, toggleFavoriteAPI } from "../services/addFavorites";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
   const { favorites, token } = store;
   const [error, setError] = useState("");
   const [animals, setAnimals] = useState([]);
-  const [localFilters, setLocalFilters] = useState({ animal_type:"", age: "", race: "" });
+  const [localFilters, setLocalFilters] = useState({
+    animal_type: "",
+    age: "",
+    race: "",
+  });
 
   const navigate = useNavigate();
 
@@ -20,10 +25,11 @@ export const Inicio = () => {
     navigate("/favorites");
   };
 
-
   const toggleFavorite = async (id) => {
     if (!token) {
-      alert("You must log in to save favorites");
+      toast("You must log in to save favorites", {
+        icon: "👏",
+      });
       return;
     }
     try {
@@ -55,15 +61,12 @@ export const Inicio = () => {
     fetchData();
   }, [dispatch, token]);
 
-
   const filteredAnimals = animals.filter((pet) => {
     const matchesAnimalType = localFilters.animal_type
       ? pet.animal_type === localFilters.animal_type
       : true;
 
-    const matchesAge = localFilters.age
-      ? pet.age === localFilters.age
-      : true;
+    const matchesAge = localFilters.age ? pet.age === localFilters.age : true;
 
     const matchesRace = localFilters.race
       ? pet.race === localFilters.race
@@ -71,9 +74,10 @@ export const Inicio = () => {
 
     return matchesAnimalType && matchesAge && matchesRace;
   });
-  
+
   return (
     <div className="page-wrapper">
+      <Toaster position="top-center" reverseOrder={false} />
       <Container className="py-4">
         <h2 className="title mb-4 text-center">Adopt-a-Pet</h2>
 
