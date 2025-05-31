@@ -7,7 +7,6 @@ from datetime import datetime
 from sqlalchemy import Enum as PgEnum
 
 
-
 db = SQLAlchemy()
 
 
@@ -25,8 +24,6 @@ class Favorite(db.Model):
     animal = db.relationship("Animal", back_populates="favorites")
 
 
-import enum
-
 class UserRole(enum.Enum):
     ADMIN = "ADMIN"
     ADOPTER = "ADOPTER"
@@ -42,6 +39,7 @@ class User(db.Model):
     last_name: Mapped[str] = mapped_column(String(120), nullable=False)
     phone: Mapped[str] = mapped_column(String(20), nullable=False)
     story: Mapped[str] = mapped_column(String(1000), nullable=False)
+    profile_picture: Mapped[str] = mapped_column(String(500), nullable=True)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)
@@ -51,23 +49,24 @@ class User(db.Model):
     start_date: Mapped[datetime] = mapped_column(default=datetime.utcnow)
 
     # rol de usuario
-    role: Mapped[UserRole] = mapped_column(PgEnum(UserRole, name="userrole", create_constraint=False), nullable=False)
-
-
+    role: Mapped[UserRole] = mapped_column(
+        PgEnum(UserRole, name="userrole", create_constraint=False), nullable=False)
 
     # Favorite relationship
-    favorites:Mapped[list["Favorite"]]= db.relationship(
+    favorites: Mapped[list["Favorite"]] = db.relationship(
         "Favorite", back_populates="user", cascade="all, delete-orphan")
 
     # relacion de animalitos publicados con el publicador
-    animals_added : Mapped[list["Animal"]]= db.relationship(back_populates="added_by", cascade="all, delete-orphan")
+    animals_added: Mapped[list["Animal"]] = db.relationship(
+        back_populates="added_by", cascade="all, delete-orphan")
 
-    def __init__(self, email, password_hash, salt, phone, story, role, start_date, first_name, last_name, is_active):
+    def __init__(self, email, password_hash, salt, phone, story, profile_picture, role, start_date, first_name, last_name, is_active):
         self.email = email
         self.password_hash = password_hash
         self.salt = salt
         self.phone = phone
-        self.story= story
+        self.story = story
+        self.profile_picture = profile_picture
         self.role = role
         self.start_date = start_date
         self.first_name = first_name
@@ -82,6 +81,7 @@ class User(db.Model):
             "is_active": self.is_active,
             "phone": self.phone,
             "story": self.story,
+            "profile_picture": self.profile_picture,
             "email": self.email,
             "role": self.role.value,
             "start_date": self.start_date.isoformat() if self.start_date else None,
@@ -97,7 +97,7 @@ class Animal(db.Model):
     animal_type: Mapped[str] = mapped_column(String(50), nullable=False)
     race: Mapped[str] = mapped_column(String(50), nullable=False)
     photo: Mapped[str] = mapped_column(String(500),)
-    description: Mapped[str]= mapped_column(String(1000), nullable=False)
+    description: Mapped[str] = mapped_column(String(1000), nullable=False)
     color: Mapped[str] = mapped_column(String(50), nullable=False)
     vaccines: Mapped[str] = mapped_column(String(500), nullable=True)
 
@@ -120,4 +120,31 @@ class Animal(db.Model):
             "vaccines": self.vaccines,
             "description": self.description,
             "added_by_id": self.added_by_id,  # id of the user who uploaded the animal
+        }
+
+class Message(db.Model):
+    __tablename__ = "messages"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    sender_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    receiver_id: Mapped[int] = mapped_column(db.ForeignKey("users.id"), nullable=False)
+    animal_id: Mapped[int] = mapped_column(db.ForeignKey("animals.id"), nullable=True)
+    content: Mapped[str] = mapped_column(String(2000), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
+    read: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=False)
+
+    # Relationships (optional, for easier querying)
+    sender = db.relationship("User", foreign_keys=[sender_id])
+    receiver = db.relationship("User", foreign_keys=[receiver_id])
+    animal = db.relationship("Animal", foreign_keys=[animal_id])
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "animal_id": self.animal_id,
+            "content": self.content,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "read": self.read,
         }

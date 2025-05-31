@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import { FaPaw, FaUserAlt } from "react-icons/fa";
 import { privateMenu } from "../services/privateMenu";
 import { useEffect, useState } from "react";
+import { FaBell } from "react-icons/fa";
+import { PiPawPrintBold } from "react-icons/pi";
+import { FaUser } from "react-icons/fa";
 
 export const SideBar = () => {
+    
     const [roleData, setRoleData] = useState(null);
     const data = async () => {
         try {
@@ -39,7 +43,7 @@ export const SideBar = () => {
                     <ul className="nav nav-pills flex-column gap-2">
                         <li className="nav-item">
                             <Link to="/profile" className="nav-link d-flex align-items-center  text-white">
-                                <span className="me-2"><FaPaw /></span>
+                                <span className="me-2"><FaUser /></span>
                                 Profile
                             </Link>
                         </li>
@@ -51,8 +55,14 @@ export const SideBar = () => {
                         </li>
                         <li className="nav-item">
                             <Link to="newanimal" className="nav-link d-flex align-items-center text-white">
-                                <span className="me-2"><FaUserAlt /></span>
+                                <span className="me-2"><PiPawPrintBold /></span>
                                 Add New Animal
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="notifications" className="nav-link d-flex align-items-center text-white">
+                                <span className="me-2"><FaBell /></span>
+                                Notifications
                             </Link>
                         </li>
                     </ul>
