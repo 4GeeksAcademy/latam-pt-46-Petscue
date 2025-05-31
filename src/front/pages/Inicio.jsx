@@ -9,10 +9,10 @@ import { getFavorites, toggleFavoriteAPI } from "../services/addFavorites";
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
-  const { favorites, filters, token } = store;
+  const { favorites, token } = store;
   const [error, setError] = useState("");
   const [animals, setAnimals] = useState([]);
-  const [localFilters, setLocalFilters] = useState({ age: "", race: "" });
+  const [localFilters, setLocalFilters] = useState({ animal_type:"", age: "", race: "" });
 
   const navigate = useNavigate();
 
@@ -57,12 +57,21 @@ export const Inicio = () => {
 
 
   const filteredAnimals = animals.filter((pet) => {
-    const matchesAge = localFilters.age ? pet.age === localFilters.age : true;
+    const matchesAnimalType = localFilters.animal_type
+      ? pet.animal_type === localFilters.animal_type
+      : true;
+
+    const matchesAge = localFilters.age
+      ? pet.age === localFilters.age
+      : true;
+
     const matchesRace = localFilters.race
       ? pet.race === localFilters.race
       : true;
-    return matchesAge && matchesRace;
+
+    return matchesAnimalType && matchesAge && matchesRace;
   });
+  
   return (
     <div className="page-wrapper">
       <Container className="py-4">
