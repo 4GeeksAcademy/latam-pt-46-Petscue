@@ -4,7 +4,6 @@ import { CloseSession } from "./CloseSession";
 
 export const Navbar = () => {
 	const { store } = useGlobalReducer()
-	console.log("este es el token: ", store.token)
 
 	return (
 		<nav className="navbar ">
