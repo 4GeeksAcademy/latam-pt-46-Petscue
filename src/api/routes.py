@@ -167,6 +167,16 @@ def create_animal():
 # por usuario
 # /users/el-Id#/animals
 
+@api.route('/animals', methods=['GET'])
+def get_the_animal():
+    try:
+        animals = Animal.query.all()
+        animals_list = [animal.serialize() for animal in animals]       
+        return jsonify({"animals": animals_list}), 200
+    except Exception as e:
+        
+        print(f"Error al obtener animales: {e}")
+        return jsonify({"msg": "Error interno del servidor al obtener animales"}), 500
 
 @api.route('/animals/my-animals', methods=['GET'])
 @jwt_required()
