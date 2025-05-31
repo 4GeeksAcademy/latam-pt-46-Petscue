@@ -31,7 +31,7 @@ export const PetProfile = () => {
   return (
     <Card
       className="p-4 shadow-lg mx-auto mt-5"
-      style={{ maxWidth: "1000px", height: "550px", marginBottom: "85px" }}
+      style={{ maxWidth: "1000px", maxHeighteight: "800px", marginBottom: "85px" }}
     >
       <div className="d-flex flex-row">
         {/* Imagen o avatar del animal */}

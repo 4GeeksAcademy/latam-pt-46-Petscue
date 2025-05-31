@@ -1,6 +1,6 @@
 export const AnimalCard = ({ name, race, age, description, photo }) => {
   return (    
-    <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5">
+    <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5 ">
       <img
         src={photo}
         className=" border rounded-5 img-animal-card "
