@@ -256,3 +256,29 @@ p,
   scrollbar-color: white #ffc9b9;
   scrollbar-width: 2rem;
 }
+
+
+/*styles for profile*/
+.dashboard-container {
+    padding: 60px 0;
+    background: #ffc9b9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-img {
+    max-width: 300px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-name {
+    color: #d90429;
+    font-weight: 600;
+}
+
+.role-title {
+    color: black;
+    margin-bottom: 20px;
+}
+
+
