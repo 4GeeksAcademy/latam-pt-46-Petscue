@@ -32,12 +32,16 @@ export const AnimalCard = ({
           {description}
         </p>
         <div className="d-flex justify-content-center gap-4 flew-nowrap">
-          <Button variant="outline-primary" onClick={() => onEdit(id)}>
-            Edit
-          </Button>
-          <Button variant="outline-danger" onClick={() => handleDelete(id)}>
-            Delete animal
-          </Button>
+          {onEdit && (
+            <Button variant="outline-primary" onClick={() => onEdit(id)}>
+              Edit
+            </Button>
+          )}
+          {handleDelete && (
+            <Button variant="outline-danger" onClick={() => handleDelete(id)}>
+              Delete animal
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -94,7 +94,7 @@ export const Home = () => {
 
 			<div className=" row gap-3 d-flex justify-content-center overflow-hidden pb-5">
 				<div className=" custom-scroll d-flex align-items-stretch gap-3 overflow-x-auto flex-nowrap ">
-					{filteredAnimals.slice(0, 6).map((animal) => (
+					{filteredAnimals.slice(0, 7).map((animal) => (
 						<AnimalCard
 							key={animal.id}
 							age={animal.age}
