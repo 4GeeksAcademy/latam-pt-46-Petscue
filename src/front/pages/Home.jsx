@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 export const Home = () => {
 
 	const [myAnimals, setMyAnimals] = useState([]);
+	const [selectedAnimalType, setSelectedAnimalType] = useState("")
 
 	useEffect(() => {
 		const fetchAnimals = async () => {
@@ -22,6 +23,13 @@ export const Home = () => {
 		};
 		fetchAnimals();
 	}, []);
+
+	const filteredAnimals = myAnimals.filter((animal) => {
+		if (!selectedAnimalType){
+			return true
+		}
+		return animal.animal_type === selectedAnimalType
+	})
 
 	return (
 		<div className="container mt-5">
@@ -78,12 +86,15 @@ export const Home = () => {
 			{/* Seccion de cartas de los animalitos*/}
 			<div className=" d-flex justify-content-around">
 				<h2 className="mb-4 text-center">Our Animals</h2>
-				<AnimalFilters />
+				<AnimalFilters 
+					selectedAnimalType={selectedAnimalType}
+					onSelectedAnimalType={setSelectedAnimalType}
+				/>
 			</div>
 
 			<div className=" row gap-3 d-flex justify-content-center overflow-hidden pb-5">
 				<div className=" custom-scroll d-flex align-items-stretch gap-3 overflow-x-auto flex-nowrap ">
-					{myAnimals.slice(0, 6).map((animal) => (
+					{filteredAnimals.slice(0, 6).map((animal) => (
 						<AnimalCard
 							key={animal.id}
 							age={animal.age}

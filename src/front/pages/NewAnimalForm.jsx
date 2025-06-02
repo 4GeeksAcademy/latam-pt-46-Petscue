@@ -116,6 +116,7 @@ export const NewAnimalForm = () => {
                 name="animal_type"
                 required
               >
+                <option value="" disabled></option>
                 <option value="dog">Dog</option>
                 <option value="cat">Cat</option>
                 <option value="rabbit">Rabbit</option>

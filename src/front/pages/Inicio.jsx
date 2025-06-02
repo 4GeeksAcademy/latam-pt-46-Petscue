@@ -16,7 +16,7 @@ export const Inicio = () => {
   const [localFilters, setLocalFilters] = useState({
     animal_type: "",
     age: "",
-    race: "",
+    raceInitial: "",
   });
 
   const navigate = useNavigate();
@@ -66,13 +66,37 @@ export const Inicio = () => {
       ? pet.animal_type === localFilters.animal_type
       : true;
 
-    const matchesAge = localFilters.age ? pet.age === localFilters.age : true;
+    const matchesAge = (() => {
+      if (!localFilters.age){
+        return true
+      }
+      const petAgeNum = parseInt(pet.age,10)
 
-    const matchesRace = localFilters.race
-      ? pet.race === localFilters.race
-      : true;
+      switch (localFilters.age) {
+        case "0-1":
+          return petAgeNum >= 0 && petAgeNum <= 1;
+        case "2-7": 
+          return petAgeNum >= 2 && petAgeNum <= 7;
+        case "8+": 
+          return petAgeNum >= 8;
+        case "2-3": 
+          return petAgeNum >= 2 && petAgeNum <= 3;
+        case "4+": 
+          return petAgeNum >= 4;
+        default:
+          return true
+      }
+    })();
 
-    return matchesAnimalType && matchesAge && matchesRace;
+    const matchesRaceInitial = (() => {
+      if(!localFilters.raceInitial){
+        return true
+      }
+      const firstLetterOfRace = String(pet.race || "").charAt(0).toUpperCase()
+      const selectedInitial = localFilters.raceInitial.toUpperCase()
+      return firstLetterOfRace === selectedInitial
+    })()
+    return matchesAnimalType && matchesAge && matchesRaceInitial;
   });
 
   return (

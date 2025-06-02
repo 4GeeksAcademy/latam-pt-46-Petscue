@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 export const Profile = () => {
   const [myAnimals, setMyAnimals] = useState([]);
   const navigate = useNavigate();
+  const [selectedAnimalType, setSelectedAnimalType] = useState("");
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -57,16 +58,26 @@ export const Profile = () => {
     ));
   };
 
+  const filteredAnimals = myAnimals.filter((animal) => {
+    if (!selectedAnimalType) {
+      return true;
+    }
+    return animal.animal_type === selectedAnimalType;
+  });
+
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
       <div className=" d-flex justify-content-around my-5">
         <h2 className="mb-4 text-center">Uploaded Animals</h2>
-        <AnimalFilters />
+        <AnimalFilters 
+          selectedAnimalType={selectedAnimalType}
+          onSelectedAnimalType={setSelectedAnimalType}
+        />
       </div>
 
       <div className="row gap-4 d-flex justify-content-center pb-5">
-        {myAnimals.map((animal) => (
+        {filteredAnimals.map((animal) => (
           <AnimalCard
             key={animal.id}
             id={animal.id}
