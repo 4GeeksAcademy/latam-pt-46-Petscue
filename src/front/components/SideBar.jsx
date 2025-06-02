@@ -85,7 +85,7 @@ export const SideBar = () => {
           </ul>
         </div>
       ) : roleData && roleData.role === "ADOPTER" ? (
-        <div className="d-flex flex-column py-4 min-vh-100 blue text-white">
+        <div className="d-flex flex-column py-4 min-vh-100 blue h-100 text-white">
           <div className="mb-4 text-center">
             <h4 className="fw-bold mb-0">Petscue</h4>
             <p className="mt-1">Your Panel</p>
