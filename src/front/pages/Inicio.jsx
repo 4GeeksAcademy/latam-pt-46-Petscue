@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { pets } from "../services/pets";
 import { getFavorites, toggleFavoriteAPI } from "../services/addFavorites";
 import toast, { Toaster } from "react-hot-toast";
+import { FaHeart } from "react-icons/fa";
 
 export const Inicio = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -22,7 +23,7 @@ export const Inicio = () => {
   const navigate = useNavigate();
 
   const handleGoToFavorites = () => {
-    navigate("/favorites");
+    navigate("/profile/favorites");
   };
 
   const toggleFavorite = async (id) => {
@@ -67,35 +68,37 @@ export const Inicio = () => {
       : true;
 
     const matchesAge = (() => {
-      if (!localFilters.age){
-        return true
+      if (!localFilters.age) {
+        return true;
       }
-      const petAgeNum = parseInt(pet.age,10)
+      const petAgeNum = parseInt(pet.age, 10);
 
       switch (localFilters.age) {
         case "0-1":
           return petAgeNum >= 0 && petAgeNum <= 1;
-        case "2-7": 
+        case "2-7":
           return petAgeNum >= 2 && petAgeNum <= 7;
-        case "8+": 
+        case "8+":
           return petAgeNum >= 8;
-        case "2-3": 
+        case "2-3":
           return petAgeNum >= 2 && petAgeNum <= 3;
-        case "4+": 
+        case "4+":
           return petAgeNum >= 4;
         default:
-          return true
+          return true;
       }
     })();
 
     const matchesRaceInitial = (() => {
-      if(!localFilters.raceInitial){
-        return true
+      if (!localFilters.raceInitial) {
+        return true;
       }
-      const firstLetterOfRace = String(pet.race || "").charAt(0).toUpperCase()
-      const selectedInitial = localFilters.raceInitial.toUpperCase()
-      return firstLetterOfRace === selectedInitial
-    })()
+      const firstLetterOfRace = String(pet.race || "")
+        .charAt(0)
+        .toUpperCase();
+      const selectedInitial = localFilters.raceInitial.toUpperCase();
+      return firstLetterOfRace === selectedInitial;
+    })();
     return matchesAnimalType && matchesAge && matchesRaceInitial;
   });
 
@@ -106,9 +109,15 @@ export const Inicio = () => {
         <h2 className="title mb-4 text-center">Adopt-a-Pet</h2>
 
         <div className="mb-4 d-flex justify-content-center gap-3">
-          <Button variant="outline-primary" onClick={handleGoToFavorites}>
-            see favorites ({favorites.length})
-          </Button>
+          <button className="favorite-button" onClick={handleGoToFavorites}>
+            <div className="heart-icon-container">
+              <FaHeart className="heart-icon" />
+              {favorites.length > 0 && (
+                <span className="heart-badge">{favorites.length}</span>
+              )}
+            </div>
+            See Favorites
+          </button>
         </div>
 
         <div>

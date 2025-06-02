@@ -282,3 +282,52 @@ p,
 }
 
 
+/*styles for hert icon in botton of favorites*/
+
+.favorite-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: 2px solid #dc3545;
+  color: #dc3545;
+  background-color: white;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+
+.favorite-button:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.favorite-button .heart-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.favorite-button .heart-icon {
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.favorite-button:hover .heart-icon {
+  color: white;
+}
+
+.favorite-button .heart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 50%;
+  font-weight: bold;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+
