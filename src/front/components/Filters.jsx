@@ -7,8 +7,8 @@ export const Filters = ({ filters, setFilters }) => {
     const { name, value } = e.target;
     setFilters(prevFilters => {
       const newFilters = { ...prevFilters, [name]: value };
-      if (name === "animal_type") {
-        newFilters.race = "";
+      if (name === "animal_type" && value !== prevFilters.animal_type) {
+        newFilters.raceInitial = "";
         newFilters.age = "";
       }
       return newFilters;
@@ -16,91 +16,61 @@ export const Filters = ({ filters, setFilters }) => {
   };
   const selectedAnimalType = filters.animal_type
 
-  const getRaceOptions = (animalType) => {
-    const commonAllOption = <option value="">Todas las Razas</option>;
-    switch (animalType) {
-      case "dog":
-        return (
-          <>
-            {commonAllOption}
-            <option value="Labrador">Labrador</option>
-            <option value="Poodle">Poodle</option>
-            <option value="German Shepherd">Pastor Alemán</option>
-            <option value="Boxer">Bóxer</option>
-            <option value="Chihuahua">Chihuahua</option>
-            <option value="Mixed Breed">Mezcla</option> 
-          
-          </>
-        );
-      case "cat":
-        return (
-          <>
-            {commonAllOption}
-            <option value="Siamese">Siamés</option>
-            <option value="Persian">Persa</option>
-            <option value="Maine Coon">Maine Coon</option>
-            <option value="Bengal">Bengalí</option>
-            
-          </>
-        );
-      case "rabbit":
-        return (
-          <>
-            {commonAllOption}
-            <option value="Netherland Dwarf">Netherland Dwarf</option>
-            <option value="Holland Lop">Holland Lop</option>
-            <option value="Lionhead">Lionhead</option>
-            
-          </>
-        );
-      default:
-        return commonAllOption;
-    }
-  };
-
-  
   const getAgeOptions = (animalType) => {
-    const commonAllOption = <option value="">Todas las Edades</option>;
+    const commonAllOption = <option value="">All age</option>;
     
     switch (animalType) {
       case "dog":
         return (
           <>
             {commonAllOption}
-            <option value="0-1">Cachorro (0-1 año)</option>
-            <option value="2-7">Joven (2-7 años)</option>
-            <option value="8+">Adulto (+8 años)</option>
+            <option value="0-1">Puppy (0-1 year)</option>
+            <option value="2-7">Junior (2-7 years)</option>
+            <option value="8+">Senior (+8 years)</option>
           </>
         );
       case "cat":
         return (
           <>
             {commonAllOption}
-            <option value="0-0.5">Gatito (0-6 meses)</option>
-            <option value="0.5-2">Joven (6 meses-2 años)</option>
-            <option value="3+">Adulto (+3 años)</option>
+            <option value="0-1">Kitten (0-1 year)</option>
+            <option value="2-3">Junior (2-3 years)</option>
+            <option value="4+">Senior (+4 years)</option>
           </>
         );
       case "rabbit":
           return (
             <>
               {commonAllOption}
-              <option value="0-0.5">Cría (0-6 meses)</option>
-              <option value="0.5-3">Adulto joven (6 meses-3 años)</option>
-              <option value="4+">Adulto (+4 años)</option>
+              <option value="0-1">Bunny (0-1 year)</option>
+              <option value="2-3">junior (2-3 years)</option>
+              <option value="4+">senior (+4 years)</option>
           </>
         );
       default:
         return commonAllOption;
     }
   }
+  const getAlphabetOptions = () => {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    return (
+      <>
+        <option value="">Breed Initial</option>
+        {alphabet.map((letter) => (
+          <option key={letter} value={letter}>
+            {letter}
+          </option>
+        ))}
+      </>
+    );
+  };
 
   return (
     <Form className="mb-3">
       <Row>
         <Col>
           <Form.Select name="animal_type" onChange={handleChange} value={filters.animal_type}>
-            <option value="">Todos los Tipos</option>
+            <option value="">All types</option>
             <option value="dog">Dog</option>
             <option value="cat">Cat</option>
             <option value="rabbit">Rabbit</option>
@@ -112,8 +82,8 @@ export const Filters = ({ filters, setFilters }) => {
           </Form.Select>
         </Col>
         <Col>
-          <Form.Select name="race" onChange={handleChange} value={filters.race}>
-            {getRaceOptions(selectedAnimalType)}
+          <Form.Select name="raceInitial" onChange={handleChange} value={filters.raceInitial}>
+            {getAlphabetOptions()}
           </Form.Select>
         </Col>
       </Row>
