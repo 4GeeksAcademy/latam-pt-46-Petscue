@@ -19,6 +19,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { Inicio } from "./pages/Inicio";
 import { PetProfile } from "./pages/PetProfile";
 import { NotificationsView } from "./pages/NotificationsView";
+import { EditAnimalForm } from "./pages/EditAnimalForm";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ export const router = createBrowserRouter(
           <Route path="profileanimal" element={<Profile />} />
           <Route path="newanimal" element={<NewAnimalForm />} />
           <Route path="notifications" element={<NotificationsView />} />
+          <Route path="edit/:id" element={<EditAnimalForm />} />
         </Route>
       </Route>
       <Route path="/inicio" element={<Inicio />} />
