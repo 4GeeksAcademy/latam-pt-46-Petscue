@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FaBell } from "react-icons/fa";
 import { PiPawPrintBold } from "react-icons/pi";
 import { FaUser } from "react-icons/fa";
+import { MdFavorite } from "react-icons/md";
 
 export const SideBar = () => {
   const [roleData, setRoleData] = useState(null);
@@ -99,6 +100,17 @@ export const SideBar = () => {
                   <FaPaw />
                 </span>
                 Perfil
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="favorites"
+                className="nav-link d-flex align-items-center text-white"
+              >
+                <span className="me-2">
+                  <MdFavorite />
+                </span>
+                Favorites
               </Link>
             </li>
           </ul>

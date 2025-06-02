@@ -43,13 +43,11 @@ export const router = createBrowserRouter(
           <Route path="newanimal" element={<NewAnimalForm />} />
           <Route path="notifications" element={<NotificationsView />} />
           <Route path="edit/:id" element={<EditAnimalForm />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
       </Route>
       <Route path="/inicio" element={<Inicio />} />
       <Route path="/pet/:id" element={<PetProfile />} />
-      <Route element={<PrivateRoute />}>
-        <Route path="/favorites" element={<Favorites />} />
-      </Route>
     </Route>
   )
 );
