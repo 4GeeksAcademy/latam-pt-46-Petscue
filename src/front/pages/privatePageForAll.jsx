@@ -3,63 +3,68 @@ import { useNavigate, Link } from "react-router-dom";
 import { privateMenu } from "../services/privateMenu";
 
 export const AllDashboard = () => {
-    const [roleData, setRoleData] = useState(null);
-    const navigate = useNavigate()
+  const [roleData, setRoleData] = useState(null);
+  const navigate = useNavigate();
 
-    const routePrivateForAll = async () => {
-        try {
-            const data = await privateMenu()
+  const routePrivateForAll = async () => {
+    try {
+      const data = await privateMenu();
 
-            if (data && data.user_data && data.user_data.role === `OWNER`) {
-                setRoleData(data.user_data)
-            }
-            else if (data && data.user_data && data.user_data.role === `ADOPTER`) {
-                setRoleData(data.user_data)
-            }
-            else if (data && data.user_data && data.user_data.role === `RESCUER`) {
-                setRoleData(data.user_data)
-            } else {
-                console.warn(`User is not exist: `, data.user_data)
-                navigate("/login")
-            }
-        } catch (error) {
-            console.error("Ocurrio un error al acceder a la información, ", error)
-        }
-
+      if (data && data.user_data && data.user_data.role === `OWNER`) {
+        setRoleData(data.user_data);
+      } else if (data && data.user_data && data.user_data.role === `ADOPTER`) {
+        setRoleData(data.user_data);
+      } else if (data && data.user_data && data.user_data.role === `RESCUER`) {
+        setRoleData(data.user_data);
+      } else {
+        console.warn(`User is not exist: `, data.user_data);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Ocurrio un error al acceder a la información, ", error);
     }
+  };
 
-    useEffect(() => {
-        routePrivateForAll()
-    }, [])
+  useEffect(() => {
+    routePrivateForAll();
+  }, []);
 
-    return (
-        <div>
-            {roleData ? (
-                <>
-                    <div className="card">
-                        <div className="card-body">
-                            <h3 className="card-title">
-                                Profile:
-                            </h3>
-                            <div className="card-text">
-                                <strong>Name :</strong> {roleData.first_name} {roleData.last_name}
-                            </div>
-                            <div className="card-text">
-                                <strong>Phonen :</strong> {roleData.phone}
-                            </div>
-                            <div className="card-text">
-                                <strong>Email :</strong> {roleData.email}
-                            </div>
-                        </div>
-                        <div className="card mt-3">
-                            <h3 className="card-title">Story :</h3>
-                            <p className="card-text">{roleData.story}</p>
-                        </div>
-                    </div>
-                </>
-            ) : (
-                <p>Cargando información del propietario...</p>
+  return (
+    <div className="dashboard-container container rounded-3 ">
+      {roleData ? (
+        <div className="row align-items-center">
+          <div className="col-md-5 text-center">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww"
+              alt="profile"
+              className="img-fluid profile-img"
+            />
+          </div>
+          <div className="col-md-7">
+            <h2>
+              Name:{" "}
+              <span className="highlight-name">
+                {roleData.first_name} {roleData.last_name}
+              </span>
+            </h2>
+            <h4 className="role-title mt-3">Role: {roleData.role}</h4>
+            <p className="lead">
+              📞 <strong>Phone:</strong> {roleData.phone}
+            </p>
+            <p className="lead">
+              📧 <strong>Email:</strong> {roleData.email}
+            </p>
+            {roleData.story && (
+              <>
+                <h5 className="mt-4">Story:</h5>
+                <p>{roleData.story}</p>
+              </>
             )}
+          </div>
         </div>
-    )
-}
+      ) : (
+        <p className="text-center">Cargando información del propietario...</p>
+      )}
+    </div>
+  );
+};
