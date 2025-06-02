@@ -8,7 +8,6 @@ export const singlePet = async (animal_id) => {
         "Content-Type": "application/json",
       },
     });
-    console.log("API_URL:", API_URL);
 
     const data = await response.json();
 
