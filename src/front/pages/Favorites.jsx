@@ -23,7 +23,6 @@ export const Favorites = () => {
           const favoriteIds = await getFavorites();
           dispatch({ type: "SET_FAVORITES", payload: favoriteIds });
         } else {
-
           dispatch({ type: "SET_FAVORITES", payload: [] });
         }
       } catch (error) {
@@ -36,7 +35,6 @@ export const Favorites = () => {
 
     fetchData();
   }, [token, dispatch]);
-
 
   const favoritePets = allPets.filter((pet) => favorites.includes(pet.id));
 
@@ -51,9 +49,6 @@ export const Favorites = () => {
 
   return (
     <Container className="py-4">
-      <Link className="btn btn-orange mb-3" to="/inicio" style={{ color: "black" }}>
-        Back
-      </Link>
       <h2 className="title mb-4 text-center" style={{ color: "black" }}>
         Your favorites
       </h2>
