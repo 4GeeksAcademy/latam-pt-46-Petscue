@@ -171,6 +171,64 @@ def create_animal():
 # por usuario
 # /users/el-Id#/animals
 
+@api.route('/animals/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_animal(id):
+    data = request.json
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    animal = Animal.query.get(id)
+
+    if not animal:
+        return jsonify({"msg": "Animal not found"}), 404
+
+    if not user or user.role.value not in ['RESCUER', 'OWNER']:
+        return jsonify({"msg": "You are not authorized to update animals"}), 403
+
+    if animal.added_by_id != current_user_id:
+        return jsonify({"msg": "You can only update animals you have added"}), 403
+
+    # Actualizar solo campos permitidos
+    fields_to_update = [
+        "name", "age", "animal_type", "race", "photo",
+        "color", "vaccines", "description"
+    ]
+
+    for field in fields_to_update:
+        if field in data:
+            setattr(animal, field, data[field])
+
+    db.session.commit()
+    return jsonify({"animal": animal.serialize()}), 200
+
+@api.route('/animals/<int:id>', methods=['GET'])
+def get_animal(id):
+    animal = Animal.query.get(id)
+    if not animal:
+        return jsonify({"msg": "Animal not found"}), 404
+    return jsonify({"animal": animal.serialize()}), 200  
+
+@api.route('/animals/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_animal(id):
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    animal = Animal.query.get(id)
+
+    if not animal:
+        return jsonify({"msg": "Animal not found"}), 404
+
+    if not user or user.role.value not in ['RESCUER', 'OWNER']:
+        return jsonify({"msg": "You are not authorized to delete animals"}), 403
+
+    if animal.added_by_id != current_user_id:
+        return jsonify({"msg": "You can only delete animals you have added"}), 403
+
+    db.session.delete(animal)
+    db.session.commit()
+    return jsonify({"msg": "Animal deleted successfully"}), 200
+
+
 @api.route('/animals', methods=['GET'])
 def get_the_animal():
     try:
