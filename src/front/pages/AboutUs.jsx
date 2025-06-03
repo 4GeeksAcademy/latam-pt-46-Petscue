@@ -21,7 +21,8 @@ const teamMembers = [
     name: "Carlos Melchor",
     role: "Full Stack Developer",
     image: "./fotoPerfilCarlos.jpeg",
-    description: "Soy Carlos e hicimos un gran proyecto",
+    description:
+      "Tras terminar el bachillerato, inicié Ingeniería Industrial, pero no era lo mío. Descubrí la programación y me atrapó por completo. Aprendí de forma autodidacta hasta que ingresé a 4Geeks Academy, donde adquirí bases sólidas en tecnologías como JavaScript, React, Python y SQL. Hoy, con 19 años, tengo claro que mi camino está en la tecnología. Mi meta es especializarme en Inteligencia Artificial y Machine Learning, y gracias a lo aprendido en 4Geeks, sé que lo lograré.",
   },
 ];
 
@@ -40,9 +41,8 @@ const futureFeatures = [
   "Sistema de mensajería instantánea entre usuarios",
   "Funcionalidad de geolocalización básica",
   "Blog para que los rescatistas compartan historias de rescate de animales",
-  "Sistema de storytelling de adoptantes para compartir historias de éxito", 
-  "Agendamiento de visita previa"
-
+  "Sistema de storytelling de adoptantes para compartir historias de éxito",
+  "Agendamiento de visita previa",
 ];
 
 export const AboutUs = () => {
@@ -106,7 +106,9 @@ export const AboutUs = () => {
 
       {/* Visión */}
       <section className="mb-5">
-        <h2 className="section-title">¿Qué nos motivó a hacer este proyecto?</h2>
+        <h2 className="section-title">
+          ¿Qué nos motivó a hacer este proyecto?
+        </h2>
         <p className="w-75 mx-auto">
           Petscue representa para nosotros no solo un reto técnico superado,
           sino también una forma de aportar algo positivo al mundo desde la
@@ -165,7 +167,7 @@ export const AboutUs = () => {
         </div>
       </section>
 
-            {/* Tecnologías */}
+      {/* Tecnologías */}
       <section className="text-center mt-5">
         <h2 className="section-title mb-4">Futuras implementaciones</h2>
         <div className="d-flex flex-wrap justify-content-center gap-2 animate-fade-in">
