@@ -369,7 +369,7 @@ def send_email(user_id):
 
 
 
-#ruta para obtener los mensajes
+#ruta para obtener los mensajes recibidos
 @api.route("/my-messages", methods=["GET"])
 @jwt_required()
 def get_my_messages():
@@ -388,3 +388,12 @@ def mark_message_as_read(message_id):
     message.read = True
     db.session.commit()
     return jsonify({"success": True}), 200
+
+#para obtener los mensajes enviados
+
+@api.route("/sent-messages", methods=["GET"])
+@jwt_required()
+def get_sent_messages():
+    user_id = get_jwt_identity()
+    messages = Message.query.filter_by(sender_id=user_id).order_by(Message.created_at.desc()).all()
+    return jsonify([m.serialize() for m in messages]), 200

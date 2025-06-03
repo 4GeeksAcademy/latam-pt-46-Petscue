@@ -20,6 +20,7 @@ import { Inicio } from "./pages/Inicio";
 import { PetProfile } from "./pages/PetProfile";
 import { NotificationsView } from "./pages/NotificationsView";
 import { EditAnimalForm } from "./pages/EditAnimalForm";
+import { SentMessages } from "./pages/SentMesages"
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ export const router = createBrowserRouter(
           <Route path="notifications" element={<NotificationsView />} />
           <Route path="edit/:id" element={<EditAnimalForm />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="sent-messages" element={<SentMessages />} />
         </Route>
       </Route>
       <Route path="/inicio" element={<Inicio />} />
