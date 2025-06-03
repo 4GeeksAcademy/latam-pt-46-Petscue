@@ -62,10 +62,12 @@ export const Inicio = () => {
     fetchData();
   }, [dispatch, token]);
 
-  const filteredAnimals = animals.filter((pet) => {
-    const matchesAnimalType = localFilters.animal_type
-      ? pet.animal_type === localFilters.animal_type
-      : true;
+  const filteredAnimals = animals
+    .filter((pet) => pet.status) // Solo disponibles para adopción
+    .filter((pet) => {
+      const matchesAnimalType = localFilters.animal_type
+        ? pet.animal_type === localFilters.animal_type
+        : true;
 
     const matchesAge = (() => {
       if (!localFilters.age) {

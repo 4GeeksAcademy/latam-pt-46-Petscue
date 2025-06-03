@@ -1,7 +1,9 @@
+const API_URL = import.meta.env.VITE_BACKEND_URL; 
+
 export const updateAnimalStatus = async (animalId, newStatus) => {
   const token = localStorage.getItem("token");
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL}/animals/${animalId}/status`,
+    `${API_URL}/api/animals/${animalId}/status`,
     {
       method: "PUT",
       headers: {

@@ -10,7 +10,7 @@ export const AnimalCard = ({
   status,
   onEdit,
   handleDelete,
-  onToggleStatus
+  onToggleStatus,
 }) => {
   return (
     <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5 ">
@@ -33,14 +33,13 @@ export const AnimalCard = ({
         <p className="description card-text  d-flex justify-content-center fs-5 text-center overflow-hidden overflow-y-scroll custom-scroll-2">
           {description}
         </p>
-<div className="d-flex justify-content-center mb-2">
-          <span className={`badge ${status ? "bg-success" : "bg-secondary"}`}>
-            {status ? "Available for adoption" : "Adopted"}
-          </span>
+        <div className="d-flex justify-content-center mb-2">
+          
         </div>
         <div className="d-flex justify-content-center gap-4 flex-nowrap">
           {onToggleStatus && (
             <Button
+              className="text-black"
               variant={status ? "outline-warning" : "outline-success"}
               onClick={() => onToggleStatus(id, !status)}
             >

@@ -80,6 +80,9 @@ const handleToggleStatus = async (id, newStatus) => {
     return animal.animal_type === selectedAnimalType;
   });
 
+  const availableAnimals = filteredAnimals.filter((a) => a.status);
+  const adoptedAnimals = filteredAnimals.filter((a) => !a.status);
+
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
@@ -91,22 +94,60 @@ const handleToggleStatus = async (id, newStatus) => {
         />
       </div>
 
-      <div className="row gap-4 d-flex justify-content-center pb-5">
-        {filteredAnimals.map((animal) => (
-          <AnimalCard
-            key={animal.id}
-            id={animal.id}
-            age={animal.age}
-            name={animal.name}
-            race={animal.race}
-            description={animal.description}
-            photo={animal.photo}
-            status={animal.status} 
-            onEdit={handleEdit}
-            handleDelete={handleDelete}
-            onToggleStatus={handleToggleStatus}
-          />
-        ))}
+      {/* Animales disponibles */}
+      <div>
+        <h3 className="mb-3 text-center">Available for Adoption</h3>
+        <div className="row gap-4 d-flex justify-content-center pb-5">
+          {availableAnimals.length > 0 ? (
+            availableAnimals.map((animal) => (
+              <AnimalCard
+                key={animal.id}
+                id={animal.id}
+                age={animal.age}
+                name={animal.name}
+                race={animal.race}
+                description={animal.description}
+                photo={animal.photo}
+                status={animal.status}
+                onEdit={handleEdit}
+                handleDelete={handleDelete}
+                onToggleStatus={handleToggleStatus}
+              />
+            ))
+          ) : (
+            <p className="text-center text-muted fst-italic">
+              No animals available for adoption.
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Animales adoptados */}
+      <div>
+        <h3 className="mb-3 text-center">Adopted</h3>
+        <div className="row gap-4 d-flex justify-content-center pb-5">
+          {adoptedAnimals.length > 0 ? (
+            adoptedAnimals.map((animal) => (
+              <AnimalCard
+                key={animal.id}
+                id={animal.id}
+                age={animal.age}
+                name={animal.name}
+                race={animal.race}
+                description={animal.description}
+                photo={animal.photo}
+                status={animal.status}
+                onEdit={handleEdit}
+                handleDelete={handleDelete}
+                onToggleStatus={handleToggleStatus}
+              />
+            ))
+          ) : (
+            <p className="text-center text-muted fst-italic">
+              No adopted animals yet.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
