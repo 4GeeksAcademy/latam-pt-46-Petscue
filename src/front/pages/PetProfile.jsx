@@ -1,4 +1,4 @@
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Spinner } from "react-bootstrap";
 import { singlePet } from "../services/singlePet";
 import { useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
@@ -11,6 +11,7 @@ export const PetProfile = () => {
   const { store, dispatch } = useGlobalReducer();
   const { currentPet } = store;
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true); // Estado de carga
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -20,13 +21,24 @@ export const PetProfile = () => {
       } catch (err) {
         console.error("Error loading data:", err);
         setError("There was a problem loading the data.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPet();
   }, [id, dispatch]);
 
-  if (!currentPet) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" variant="primary" role="status" />
+        <span className="ms-2">Loading pet profile...</span>
+      </div>
+    );
+  }
+
+  if (!currentPet) return <p className="text-danger">Pet not found.</p>;
 
   return (
     <Card
@@ -90,11 +102,10 @@ export const PetProfile = () => {
             {currentPet.vaccines}
           </p>
 
-          <hr /> 
+          <hr />
           <h6>Contact the carer of {currentPet.name}</h6>
-          <div className="my-3 d-flex align-items-center gap-2">
-           
-         
+          {currentPet.added_by && (
+            <div className="my-3 d-flex align-items-center gap-2">
               <img
                 src={currentPet.added_by.profile_picture}
                 alt={currentPet.added_by.first_name}
@@ -104,14 +115,14 @@ export const PetProfile = () => {
               <div>
                 <span className="fw-semibold">
                   {currentPet.added_by.first_name}
-                 
                 </span>
                 <span className="d-block text-muted" style={{ fontSize: 13 }}>
                   {currentPet.added_by.story}
                 </span>
-           
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="d-flex justify-content-between align-items-center mt-3">
             <div className="d-flex align-items-center">
               <div>
