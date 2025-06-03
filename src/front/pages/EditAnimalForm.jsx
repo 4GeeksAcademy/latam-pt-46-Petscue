@@ -74,7 +74,7 @@ export const EditAnimalForm = () => {
     const token = localStorage.getItem("token");
     try {
       await updateAnimal(id, animal, token);
-      navigate("/profile");
+      navigate("/profile/profileanimal");
     } catch (error) {
       const errorMsg =
         error?.response?.data?.message || error.message || "Error desconocido";
