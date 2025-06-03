@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUsers, FaCode, FaCheckCircle, FaRocket } from "react-icons/fa";
+import { FaUsers, FaCode, FaCheckCircle, FaHotjar   } from "react-icons/fa";
 
 const teamMembers = [
   {
@@ -51,22 +51,22 @@ export const AboutUs = () => {
       {/* Counters */}
       <section className="row text-center mb-5 animate-slide-up">
         <div className="col-md-3 mb-4">
-          <FaUsers size={40} className="text-primary mb-2" />
+          <FaUsers size={50} className="text-icon mb-2" />
           <h2 className="counter">3</h2>
           <p>Integrantes</p>
         </div>
         <div className="col-md-3 mb-4">
-          <FaCode size={40} className="text-primary mb-2" />
+          <FaCode size={50} className="text-icon mb-2" />
           <h2 className="counter">5+</h2>
           <p>Tecnologías</p>
         </div>
         <div className="col-md-3 mb-4">
-          <FaCheckCircle size={40} className="text-primary mb-2" />
+          <FaCheckCircle size={50} className="text-icon mb-2" />
           <h2 className="counter">200+</h2>
           <p>Commits</p>
         </div>
         <div className="col-md-3 mb-4">
-          <FaRocket size={40} className="text-primary mb-2" />
+          <FaHotjar  size={50} className="text-icon mb-2" />
           <h2 className="counter">1</h2>
           <p>Gran Proyecto</p>
         </div>

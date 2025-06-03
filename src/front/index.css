@@ -332,19 +332,35 @@ p,
 /*styles for AboutUs*/
 
 .section-title {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
 }
 
+.text-icon {
+  color: #0d6efd; 
+  border: 2px solid #0d6efd;
+  border-radius: 50%; 
+  padding: 5px; 
+  background-color: white; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  transition: all 0.3s ease;
+}
+
+.text-icon:hover {
+  background-color: #0d6efd; /* Inviertes los colores al hacer hover */
+  color: white;
+  border-color: #0d6efd;
+}
+
 .section-title::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 50px;
   height: 4px;
-  background-color: var(--accent-color);
+  background-color: var(--dark-blue);
   margin: 10px auto 0;
   border-radius: 2px;
 }
@@ -367,7 +383,7 @@ p,
 .team-card:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
-  color: rgb(255, 16, 16);
+  color: rgb(214, 47, 35);
 }
 
 .team-photo {
