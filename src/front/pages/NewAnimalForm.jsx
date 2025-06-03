@@ -186,9 +186,10 @@ export const NewAnimalForm = () => {
                 accept="image/*"
               />
 
-              {NewAnimalForm.photo && (
+              {newAnimal.photo && (
                 <img src={newAnimal.photo} alt="preview of the animal pic to upload" className="img-thumbnail mt-2" style={{ maxWidth: 120 }} />
               )}
+
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="form-label">

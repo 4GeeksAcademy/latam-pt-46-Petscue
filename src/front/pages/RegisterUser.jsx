@@ -124,9 +124,9 @@ export const CreateUser = () => {
                 accept="image/*"
               />
 
-              {useUser.photo && (
+              {useUser.profile_picture && (
                 <img
-                  src={useUser.photo}
+                  src={useUser.profile_picture}
                   alt="preview of the profile pic to upload"
                   className="img-thumbnail mt-2"
                   style={{ maxWidth: 120 }}
