@@ -334,7 +334,6 @@ p,
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary-color);
   margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
@@ -429,14 +428,14 @@ p,
 
 .badge:hover {
   transform: scale(1.1);
-  background-color: var(--accent-color);
+  background-color: white;
   color: #000;
 }
 .badge {
   border-radius: 30px;
   font-weight: 500;
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: var(--melon) ;
+  color: black ;
   padding: 8px 16px;
   transition: transform 0.3s, background-color 0.3s;
 }
