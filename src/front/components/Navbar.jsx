@@ -12,8 +12,11 @@ export const Navbar = () => {
           <Link to="/">
             <img src="/petscue.png" alt="petscue-logo" width="200" />
           </Link>
-          <Link to="/inicio" className=" mb-3 nav-bar-link">
+          <Link to="/inicio" className=" mb-3 nav-bar-link text-black">
             All the Pets
+          </Link>
+            <Link to="/about-us" className=" mb-3 nav-bar-link text-black">
+            🐾About Petscue
           </Link>
         </div>
 
@@ -24,9 +27,7 @@ export const Navbar = () => {
                 Profile
               </Link>
               <CloseSession />
-              <Link to="/about-us" className="btn btn-light">
-                About Us
-              </Link>
+             
             </>
           ) : (
             <>
@@ -37,9 +38,7 @@ export const Navbar = () => {
               <Link to="/register" className="btn-orange">
                 Register
               </Link>
-              <Link to="/about-us" className="btn btn-light">
-                About Us
-              </Link>
+            
             </>
           )}
         </div>
