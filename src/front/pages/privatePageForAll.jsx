@@ -35,9 +35,10 @@ export const AllDashboard = () => {
         <div className="row align-items-center">
           <div className="col-md-5 text-center">
             <img
-              src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww"
+              src={roleData.profile_picture}
               alt="profile"
               className="img-fluid profile-img"
+            
             />
           </div>
           <div className="col-md-7">
