@@ -80,6 +80,7 @@ export const Home = () => {
               </div>
             </div>
           </div>
+
           <div className="col-lg-4 col-md-6 mb-4">
             <div className="card border-0 shadow h-100">
               <div className="card-body">
@@ -93,6 +94,47 @@ export const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* el paso a paso para poder adoptr */}
+
+      <div className="row my-5 justify-content-center">
+        <h2 className="text-center mb-4 fw-bold">How does Petscue work?</h2>
+        <div className="col-md-3 mb-4 d-flex flex-column align-items-center">
+          <div
+            className="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+            style={{ width: "70px", height: "70px" }}
+          >
+            <span style={{ fontSize: "2.5rem" }}>🐾</span>
+          </div>
+          <h5 className="fw-semibold">1. Discover Pets</h5>
+          <p className="text-center">
+            Browse the platform and find animals posted by rescuers and
+            responsible owners.
+          </p>
+        </div>
+        <div className="col-md-3 mb-4 d-flex flex-column align-items-center">
+          <div
+            className="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-3"
+            style={{ width: "70px", height: "70px" }}
+          >
+            <span style={{ fontSize: "2.5rem" }}>💬</span>
+          </div>
+          <h5 className="fw-semibold">2. Connect</h5>
+          <p className="text-center">
+            Interested in a pet? Log in and contact the carer directly to start
+            the adoption process.
+          </p>
+        </div>
+<div className="col-md-3 mb-4 d-flex flex-column align-items-center">
+  <div className="bg-primary rounded-circle d-flex align-items-center justify-content-center mb-3" style={{width: "70px", height: "70px", color: "#fff"}}>
+    <span style={{fontSize: "2.5rem"}}>📧</span>
+  </div>
+  <h5 className="fw-semibold">3. Reach Out</h5>
+  <p className="text-center">
+    Fill in the contact form and your message will be sent directly to the carer’s email. Arrange the adoption together and welcome your new friend home!
+  </p>
+</div>
       </div>
 
       {/* Seccion de cartas de los animalitos*/}
