@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteAnimal } from "../services/deleteAnimal";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "react-bootstrap";
+import { updateAnimalStatus } from "../services/updateAnimalStatus";
 
 export const Profile = () => {
   const [myAnimals, setMyAnimals] = useState([]);
@@ -58,6 +59,20 @@ export const Profile = () => {
     ));
   };
 
+const handleToggleStatus = async (id, newStatus) => {
+  try {
+    const result = await updateAnimalStatus(id, newStatus);
+    console.log("updateAnimalStatus result:", result);  // <--- agrega esto!
+    setMyAnimals((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status: newStatus } : a))
+    );
+    toast.success("Status updated!");
+  } catch (error) {
+    console.error("Animal status update error:", error);  // <--- y esto!
+    toast.error("Error updating status");
+  }
+};
+
   const filteredAnimals = myAnimals.filter((animal) => {
     if (!selectedAnimalType) {
       return true;
@@ -70,7 +85,7 @@ export const Profile = () => {
       <Toaster position="top-center" reverseOrder={false} />
       <div className=" d-flex justify-content-around my-5">
         <h2 className="mb-4 text-center">Uploaded Animals</h2>
-        <AnimalFilters 
+        <AnimalFilters
           selectedAnimalType={selectedAnimalType}
           onSelectedAnimalType={setSelectedAnimalType}
         />
@@ -86,8 +101,10 @@ export const Profile = () => {
             race={animal.race}
             description={animal.description}
             photo={animal.photo}
+            status={animal.status} 
             onEdit={handleEdit}
             handleDelete={handleDelete}
+            onToggleStatus={handleToggleStatus}
           />
         ))}
       </div>

@@ -54,7 +54,7 @@ export const FormLogin = () => {
       <Toaster position="top-center" reverseOrder={false} />
       <div className="signup-container">
         <div className="signup-left">
-          <h1 className="signup-title-orange">Happiness</h1>
+          <h1 className="signup-title-orange text-white">Happiness</h1>
           <h2 className="signup-title-bold">starts here</h2>
           <div className="signup-image-placeholder">
             <img src="/perritodibujo.png" className="img-fluid" />

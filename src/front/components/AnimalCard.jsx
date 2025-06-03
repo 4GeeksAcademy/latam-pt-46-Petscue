@@ -7,8 +7,10 @@ export const AnimalCard = ({
   age,
   description,
   photo,
+  status,
   onEdit,
   handleDelete,
+  onToggleStatus
 }) => {
   return (
     <div className="card shadow-sm col-3 card  px-0 pt-0 pb-3 border rounded-5 ">
@@ -31,7 +33,20 @@ export const AnimalCard = ({
         <p className="description card-text  d-flex justify-content-center fs-5 text-center overflow-hidden overflow-y-scroll custom-scroll-2">
           {description}
         </p>
-        <div className="d-flex justify-content-center gap-4 flew-nowrap">
+<div className="d-flex justify-content-center mb-2">
+          <span className={`badge ${status ? "bg-success" : "bg-secondary"}`}>
+            {status ? "Available for adoption" : "Adopted"}
+          </span>
+        </div>
+        <div className="d-flex justify-content-center gap-4 flex-nowrap">
+          {onToggleStatus && (
+            <Button
+              variant={status ? "outline-warning" : "outline-success"}
+              onClick={() => onToggleStatus(id, !status)}
+            >
+              {status ? "Mark as Adopted" : "Mark as Available"}
+            </Button>
+          )}
           {onEdit && (
             <Button variant="outline-primary" onClick={() => onEdit(id)}>
               Edit

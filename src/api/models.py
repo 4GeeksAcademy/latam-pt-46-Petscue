@@ -100,6 +100,7 @@ class Animal(db.Model):
     description: Mapped[str] = mapped_column(String(1000), nullable=False)
     color: Mapped[str] = mapped_column(String(50), nullable=False)
     vaccines: Mapped[str] = mapped_column(String(500), nullable=True)
+    status: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False) #si esta en true es e esta disponible pa adopcion
 
     favorites = db.relationship("Favorite", back_populates="animal")
 
@@ -121,7 +122,8 @@ class Animal(db.Model):
             "vaccines": self.vaccines,
             "description": self.description,
             "added_by_id": self.added_by_id,  # id of the user who uploaded the animal
-            "added_by": added_by_data 
+            "added_by": added_by_data,
+            "status": self.status
         }
 
 class Message(db.Model):

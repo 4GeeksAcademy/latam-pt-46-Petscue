@@ -260,7 +260,7 @@ def get_my_animals():
 def get_animals():
     # Filtrar animales agregados por usuarios con rol 'OWNER' o 'RESCUER'
     animals = Animal.query.join(User).filter(
-        User.role.in_(['OWNER', 'RESCUER'])).all()
+        User.role.in_([UserRole.OWNER, UserRole.RESCUER])).all()
 
     animals_list = [animal.serialize() for animal in animals]
     return jsonify({"animals": animals_list}), 200
@@ -324,6 +324,29 @@ def get_animal_description(animal_id):
         return jsonify({"msg": "Animal not found"}), 404
 
     return jsonify(animal.serialize()), 200
+
+#ruta para cambiar el status de si elanimal esta disponible para adopcion o no
+@api.route('/animals/<int:id>/status', methods=['PUT'])
+@jwt_required()
+def update_animal_status(id):
+    current_user_id = int(get_jwt_identity())
+    user = User.query.get(current_user_id)
+    animal = Animal.query.get(id)
+
+    if not animal:
+        return jsonify({"msg": "Animal not found"}), 404
+
+    if animal.added_by_id != current_user_id:
+        return jsonify({"msg": "You can only update animals you have added"}), 403
+
+    req = request.get_json()
+    new_status = req.get('status')
+    if new_status is None:
+        return jsonify({"msg": "Missing new status"}), 400
+
+    animal.status = bool(new_status)
+    db.session.commit()
+    return jsonify({"animal": animal.serialize()}), 200
 
 # Endpoint to send an contact email ##############################################################
 @api.route("/send-email/contact/<int:user_id>", methods=["POST"]) #id del usuario a quien se le enviara el email
