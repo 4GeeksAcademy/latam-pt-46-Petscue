@@ -14,7 +14,7 @@ const teamMembers = [
     name: "Bastian Cartagena",
     role: "Full Stack Developer",
     image: "./fotoPerfilBastian.jpeg",
-    description: "Con un pequeño empujón fue que llegue a este camino, y es gracias a un amigo que le pille el gusto a programar, aprendi un poco por internet pero me di cuenta que no era suficiente, fueron años hasta que decidí meterme a un bootcamp para comprender mejor y aprender más cosas y como utilizarlas. Fue un largo camino que se sintió rapidisimo, pero aqui estamos con más conocimiento, con buenas bases y seguro de poder lograr grandes cosas, todo gracias a mis profesores, compañeros y mentores, y mi nivia que me ayudo a no flaquear cuando la frustracion llegaba, muchas gracias a todos.",
+    description: "Con un pequeño empujón fue que llegue a este camino, y es gracias a un amigo que le pillé el gusto a programar, aprendí un poco por internet pero me di cuenta que no era suficiente, fueron años hasta que decidí meterme a un bootcamp para comprender mejor y aprender más cosas y como utilizarlas. Fue un largo camino que se sintió rapidísimo, pero aquí estamos con más conocimiento, con buenas bases y seguro de poder lograr grandes cosas, todo gracias a mis profesores, compañeros y mentores, y mi novia que me ayudó a no flaquear cuando la frustración llegaba, muchas gracias a todos.",
   },
   {
     name: "Carlos Melchor",
