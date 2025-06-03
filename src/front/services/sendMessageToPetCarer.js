@@ -1,17 +1,20 @@
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const sendMessageToPetCarer = async ({ userId, message, token }) => {
+export const sendMessageToPetCarer = async ({
+  userId,
+  animal_id,
+  message,
+  token,
+}) => {
   try {
-    const resp = await fetch(`${API_URL}/api/send-email/contact/${userId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ message }),
-      }
-    );
+    const resp = await fetch(`${API_URL}/api/send-email/contact/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ message, animal_id }),
+    });
     if (!resp.ok) throw new Error("Failed to send message");
     return await resp.json();
   } catch (err) {

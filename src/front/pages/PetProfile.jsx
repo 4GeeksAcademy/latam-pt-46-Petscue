@@ -145,6 +145,7 @@ export const PetProfile = () => {
             <AdoptionForm
               name={currentPet.name}
               carerId={currentPet.added_by_id}
+              animalId={currentPet.id}
             />
 
             {/* boton que abre el modal */}

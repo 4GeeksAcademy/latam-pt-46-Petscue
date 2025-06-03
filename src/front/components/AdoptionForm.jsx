@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { sendMessageToPetCarer } from "../services/sendMessageToPetCarer";
-import useGlobalReducer from "../hooks/useGlobalReducer"
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
-export const AdoptionForm = ({ name, carerId }) => {
+export const AdoptionForm = ({ name, carerId, animalId }) => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);
   const { store } = useGlobalReducer();
-  // Si el store no tiene token actualizado, puedes fallback al localStorage:
+
   const token = store.token || localStorage.getItem("token") || "";
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus(null);
 
     try {
       await sendMessageToPetCarer({
-        userId: carerId,  // este es added_by_id
+        userId: carerId, 
+        animal_id: animalId,
         message,
         token,
       });
@@ -24,7 +25,7 @@ export const AdoptionForm = ({ name, carerId }) => {
     } catch (error) {
       setStatus("Oops, something went wrong 😔");
     }
-  }
+  };
 
   return (
     <>
@@ -51,7 +52,7 @@ export const AdoptionForm = ({ name, carerId }) => {
 
             {/* modal body */}
             <div className="modal-body">
-              <form  onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">
                     Message
@@ -59,7 +60,7 @@ export const AdoptionForm = ({ name, carerId }) => {
                   <textarea
                     className="form-control"
                     value={message}
-                    onChange={e => setMessage(e.target.value)}
+                    onChange={(e) => setMessage(e.target.value)}
                     id="description"
                     name="description"
                     placeholder={`Hey, I am interested in ${name}, and would like to know more and potentially meet`}
@@ -75,11 +76,11 @@ export const AdoptionForm = ({ name, carerId }) => {
                   >
                     Send Message
                   </button>
-                          {status && (
-                  <div className="alert alert-info my-2" role="alert">
-                    {status}
-                  </div>
-                )}
+                  {status && (
+                    <div className="alert alert-info my-2" role="alert">
+                      {status}
+                    </div>
+                  )}
                 </div>
               </form>
             </div>
