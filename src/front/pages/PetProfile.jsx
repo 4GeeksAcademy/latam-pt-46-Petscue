@@ -112,8 +112,8 @@ export const PetProfile = () => {
             </div>
           )}
 
-          <div className="d-flex justify-content-between align-items-center mt-3">
-            <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-between align-items-center mt-3 flex-row-reverse">
+            <div className="d-flex align-items-center ">
               <div>
                 <Link
                   to="/inicio"
