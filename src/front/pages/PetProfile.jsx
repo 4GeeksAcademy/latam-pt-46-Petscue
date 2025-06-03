@@ -103,6 +103,11 @@ export const PetProfile = () => {
           </p>
 
           <hr />
+           <h6>Contact the carer of {currentPet.name}</h6>
+            {/* añadir condicional aca para que de je de estar dando undefineeeed */}
+          {currentPet.added_by && (
+            <div className="my-3 d-flex align-items-center gap-2">
+          <hr />
           <h6>Contact the carer of {currentPet.name}</h6>
           {currentPet.added_by && (
             <div className="my-3 d-flex align-items-center gap-2">
@@ -123,8 +128,8 @@ export const PetProfile = () => {
             </div>
           )}
 
-          <div className="d-flex justify-content-between align-items-center mt-3">
-            <div className="d-flex align-items-center">
+          <div className="d-flex justify-content-between align-items-center mt-3 flex-row-reverse">
+            <div className="d-flex align-items-center ">
               <div>
                 <Link
                   to="/inicio"
