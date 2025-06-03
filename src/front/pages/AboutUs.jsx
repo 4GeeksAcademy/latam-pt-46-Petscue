@@ -1,13 +1,14 @@
 import React from "react";
-import { FaUsers, FaCode, FaCheckCircle, FaHotjar   } from "react-icons/fa";
+import { FaUsers, FaCode, FaCheckCircle, FaHotjar } from "react-icons/fa";
 
 const teamMembers = [
   {
-    name: "Alison",
+    name: "Alison Estephany",
     role: "Full Stack Developer",
     image:
-      "https://imgs.search.brave.com/YUAHdzrezHLkMzH1LQy18AeJMehkkhlPXx-2fgMUJeQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/ODEzNDMzNi9lcy9m/b3RvL3JldHJhdG8t/ZGUtY2FiZXphLWhv/bWJyZS1hZnJpY2Fu/by1kZS1sb3MtYSVD/MyVCMW9zLTMwLXNv/bnJpc2EtbWlyYS1h/LWxhLWMlQzMlQTFt/YXJhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1DZERVQmNp/RXZjOGFmTEFpXzVs/VlJYdXpSMTFrZjFz/RE9SdC1xc0lkNDIw/PQ",
-    description: "Soy alison e hicimos un gran proyecto",
+      "https://res.cloudinary.com/dtljfvq5m/image/upload/v1748977084/ali-SVG_xntjv9.png",
+    description:
+      "Aunque estudié Nutrición en la universidad,  tengo experiencia previa como freelancer en  mantenimiento de sitios WordPress. Ya habia intentado estudiar programacion por mi cuenta y tenia un par de proyectos, sin embargo unirme al bootcamp fue un antes y un después en mi camino: me permitió estructurar mis conocimientos, fortalecer mis bases en programación y ganar confianza como desarrolladora full stack. Hoy puedo decir que crecí no solo en habilidades técnicas, sino también en visión, enfoque y seguridad para asumir nuevos retos.",
   },
   {
     name: "Bastian Cartagena",
@@ -19,8 +20,7 @@ const teamMembers = [
   {
     name: "Carlos Melchor",
     role: "Full Stack Developer",
-    image:
-      "./fotoPerfilCarlos.jpeg",
+    image: "./fotoPerfilCarlos.jpeg",
     description: "Soy Carlos e hicimos un gran proyecto",
   },
 ];
@@ -30,14 +30,24 @@ const technologies = [
   "Bootstrap",
   "Python",
   "Flask",
+  "SQL",
   "React-Host-Toast",
   "Cloudinary",
+  "Flask Mail",
+];
+
+const futureFeatures = [
+  "Sistema de mensajería instantánea entre usuarios",
+  "Funcionalidad de geolocalización básica",
+  "Blog para que los rescatistas compartan historias de rescate de animales",
+  "Sistema de storytelling de adoptantes para compartir historias de éxito", 
+  "Agendamiento de visita previa"
+
 ];
 
 export const AboutUs = () => {
   return (
     <div className="container about-us-page py-5 animate-fade-in">
-
       {/* Header */}
       <section className="text-center mb-5">
         <h1 className="display-5 fw-bold">Construyendo Excelencia juntos</h1>
@@ -66,7 +76,7 @@ export const AboutUs = () => {
           <p>Commits</p>
         </div>
         <div className="col-md-3 mb-4">
-          <FaHotjar  size={50} className="text-icon mb-2" />
+          <FaHotjar size={50} className="text-icon mb-2" />
           <h2 className="counter">1</h2>
           <p>Gran Proyecto</p>
         </div>
@@ -74,22 +84,44 @@ export const AboutUs = () => {
 
       {/* Misión */}
       <section className="mb-5">
-        <h2 className="section-title">Nuestra Misión</h2>
-        <p className="text-muted w-75 mx-auto">
-          Revolucionar la forma en que se presentan proyectos web, integrando
-          diseño intuitivo, código limpio y un enfoque centrado en el usuario.
-          Buscamos siempre mejorar la experiencia digital de nuestros usuarios
-          mediante tecnología moderna y buenas prácticas.
+        <h2 className="section-title">
+          🐾 Descripción del Proyecto – Petscue 🐾
+        </h2>
+        <p className=" w-75 mx-auto">
+          Petscue es una plataforma desarrollada como proyecto final de nuestro
+          bootcamp de Full Stack Dev. Su propósito principal es facilitar la
+          adopción responsable de animales, conectando de forma segura a
+          rescatistas, antiguos dueños que no pueden continuar cuidadando sus
+          mascotas y personas interesadas en adoptar una mascota quienes deseen
+          darles una segunda oportunidad. La app permite que los rescatistas y
+          dueños de mascotas puedan publicar información sobre los animales en
+          adopcion, y poder entrar en contacto con los interesados por medio de
+          un formulario de contacto. A su vez, los usuarios que ya no pueden
+          cuidar de su mascota pueden dejar una reseña para ayudar a encontrarle
+          un nuevo hogar. Por otro lado, los adoptantes pueden crear un perfil,
+          explorar a los animalitos disponibles, guardar favoritos y comunicarse
+          con los responsables.
         </p>
       </section>
 
       {/* Visión */}
       <section className="mb-5">
-        <h2 className="section-title">Nuestra Visión</h2>
-        <p className="text-muted w-75 mx-auto">
-          Ser un equipo referente en desarrollo web, destacando por nuestra
-          creatividad, eficiencia, colaboración y enfoque humano. Queremos dejar
-          huella con cada proyecto que creamos.
+        <h2 className="section-title">¿Qué nos motivó a hacer este proyecto?</h2>
+        <p className="w-75 mx-auto">
+          Petscue representa para nosotros no solo un reto técnico superado,
+          sino también una forma de aportar algo positivo al mundo desde la
+          tecnología. Nuestro punto de partida fue una inquietud genuina:
+          queríamos crear algo que tuviera sentido, que reflejara empatía y
+          utilidad, y que nos permitiera aplicar todo lo que habíamos aprendido
+          en el bootcamp. La idea surgió de manera natural entre el equipo. Nos
+          pareció un buen proyecto porque todos hemos visto —de cerca o de
+          lejos— historias de mascotas abandonadas, personas intentando dar en
+          adopción a sus animales o rescatistas trabajando por amor sin
+          recursos. Nos conmovió pensar que podíamos poner nuestras nuevas
+          habilidades al servicio de algo así. Elegir Petscue fue elegir una
+          causa que nos inspirara a esforzarnos más. Cada funcionalidad que
+          diseñamos la pensamos desde la empatía y las ganas de construir algo
+          bonito, útil y humano.
         </p>
       </section>
 
@@ -98,7 +130,10 @@ export const AboutUs = () => {
         <h2 className="section-title text-center mb-4">Conoce al Equipo</h2>
         <div className="row">
           {teamMembers.map((member, index) => (
-            <div className="col-md-4 mb-4 d-flex justify-content-center" key={index}>
+            <div
+              className="col-md-4 mb-4 d-flex justify-content-center"
+              key={index}
+            >
               <div className="card team-card h-100 text-center animate-zoom-in">
                 <img
                   src={member.image}
@@ -107,8 +142,10 @@ export const AboutUs = () => {
                 />
                 <div className="card-body">
                   <h5 className="card-title">{member.name}</h5>
-                  <p className="card-text text-muted">{member.role}</p>
-                  <p className="card-text text-muted">{member.description}</p>
+                  <p className="card-text text-black">
+                    <b>{member.role}</b>
+                  </p>
+                  <p className="card-text text-black">{member.description}</p>
                 </div>
               </div>
             </div>
@@ -123,6 +160,18 @@ export const AboutUs = () => {
           {technologies.map((tech, index) => (
             <span key={index} className="badge fs-6 px-3 py-2">
               {tech}
+            </span>
+          ))}
+        </div>
+      </section>
+
+            {/* Tecnologías */}
+      <section className="text-center mt-5">
+        <h2 className="section-title mb-4">Futuras implementaciones</h2>
+        <div className="d-flex flex-wrap justify-content-center gap-2 animate-fade-in">
+          {futureFeatures.map((feature, index) => (
+            <span key={index} className="badge fs-6 px-3 py-2">
+              {feature}
             </span>
           ))}
         </div>
