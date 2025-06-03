@@ -91,22 +91,24 @@ export const PetProfile = () => {
           </p>
 
           <hr />
-          <div className="my-3 d-flex align-items-center gap-2">
-            <img
-              src={
-                currentPet.added_by.profile_picture 
-              }
-              alt={currentPet.added_by.first_name}
-              className="rounded-circle border"
-              style={{ width: 48, height: 48, objectFit: "cover" }}
-            />
-            <div>
-              <span className="fw-semibold">
-                {currentPet.added_by.first_name} {currentPet.added_by.last_name}
-              </span>
-              <span className="d-block text-muted" style={{ fontSize: 13 }}>
-                {currentPet.added_by.email}
-              </span>
+          <div className="my-3  align-items-center gap-2">
+            <h6>Contact the carer of {currentPet.name}</h6>
+            <div className="d-flex">
+              <img
+                src={currentPet.added_by.profile_picture}
+                alt={currentPet.added_by.first_name}
+                className="rounded-circle border me-3"
+                style={{ width: 48, height: 48, objectFit: "cover" }}
+              />
+              <div>
+                <span className="fw-semibold">
+                  {currentPet.added_by.first_name}
+                 
+                </span>
+                <span className="d-block text-muted" style={{ fontSize: 13 }}>
+                  {currentPet.added_by.story}
+                </span>
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center mt-3">

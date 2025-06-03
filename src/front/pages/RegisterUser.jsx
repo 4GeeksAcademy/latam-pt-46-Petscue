@@ -44,7 +44,7 @@ export const CreateUser = () => {
     if (uploaded.secure_url) {
       setUser((prev) => ({
         ...prev,
-        photo: uploaded.secure_url,
+        profile_picture: uploaded.secure_url,
       }));
     }
 
