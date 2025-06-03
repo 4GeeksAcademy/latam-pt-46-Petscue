@@ -90,10 +90,11 @@ export const PetProfile = () => {
             {currentPet.vaccines}
           </p>
 
-          <hr />
-          <div className="my-3  align-items-center gap-2">
-            <h6>Contact the carer of {currentPet.name}</h6>
-            <div className="d-flex">
+          <hr /> 
+          <h6>Contact the carer of {currentPet.name}</h6>
+          <div className="my-3 d-flex align-items-center gap-2">
+           
+         
               <img
                 src={currentPet.added_by.profile_picture}
                 alt={currentPet.added_by.first_name}
@@ -108,7 +109,7 @@ export const PetProfile = () => {
                 <span className="d-block text-muted" style={{ fontSize: 13 }}>
                   {currentPet.added_by.story}
                 </span>
-              </div>
+           
             </div>
           </div>
           <div className="d-flex justify-content-between align-items-center mt-3">
