@@ -109,6 +109,7 @@ class Animal(db.Model):
     added_by: Mapped["User"] = db.relationship(back_populates="animals_added")
 
     def serialize(self):
+        added_by_data = self.added_by.serialize() if self.added_by else None
         return {
             "id": self.id,
             "name": self.name,
@@ -120,6 +121,7 @@ class Animal(db.Model):
             "vaccines": self.vaccines,
             "description": self.description,
             "added_by_id": self.added_by_id,  # id of the user who uploaded the animal
+            "added_by": added_by_data 
         }
 
 class Message(db.Model):
@@ -139,6 +141,9 @@ class Message(db.Model):
     animal = db.relationship("Animal", foreign_keys=[animal_id])
 
     def serialize(self):
+        sender_data = self.sender.serialize() if self.sender else None
+        receiver_data = self.receiver.serialize() if self.receiver else None
+        animal_data = self.animal.serialize() if self.animal else None
         return {
             "id": self.id,
             "sender_id": self.sender_id,
@@ -147,4 +152,7 @@ class Message(db.Model):
             "content": self.content,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "read": self.read,
+            "sender": sender_data,       
+            "receiver": receiver_data,    
+            "animal": animal_data        
         }

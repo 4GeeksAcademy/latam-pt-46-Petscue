@@ -55,7 +55,7 @@ export const NewAnimalForm = () => {
     e.preventDefault();
     try {
       await createNewAnimal(newAnimal);
-      setTimeout(() => navigate("/profile"), 1500);
+      setTimeout(() => navigate("/profile/profileanimal"), 1500);
     } catch (error) {
       const errorMsg =
         error?.response?.data?.message || error.message || "Error desconocido";

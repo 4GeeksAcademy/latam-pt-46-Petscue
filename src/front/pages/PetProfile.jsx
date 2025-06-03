@@ -3,7 +3,7 @@ import { singlePet } from "../services/singlePet";
 import { useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { useEffect, useState } from "react";
-import { AdoptionForm } from "../components/AdoptionForm"
+import { AdoptionForm } from "../components/AdoptionForm";
 import { Link } from "react-router-dom";
 
 export const PetProfile = () => {
@@ -31,7 +31,11 @@ export const PetProfile = () => {
   return (
     <Card
       className="p-4 shadow-lg mx-auto mt-5"
-      style={{ maxWidth: "1000px", maxHeighteight: "800px", marginBottom: "85px" }}
+      style={{
+        maxWidth: "1000px",
+        maxHeighteight: "800px",
+        marginBottom: "85px",
+      }}
     >
       <div className="d-flex flex-row">
         {/* Imagen o avatar del animal */}
@@ -87,26 +91,47 @@ export const PetProfile = () => {
           </p>
 
           <hr />
-
+          <div className="my-3 d-flex align-items-center gap-2">
+            <img
+              src={
+                currentPet.added_by.profile_picture 
+              }
+              alt={currentPet.added_by.first_name}
+              className="rounded-circle border"
+              style={{ width: 48, height: 48, objectFit: "cover" }}
+            />
+            <div>
+              <span className="fw-semibold">
+                {currentPet.added_by.first_name} {currentPet.added_by.last_name}
+              </span>
+              <span className="d-block text-muted" style={{ fontSize: 13 }}>
+                {currentPet.added_by.email}
+              </span>
+            </div>
+          </div>
           <div className="d-flex justify-content-between align-items-center mt-3">
             <div className="d-flex align-items-center">
-        
               <div>
-              
-                <Link to="/inicio" className="text-decoration-none text-black font-bold"><strong>Go back to main</strong></Link>
+                <Link
+                  to="/inicio"
+                  className="text-decoration-none text-black font-bold"
+                >
+                  <strong>Go back to main</strong>
+                </Link>
                 <div
                   className="text-muted fs-5"
                   style={{ fontSize: "0.9rem" }}
                 ></div>
               </div>
             </div>
-            <div>
-         
-            </div>
+            <div></div>
 
             {/* modallll */}
-            <AdoptionForm name={currentPet.name} carerId={currentPet.added_by_id}/>
-            
+            <AdoptionForm
+              name={currentPet.name}
+              carerId={currentPet.added_by_id}
+            />
+
             {/* boton que abre el modal */}
             <button
               className="btn btn-lemon"
