@@ -35,79 +35,69 @@ export const SentMessages = () => {
           {messages.map((mensaje) => (
             <li
               key={mensaje.id}
-              className={`list-group-item d-flex justify-content-between align-items-start ${
+              className={`list-group-item d-flex p-5 justify-content-between align-items-start ${
                 mensaje.read ? "opacity-50" : "fw-bold"
               }`}
               title={mensaje.content}
             >
-              <div className="d-flex align-items-center gap-3">
-                {/* la foto del destinatarioooo */}
-                <img
-                  src={
-                    mensaje.receiver?.profile_picture || "/default-profile.png"
-                  }
-                  alt={mensaje.receiver?.first_name || "Receiver"}
-                  className="rounded-circle"
-                  style={{ width: 200, height: 200, objectFit: "cover" }}
-                />
+              <div className="align-items-center gap-3">
+                <h3>Message Sent to {mensaje.receiver?.first_name}</h3>
                 <div>
-                  <div>
-                    {/* Name del destinatario */}
-                    <b>
-                      {mensaje.receiver?.first_name}
-                      {mensaje.receiver?.last_name}
-                    </b>
-                    <span className="text-muted ms-2">
-                      {mensaje.receiver?.email}
-                    </span>
-                  </div>
-                  {/* El Mensajeee */}
-                  <div>{mensaje.content}</div>
-                  {/* Info del animal si es que existe */}
-                  {mensaje.animal && (
-                    <div className="mt-3 d-flex align-items-center gap-3 border-top border-light pt-3">
-                      <img
-                        src={mensaje.animal.photo || "/default-animal.png"}
-                        alt={mensaje.animal.name}
-                        className="rounded shadow"
-                        style={{
-                          width: 80,
-                          height: 80,
-                          objectFit: "cover",
-                          border: "2px solid #e9e9e9",
-                        }}
-                      />
-                      <div>
-                        <div>
-                          <span className="fw-bold">{mensaje.animal.name}</span>{" "}
-                          <span className="text-muted">
-                            ({mensaje.animal.animal_type}, {mensaje.animal.race}
-                            )
-                          </span>
-                        </div>
-                        <div className="text-secondary">
-                          Color: {mensaje.animal.color}
-                        </div>
-                        <div className="text-secondary small">
-                          {mensaje.animal.description}
-                        </div>
+                  <p className="text-secondary">
+                    {new Date(mensaje.created_at).toLocaleString()}
+                  </p>
+                </div>
+                <div className="d-flex row w-100">
+                  <div className="mt-4 d-flex col-10">
+                  
+                    <img
+                      src={
+                        mensaje.receiver?.profile_picture
+                      }
+                      alt={mensaje.receiver?.first_name}
+                      className="rounded-circle me-4"
+                      style={{ width: 120, height: 120, objectFit: "cover" }}
+                    />
+                    <div>
+                      <div classname="">
+                        {/* Nombre y apellido destinatario */}
+                        <h5 classname="mb-5">info of the Carer of {mensaje.animal.name}:</h5>
+                        <b>
+                          {mensaje.receiver?.first_name}{" "}
+                          {mensaje.receiver?.last_name}
+                        </b>
+                        <span className="text-muted ms-2">
+                          {mensaje.receiver?.email}
+                        </span>
+                      </div>
+                      {/* Mensaje */}
+                      <br/>
+                      <div classname="">
+                        <h6 classname="my-5">Message sent:</h6>
+                        {mensaje.content}
                       </div>
                     </div>
-                  )}
-                  <div>
-                    <p className="text-secondary">
-                      {new Date(mensaje.created_at).toLocaleString()}
-                    </p>
                   </div>
-                  <img
-                    src={mensaje.animal.photo}
-                    alt={mensaje.receiver?.first_name || "Receiver"}
-                    className="rounded-circle"
-                    style={{ width: 200, height: 200, objectFit: "cover" }}
-                  />
+                  <div div className="mt-4  col-2">
+                    {/* Info del animal si existe */}
+                    {mensaje.animal && (
+                      <div className="text-secondary">
+                        <img
+                      src={mensaje.animal.photo}
+                      alt={mensaje.animal.name}
+                      className="rounded-circle me-4"
+                      style={{ width: 120, height: 120, objectFit: "cover" }}
+                    />
+                        🐾 <b>{mensaje.animal.name}</b> (
+                        {mensaje.animal.animal_type}, {mensaje.animal.race})
+                        
+                      </div>
+                      
+                    )}
+                  </div>
                 </div>
               </div>
-              {/* estado de mensaje marcado como leiiido por el destinatario */}
+              {/* Estado de mensaje LEÍDO por el destinatario */}
               {mensaje.read ? (
                 <span className="badge bg-success ms-2">Read</span>
               ) : (
