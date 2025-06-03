@@ -121,7 +121,7 @@ export const AboutUs = () => {
         <h2 className="section-title mb-4">Tecnologías Usadas</h2>
         <div className="d-flex flex-wrap justify-content-center gap-2 animate-fade-in">
           {technologies.map((tech, index) => (
-            <span key={index} className="badge bg-primary fs-6 px-3 py-2">
+            <span key={index} className="badge fs-6 px-3 py-2">
               {tech}
             </span>
           ))}
