@@ -356,25 +356,27 @@ p,
 }
 
 .team-card {
+  min-width: 300px;
+  width: 360px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
- .team-card:hover {
+.team-card:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
   color: rgb(255, 16, 16);
 }
 
 .team-photo {
-  height: 250px;
+  max-width: 360px;
+  height: 350px;
   object-fit: cover;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
-
 
 /* Animaciones */
 @keyframes fadeIn {
@@ -434,8 +436,8 @@ p,
 .badge {
   border-radius: 30px;
   font-weight: 500;
-  background-color: var(--melon) ;
-  color: black ;
+  background-color: var(--melon);
+  color: black;
   padding: 8px 16px;
   transition: transform 0.3s, background-color 0.3s;
 }
