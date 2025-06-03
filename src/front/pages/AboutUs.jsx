@@ -13,9 +13,8 @@ const teamMembers = [
   {
     name: "Bastian Cartagena",
     role: "Full Stack Developer",
-    image:
-      "https://imgs.search.brave.com/YUAHdzrezHLkMzH1LQy18AeJMehkkhlPXx-2fgMUJeQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/ODEzNDMzNi9lcy9m/b3RvL3JldHJhdG8t/ZGUtY2FiZXphLWhv/bWJyZS1hZnJpY2Fu/by1kZS1sb3MtYSVD/MyVCMW9zLTMwLXNv/bnJpc2EtbWlyYS1h/LWxhLWMlQzMlQTFt/YXJhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1DZERVQmNp/RXZjOGFmTEFpXzVs/VlJYdXpSMTFrZjFz/RE9SdC1xc0lkNDIw/PQ",
-    description: "Soy Bastian e hicimos un gran proyecto",
+    image: "./fotoPerfilBastian.jpeg",
+    description: "Con un pequeño empujón fue que llegue a este camino, y es gracias a un amigo que le pillé el gusto a programar, aprendí un poco por internet pero me di cuenta que no era suficiente, fueron años hasta que decidí meterme a un bootcamp para comprender mejor y aprender más cosas y como utilizarlas. Fue un largo camino que se sintió rapidísimo, pero aquí estamos con más conocimiento, con buenas bases y seguro de poder lograr grandes cosas, todo gracias a mis profesores, compañeros y mentores, y mi novia que me ayudó a no flaquear cuando la frustración llegaba, muchas gracias a todos.",
   },
   {
     name: "Carlos Melchor",
