@@ -21,6 +21,7 @@ import { PetProfile } from "./pages/PetProfile";
 import { NotificationsView } from "./pages/NotificationsView";
 import { EditAnimalForm } from "./pages/EditAnimalForm";
 import { SentMessages } from "./pages/SentMesages"
+import { AboutUs } from "./pages/AboutUs";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +51,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="/inicio" element={<Inicio />} />
       <Route path="/pet/:id" element={<PetProfile />} />
+      <Route path="/about-us" element={<AboutUs />} />
     </Route>
   )
 );
