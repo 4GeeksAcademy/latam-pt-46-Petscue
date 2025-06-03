@@ -1,14 +1,27 @@
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Contacto</title>
+    <title>Contact</title>
 </head>
-<body>
-    <h2>¡Hola, {{ user_email }}!</h2>
-    <p>Has recibido un nuevo mensaje de contacto:</p>
-    <p><strong>De:</strong> {{ sender_email }}</p>
-    <p><strong>Mensaje:</strong></p>
-    <p>{{ message }}</p>
+<body style="background: #25ced1; font-family: 'Open Sans', Arial, sans-serif; margin:0; padding:0;">
+    <div style="max-width:500px; margin:40px auto; background:#ffc9b9; border-radius:18px; box-shadow:0 8px 32px rgba(52,94,122,0.10); padding:32px 28px;">
+        <div style="text-align:center;">
+            <img src="https://res.cloudinary.com/dtljfvq5m/image/upload/v1748980923/Scue_htm3d4.png" alt="Petscue Logo" style="width: 120px; border-radius:16px; margin-bottom:18px;"/>
+            <h2 style="color:#345e7a; font-family: Ribeye, serif; letter-spacing: 1px;">Hi, {{ user_email }}!</h2>
+        </div>
+        <p style="color:#345e7a; margin-top:12px; font-size:1.08rem;">You’ve received a new contact message:</p>
+        <div style="background: #fff; border-radius:12px; padding:14px 18px; margin:18px 0;">
+            <p style="margin-bottom:6px;"><strong style="color:#ff9f0f;">From:</strong> <span style="color:#2b6c47;">{{ sender_email }}</span></p>
+            <p style="margin:0;"><strong style="color:#ff9f0f;">Message:</strong></p>
+            <p style="font-size:1.08rem; color:#345e7a; margin-top:4px; margin-bottom:0;">{{ message }}</p>
+        </div>
+        <div style="text-align:center; margin-top:24px;">
+            <p style="font-size:1rem; margin-bottom: 8px;">If you want to continue the conversation, reply directly to this email!</p>
+            <a href="mailto:{{ sender_email }}" style="background:#ff9f0f; color:#000; padding:10px 24px; border-radius:24px; text-decoration:none; font-weight:600; letter-spacing:.5px; font-size:1.1rem; display:inline-block; margin-top:8px;">Reply</a>
+        </div>
+        <div style="margin-top:28px; text-align:center;">
+            <small style="color:#85a2b6;">This message was sent via <span style="font-weight: bold; letter-spacing: 0.5px;">Petscue</span></small>
+        </div>
+    </div>
 </body>
 </html>
