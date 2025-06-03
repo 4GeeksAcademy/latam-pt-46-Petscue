@@ -20,7 +20,7 @@ const teamMembers = [
     name: "Carlos Melchor",
     role: "Full Stack Developer",
     image:
-      "https://imgs.search.brave.com/YUAHdzrezHLkMzH1LQy18AeJMehkkhlPXx-2fgMUJeQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/ODEzNDMzNi9lcy9m/b3RvL3JldHJhdG8t/ZGUtY2FiZXphLWhv/bWJyZS1hZnJpY2Fu/by1kZS1sb3MtYSVD/MyVCMW9zLTMwLXNv/bnJpc2EtbWlyYS1h/LWxhLWMlQzMlQTFt/YXJhLmpwZz9zPTYx/Mng2MTImdz0wJms9/MjAmYz1DZERVQmNp/RXZjOGFmTEFpXzVs/VlJYdXpSMTFrZjFz/RE9SdC1xc0lkNDIw/PQ",
+      "./fotoPerfilCarlos.jpeg",
     description: "Soy Carlos e hicimos un gran proyecto",
   },
 ];
@@ -40,7 +40,7 @@ export const AboutUs = () => {
 
       {/* Header */}
       <section className="text-center mb-5">
-        <h1 className="display-5 fw-bold">Crafting Excellence Together</h1>
+        <h1 className="display-5 fw-bold">Construyendo Excelencia juntos</h1>
         <p className="lead mt-3 mx-auto w-75">
           En nuestro equipo creemos en la colaboración para lograr resultados
           excepcionales. Trabajamos con pasión, tecnología moderna y compromiso
@@ -98,7 +98,7 @@ export const AboutUs = () => {
         <h2 className="section-title text-center mb-4">Conoce al Equipo</h2>
         <div className="row">
           {teamMembers.map((member, index) => (
-            <div className="col-md-4 mb-4" key={index}>
+            <div className="col-md-4 mb-4 d-flex justify-content-center" key={index}>
               <div className="card team-card h-100 text-center animate-zoom-in">
                 <img
                   src={member.image}
