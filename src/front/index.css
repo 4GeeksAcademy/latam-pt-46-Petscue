@@ -257,31 +257,29 @@ p,
   scrollbar-width: 2rem;
 }
 
-
 /*styles for profile*/
 .dashboard-container {
-    padding: 60px 0;
-    background: #ffc9b9;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 60px 0;
+  background: #ffc9b9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .profile-img {
-    max-width: 300px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
 .highlight-name {
-    color: #d90429;
-    font-weight: 600;
+  color: #d90429;
+  font-weight: 600;
 }
 
 .role-title {
-    color: black;
-    margin-bottom: 20px;
+  color: black;
+  margin-bottom: 20px;
 }
-
 
 /*styles for hert icon in botton of favorites*/
 
@@ -331,4 +329,114 @@ p,
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
 }
 
+/*styles for AboutUs*/
 
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--accent-color);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.counter {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #0d6efd;
+}
+
+.team-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ .team-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
+  color: rgb(255, 16, 16);
+}
+
+.team-photo {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-up {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.8s ease forwards;
+}
+
+.badge:hover {
+  transform: scale(1.1);
+  background-color: var(--accent-color);
+  color: #000;
+}
+.badge {
+  border-radius: 30px;
+  font-weight: 500;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 8px 16px;
+  transition: transform 0.3s, background-color 0.3s;
+}
